@@ -1,0 +1,28 @@
+{
+    "flights" : [
+    {
+      "id": 452,
+      "fromPlace" : "Minsk",
+      "toPlace" : "Paris",
+      "departureDate" : "2020-05-05",
+      "passengersAmount" : 70,
+      "FlightDurationHours" : 2
+    },
+    {
+      "id": 644,
+      "fromPlace" : "Paris",
+      "toPlace" : "Minsk",
+      "departureDate" : "2020-05-07",
+      "passengersAmount" : 65,
+      "FlightDurationHours" : 2
+    },
+    {
+      "id": 123,
+      "fromPlace" : "Kiev",
+      "toPlace" : "Minsk",
+      "departureDate" : "2020-04-16",
+      "passengersAmount" : 50,
+      "FlightDurationHours" : 1
+    }
+  ]
+}
