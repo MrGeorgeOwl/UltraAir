@@ -1,4 +1,4 @@
-package main.java.Service;
+package java.Service;
 
 public class Luggage {
     private double weight;
