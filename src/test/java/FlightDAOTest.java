@@ -14,7 +14,7 @@ public class FlightDAOTest {
     @Test
     public void constructorTest() throws ParseException, java.text.ParseException, IOException {
         FlightRepository flightRepository = new FlightRepository();
-        logger.info(flightRepository.getAll());
+        logger.info(flightRepository.toString());
     }
 
     @Test
