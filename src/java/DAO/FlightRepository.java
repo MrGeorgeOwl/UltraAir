@@ -31,10 +31,9 @@ public class FlightRepository implements DAO<FlightEntity> {
             String fromPlace = object.get("fromPlace").toString();
             String toPlace = object.get("toPlace").toString();
 
-            String departureDateString = object.get("departureDate").toString();
             SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy', 'hh:mm a");
+            String departureDateString = object.get("departureDate").toString();
             Date departureDate = ft.parse(departureDateString);
-
             String arrivalDateString = object.get("arrivalDate").toString();
             Date arrivalDate = ft.parse(arrivalDateString);
 
