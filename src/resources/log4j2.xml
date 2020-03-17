@@ -6,7 +6,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="com.animals" level="debug" additivity="false">
+        <Logger name="FlightDAOTest" level="debug" additivity="false">
             <AppenderRef ref="Console" level="debug"/>
         </Logger>
         <Root level="debug" additivity="false">

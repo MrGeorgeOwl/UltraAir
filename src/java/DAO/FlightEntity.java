@@ -4,7 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Flight {
+public class FlightEntity {
+    private Integer id;
     private String fromPlace;
     private String toPlace;
     private Date departureDate;
@@ -12,7 +13,9 @@ public class Flight {
     private int FlightDurationHours;
 
 
-    public Flight(){
+
+    public FlightEntity(){
+        this.id = null;
         this.fromPlace = null;
         this.toPlace = null;
         this.departureDate = null;
@@ -20,7 +23,7 @@ public class Flight {
         this.FlightDurationHours = 0;
     }
 
-    public Flight(String fromPlace, String toPlace, Date departureDate, int passengersAmount, int FlightDurationHours){
+    public FlightEntity(String fromPlace, String toPlace, Date departureDate, int passengersAmount, int FlightDurationHours){
         this.fromPlace = fromPlace;
         this.toPlace = toPlace;
         this.departureDate = departureDate;

@@ -11,25 +11,23 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Optional;
 
-public class FlightDAO implements DAO<Flight> {
+public class FlightRepository implements DAO<FlightEntity> {
 
-    Hashtable<Integer, Flight> flightTable;
+    Hashtable<Integer, FlightEntity> flightTable = new Hashtable<Integer, FlightEntity>();
 
-    public FlightDAO() throws IOException, ParseException, java.text.ParseException {
-        ClassLoader classLoader = FlightDAO.class.getClassLoader();
+    public FlightRepository() throws IOException, ParseException, java.text.ParseException {
+        ClassLoader classLoader = FlightRepository.class.getClassLoader();
         File file = new File(classLoader.getResource("Flights.json").getFile());
         String path = file.getAbsolutePath();
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
         JSONArray jsonArray = (JSONArray) jsonObject.get("flights");
-        Iterator<Object> iterator = jsonArray.iterator();
 
 
-        while (iterator.hasNext()) {
-            JSONObject object = (JSONObject) jsonParser.parse(iterator.next().toString());
+        for (Object o : jsonArray) {
+            JSONObject object = (JSONObject) jsonParser.parse(o.toString());
             String fromPlace = object.get("fromPlace").toString();
             String toPlace = object.get("toPlace").toString();
 
@@ -37,20 +35,20 @@ public class FlightDAO implements DAO<Flight> {
             SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
             Date departureDate = ft.parse(departureDateString);
 
-            int passengersAmount = Integer.valueOf(object.get("passengersAmount").toString());
-            int FlightDurationHours = Integer.valueOf(object.get("FlightDurationHours").toString());
+            int passengersAmount = Integer.parseInt(object.get("passengersAmount").toString());
+            int FlightDurationHours = Integer.parseInt(object.get("FlightDurationHours").toString());
             Integer id = Integer.valueOf(object.get("id").toString());
-            flightTable.put(id, new Flight(fromPlace, toPlace, departureDate, passengersAmount, FlightDurationHours));
+            flightTable.put(id, new FlightEntity(fromPlace, toPlace, departureDate, passengersAmount, FlightDurationHours));
         }
     }
 
     @Override
-    public Optional<Flight> get(Integer id) {
+    public Optional<FlightEntity> get(Integer id) {
         return Optional.of(flightTable.get(id));
     }
 
     @Override
-    public Hashtable<Integer, Flight> getAll() {
+    public Hashtable<Integer, FlightEntity> getAll() {
         return flightTable;
     }
 }
