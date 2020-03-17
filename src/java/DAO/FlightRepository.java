@@ -32,13 +32,16 @@ public class FlightRepository implements DAO<FlightEntity> {
             String toPlace = object.get("toPlace").toString();
 
             String departureDateString = object.get("departureDate").toString();
-            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy', 'hh:mm a");
             Date departureDate = ft.parse(departureDateString);
 
+            String arrivalDateString = object.get("arrivalDate").toString();
+            Date arrivalDate = ft.parse(arrivalDateString);
+
             int passengersAmount = Integer.parseInt(object.get("passengersAmount").toString());
-            int FlightDurationHours = Integer.parseInt(object.get("FlightDurationHours").toString());
+
             Integer id = Integer.valueOf(object.get("id").toString());
-            flightTable.put(id, new FlightEntity(fromPlace, toPlace, departureDate, passengersAmount, FlightDurationHours));
+            flightTable.put(id, new FlightEntity(fromPlace, toPlace, departureDate, arrivalDate, passengersAmount));
         }
     }
 
@@ -51,6 +54,19 @@ public class FlightRepository implements DAO<FlightEntity> {
     public Hashtable<Integer, FlightEntity> getAll() {
         return flightTable;
     }
-}
 
-//TODO: optimize this big parser depending on Flight structure (and JSON-file too!)
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("{\n");
+        sb.append("\"flights\" : [\n");
+        for (Integer key: flightTable.keySet()){
+            sb.append("{\n");
+            sb.append("\"id\" : ").append(key).append(",\n");
+            sb.append(flightTable.get(key).toString());
+            sb.append("},\n");
+        }
+        sb.deleteCharAt(sb.lastIndexOf(","));
+        sb.append("]");
+        return sb.toString();
+    }
+}

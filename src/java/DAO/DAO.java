@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface DAO<T> {
 
-    Optional<FlightEntity> get(Integer id);
+    Optional<T> get(Integer id);
 
     Hashtable<Integer, T> getAll();
 

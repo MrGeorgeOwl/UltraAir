@@ -5,30 +5,28 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class FlightEntity {
-    private Integer id;
     private String fromPlace;
     private String toPlace;
     private Date departureDate;
+    private Date arrivalDate;
     private int passengersAmount;
-    private int FlightDurationHours;
 
 
 
     public FlightEntity(){
-        this.id = null;
         this.fromPlace = null;
         this.toPlace = null;
         this.departureDate = null;
+        this.arrivalDate = null;
         this.passengersAmount = 0;
-        this.FlightDurationHours = 0;
     }
 
-    public FlightEntity(String fromPlace, String toPlace, Date departureDate, int passengersAmount, int FlightDurationHours){
+    public FlightEntity(String fromPlace, String toPlace, Date departureDate, Date arrivalDate, int passengersAmount){
         this.fromPlace = fromPlace;
         this.toPlace = toPlace;
         this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
         this.passengersAmount = passengersAmount;
-        this.FlightDurationHours = FlightDurationHours;
     }
 
     public String getFromPlace() {
@@ -55,6 +53,10 @@ public class FlightEntity {
         this.departureDate = departureDate;
     }
 
+    public Date getArrivalDate() { return arrivalDate; }
+
+    public void setArrivalDate(Date arrivalDate) { this.arrivalDate = arrivalDate; }
+
     public int getPassengersAmount() {
         return passengersAmount;
     }
@@ -63,26 +65,15 @@ public class FlightEntity {
         this.passengersAmount = passengersAmount;
     }
 
-    public int getFlightDurationHours() {
-        return FlightDurationHours;
-    }
-
-    public void setFlightDurationHours(int flightDurationHours) {
-        FlightDurationHours = flightDurationHours;
-    }
-
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Flight{");
-        sb.append("\nfromPlace='").append(fromPlace).append('\'');
-        sb.append("\n, toPlace='").append(toPlace).append('\'');
-        sb.append("\n, departureDate=").append(departureDate);
-        sb.append("\n, passengersAmount=").append(passengersAmount);
-        sb.append("\n, FlightDurationHours=").append(FlightDurationHours);
-        sb.append('}').append('\n');
+        final StringBuilder sb = new StringBuilder("");
+        sb.append("\"fromPlace\" : ").append("\"").append(fromPlace).append("\",\n");
+        sb.append("\"toPlace\" : ").append("\"").append(toPlace).append("\",\n");
+        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy', 'hh:mm a");
+        sb.append("\"departureDate\" : ").append("\"").append(ft.format(departureDate)).append("\",\n");
+        sb.append("\"arrivalDate\" : ").append("\"").append(ft.format(arrivalDate)).append("\",\n");
+        sb.append("\"passengersAmount\" : ").append(passengersAmount).append("\n");
         return sb.toString();
     }
 }
-
-
-//TODO: configure some fields and toString() method
