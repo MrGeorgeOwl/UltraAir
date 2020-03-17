@@ -24,10 +24,11 @@ public class Flight {
         return passengersAmount;
     }
 
-    public Flight(String to, Date departureDate){
+    public Flight(String from, String to, Date departureDate, int passengersAmount){
+        this.from = from;
         this.to = to;
         this.departureDate = departureDate;
-        this.passengersAmount = 0;
+        this.passengersAmount = passengersAmount;
     }
 
     private boolean enoughtSeats(){
@@ -38,7 +39,9 @@ public class Flight {
     public String toString() {
         return "From: ".concat(from).concat("\n")
                 .concat("To: ").concat(to).concat("\n")
-                .concat("Date: ").concat(String.valueOf(departureDate)).concat("\n");
-
+                .concat("Date: ").concat(String.valueOf(departureDate)).concat("\n")
+                .concat("Amount of valuable sits: ").concat(
+                        String.valueOf(Constants.MAX_PASSENGERS - passengersAmount)
+                ).concat("\n");
     }
 }
