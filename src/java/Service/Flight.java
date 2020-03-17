@@ -3,12 +3,13 @@ package Service;
 import java.util.Date;
 
 public class Flight {
-    private String destination;
+    private String from;
+    private String to;
     private Date departureDate;
     private int passengersAmount;
 
     public String getDestination() {
-        return destination;
+        return to;
     }
 
     public Date getDepartureDate() {
@@ -23,8 +24,8 @@ public class Flight {
         return passengersAmount;
     }
 
-    public Flight(String destination, Date departureDate){
-        this.destination = destination;
+    public Flight(String to, Date departureDate){
+        this.to = to;
         this.departureDate = departureDate;
         this.passengersAmount = 0;
     }
