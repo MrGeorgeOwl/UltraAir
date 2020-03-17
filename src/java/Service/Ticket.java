@@ -1,4 +1,4 @@
-package java.Service;
+package Service;
 
 public class Ticket {
     private Client client;

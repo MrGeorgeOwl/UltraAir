@@ -1,4 +1,4 @@
-package java.Service;
+package Service;
 
 public class Constants {
     public static final double LUGGAGE_TRANSFER_COST = 15.49;
