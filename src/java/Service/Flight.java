@@ -33,4 +33,12 @@ public class Flight {
     private boolean enoughtSeats(){
         return passengersAmount <= Constants.MAX_PASSENGERS;
     }
+
+    @Override
+    public String toString() {
+        return "From: ".concat(from).concat("\n")
+                .concat("To: ").concat(to).concat("\n")
+                .concat("Date: ").concat(String.valueOf(departureDate)).concat("\n");
+
+    }
 }
