@@ -14,8 +14,8 @@ public class FlightServiceTest {
     }
 
     @Test
-    public void getFlightTest(){
-        ArrayList<String> flightsString = flightService.getFlights();
+    public void getFlightTest() throws Exception {
+        ArrayList<String> flightsString = flightService.getFlightsStrings();
 
         for (String flightString: flightsString){
             System.out.println(flightString);

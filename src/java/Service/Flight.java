@@ -24,11 +24,24 @@ public class Flight {
         return passengersAmount;
     }
 
-    public Flight(String from, String to, Date departureDate, int passengersAmount){
+    public Flight(String from, String to, Date departureDate, int passengersAmount) throws Exception {
         this.from = from;
         this.to = to;
         this.departureDate = departureDate;
         this.passengersAmount = passengersAmount;
+        checkSeats();
+    }
+
+    public void checkSeats() throws Exception{
+        try{
+            if (!enoughtSeats()){
+                throw new Exception("Flight " + from + "-" + to + " has too much seats");
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            passengersAmount = 0;
+        }
     }
 
     private boolean enoughtSeats(){
