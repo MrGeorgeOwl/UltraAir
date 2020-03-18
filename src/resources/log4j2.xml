@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
+
     <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
+        <File name="logFile" fileName="logs/output.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <Console name="Presentation" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
     </Appenders>
+
     <Loggers>
-        <Logger name="FlightDAOTest" level="debug" additivity="false">
-            <AppenderRef ref="Console" level="debug"/>
-        </Logger>
-        <Root level="debug" additivity="false">
-            <AppenderRef ref="Console" />
+        <!-- Root Logger -->
+        <Root level="all">
+            <AppenderRef ref="Presentation"/>
+            <AppenderRef ref="logFile"/>
         </Root>
     </Loggers>
+
 </Configuration>
