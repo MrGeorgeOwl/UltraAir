@@ -23,6 +23,6 @@ public class FlightDAOTest {
         Optional<FlightEntity> flightEntityOptional = flightRepository.get(452);
         FlightEntity flightEntity = flightEntityOptional.orElse(new FlightEntity());
 
-        System.out.println(flightEntity.toString());
+        logger.info(flightEntity.toString());
     }
 }

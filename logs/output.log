@@ -30,3 +30,179 @@
 "passengersAmount" : 68
 }
 ]
+22:05:47.828 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 564,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : "true,
+"rightFirstRegistration" : false
+}
+]
+22:06:40.230 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 564,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+}
+]
+22:08:07.134 [main] INFO  FlightDAOTest - {
+"flights" : [
+{
+"id" : 644,
+"fromPlace" : "Paris",
+"toPlace" : "Minsk",
+"departureDate" : "08.06.2020, 03:45 PM",
+"arrivalDate" : "07.06.2020, 05:45 PM",
+"passengersAmount" : 65
+},
+{
+"id" : 123,
+"fromPlace" : "Kiev",
+"toPlace" : "Minsk",
+"departureDate" : "19.08.2020, 04:20 PM",
+"arrivalDate" : "19.08.2020, 06:20 PM",
+"passengersAmount" : 50
+},
+{
+"id" : 452,
+"fromPlace" : "Minsk",
+"toPlace" : "Paris",
+"departureDate" : "07.06.2020, 12:30 PM",
+"arrivalDate" : "07.06.2020, 02:30 PM",
+"passengersAmount" : 68
+}
+]
+}
+22:08:49.453 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 564,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+}
+]
+}
+22:12:28.747 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 564,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+}
+]
+}
+22:12:28.794 [main] INFO  TicketDAOTest - "flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+
+23:07:20.992 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+}
+]
+}
+23:07:21.003 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+}
+]
+}
+23:08:07.292 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+}
+]
+}
+23:08:07.301 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+},
+{
+"id" : 6146,
+"flightId" : 313,
+"price" : 45.5,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : true
+}
+]
+}
+23:08:32.820 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+}
+]
+}
+23:08:32.830 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+},
+{
+"id" : 3918,
+"flightId" : 313,
+"price" : 45.5,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : true
+}
+]
+}
+23:23:27.134 [main] INFO  TicketDAOTest - C:\Users\user\Dropbox\University\Java\UltraAir\target\classes\Tickets.json
+23:26:19.068 [main] INFO  TicketDAOTest - C:\Users\user\Dropbox\University\Java\UltraAir\target\classes\Tickets.json
+23:27:27.829 [main] INFO  TicketDAOTest - C:\Users\user\Dropbox\University\Java\UltraAir\target\classes\Tickets.json
+23:27:47.833 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+},
+{
+"id" : 4638,
+"flightId" : 313,
+"price" : 45.5,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : true
+}
+]
+}

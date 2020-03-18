@@ -55,6 +55,24 @@ public class FlightRepository implements DAO<FlightEntity> {
     }
 
     @Override
+    public void add(FlightEntity flightEntity) { }
+
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public void update(FlightEntity flightEntity, Integer id) {
+
+    }
+
+    @Override
+    public void delete(FlightEntity flightEntity, Integer id) {
+
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{\n");
         sb.append("\"flights\" : [\n");
@@ -65,7 +83,7 @@ public class FlightRepository implements DAO<FlightEntity> {
             sb.append("},\n");
         }
         sb.deleteCharAt(sb.lastIndexOf(","));
-        sb.append("]");
+        sb.append("]\n}");
         return sb.toString();
     }
 }
