@@ -3,7 +3,6 @@ package Service;
 public class Client {
     private String name;
     private boolean haveLuggage;
-    private double money;
 
     public String getName() {
         return name;
@@ -21,28 +20,15 @@ public class Client {
         this.haveLuggage = haveLuggage;
     }
 
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
-    }
 
     public Client(){
         name = "";
         haveLuggage = false;
-        money = 0.;
     }
 
-    public Client(String name, boolean haveLuggage, double money){
+    public Client(String name, boolean haveLuggage){
         this.name = isNameCorrect(name) ? name : "";
         this.haveLuggage = haveLuggage;
-        this.money = isMoneyCorrect(money) ? money : 0.;
-    }
-
-    private boolean isMoneyCorrect(double money){
-        return money >= 0.;
     }
 
     private boolean isNameCorrect(String name){
