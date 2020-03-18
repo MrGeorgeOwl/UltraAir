@@ -36,3 +36,8 @@
 На данный момент интерфейс для клиента будет в виде консоли
 #### Требования надежности
 Использование third party для совершения покупок
+
+#### Ссылки
+* Backlog: https://trello.com/c/iu32iZEv/4-project-documentation
+* Figma: https://www.figma.com/file/fnsQNT6UoRPG9YEgjFWfDo/UltraAir?node-id=196971%3A452
+* GithubWiki: https://github.com/MrGeorgeOwl/UltraAir/wiki
