@@ -13,7 +13,7 @@ public class Console {
     public final static Logger log = LogManager.getLogger(Console.class.getName());
     static final Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) throws ParseException, java.text.ParseException, IOException {
+    public static void main(String[] args) throws Exception {
         Console console = new Console(); //variables creating
         String menuPart1 = "\"Меню\""
                 + "\n------\n"
@@ -32,7 +32,7 @@ public class Console {
 
     public void menu(boolean admin, String menuPart1
             , String menuPart2, String menuPart2Admin/* + service array of class later*/)
-            throws ParseException, java.text.ParseException, IOException {
+            throws Exception {
         int choose = -1;
         int chooseExit = 4;
         while(choose != chooseExit){
@@ -91,9 +91,9 @@ public class Console {
         log.warn("***THIS PART INCOMPLETE***\n");
     }
 
-    public void showFlights() throws ParseException, java.text.ParseException, IOException {
+    public void showFlights() throws Exception {
         FlightService flights = new FlightService();
-        ArrayList<String> flightsList = flights.getFlights();
+        ArrayList<String> flightsList = flights.getFlightsStrings();
         System.out.print("\nFlights:\n------\n\n");
         for (int i = 0; i < flightsList.size(); i++) {
             System.out.println((i+1) + ". " + flightsList.get(i));
