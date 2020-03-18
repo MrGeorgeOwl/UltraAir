@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 public class Constants {
     public static final double LUGGAGE_TRANSFER_COST = 15.49;

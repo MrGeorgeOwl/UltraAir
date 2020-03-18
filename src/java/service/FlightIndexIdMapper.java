@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import DAO.FlightEntity;
 import DAO.FlightRepository;

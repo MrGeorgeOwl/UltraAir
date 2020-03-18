@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 public class Client {
     private String name;

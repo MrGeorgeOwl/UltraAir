@@ -1,11 +1,9 @@
 package Presentation;
 
-import Service.FlightService;
+import service.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
