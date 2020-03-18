@@ -27,6 +27,26 @@ public class Ticket {
         return client;
     }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public boolean isRightFirstSitting() {
+        return rightFirstSitting;
+    }
+
+    public void setRightFirstSitting(boolean rightFirstSitting) {
+        this.rightFirstSitting = rightFirstSitting;
+    }
+
+    public boolean isRightFirstRegistration() {
+        return rightFirstRegistration;
+    }
+
+    public void setRightFirstRegistration(boolean rightFirstRegistration) {
+        this.rightFirstRegistration = rightFirstRegistration;
+    }
+
     public Flight getFlight() {
         return flight;
     }
