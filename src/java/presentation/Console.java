@@ -1,12 +1,11 @@
 package presentation;
 
-import org.json.simple.parser.ParseException;
 import service.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.TicketService;
 
-import java.io.IOException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,6 +13,7 @@ import java.util.Scanner;
 public class Console {
     public final static Logger log = LogManager.getLogger(Console.class.getName());
     static final Scanner sc = new Scanner(System.in);
+
 
     boolean isAdmin = false;
     String userLogin = "guest";

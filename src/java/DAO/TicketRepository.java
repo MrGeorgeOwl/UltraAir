@@ -10,7 +10,7 @@ import java.util.Hashtable;
 import java.util.Optional;
 import java.util.Random;
 
-public class TicketRepository implements DAO<TicketEntity>{
+public class TicketRepository implements DAO<Integer, TicketEntity>{
 
     Hashtable<Integer, TicketEntity> ticketTable = new Hashtable<Integer, TicketEntity>();
 
@@ -69,13 +69,15 @@ public class TicketRepository implements DAO<TicketEntity>{
     }
 
     @Override
-    public void update(TicketEntity ticketEntity, Integer id) {
-
+    public void update(TicketEntity ticketEntity, Integer id) throws IOException {
+        ticketTable.remove(id);
+        ticketTable.put(id, ticketEntity);
+        this.save();
     }
 
     @Override
-    public void delete(TicketEntity ticketEntity, Integer id) {
-
+    public void delete(Integer id) {
+        ticketTable.remove(id);
     }
 
     @Override

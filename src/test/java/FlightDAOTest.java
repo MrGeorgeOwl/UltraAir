@@ -25,4 +25,10 @@ public class FlightDAOTest {
 
         logger.info(flightEntity.toString());
     }
+
+    @Test
+    public void saveTest(){
+
+    }
+
 }
