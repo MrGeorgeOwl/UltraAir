@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import service.TicketService;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -95,7 +96,7 @@ public class Console {
         int chooseExit = 3;
         int choose = -1;
         while(choose != chooseExit) {
-            System.out.println("Manage menu"
+            System.out.print("Manage menu"
                     + "\n------\n"
                     + "1. Add;\n"
                     + "2. Delete;\n"
@@ -118,19 +119,33 @@ public class Console {
     }
 
     public void addFlight() throws Exception {
-        int flightsSize = showFlights();
-        System.out.print("Choose flight\n>> ");
-        while (!sc.hasNextInt()) { //check for proper input
+        FlightDTO flight = new FlightDTO();
+        System.out.print("\nWhere does the flight come from?\n>> ");
+        flight.from = sc.next();
+
+        System.out.print("Where the flight goes to?\n>> ");
+        flight.to = sc.next();
+
+        System.out.print("Enter amount of passengers:\n>> ");
+        while (!sc.hasNextInt() || (flight.passengersAmount = sc.nextInt()) < 0) { //check for proper input
             wrongInput();
             System.out.print(">> ");
         }
-        int flightNum = sc.nextInt();
-        if (flightNum < 1 || flightNum > flightsSize){
-            System.out.println("There are no such flight. Go to main menu");
-            pause();
-            return;
+
+        System.out.print("Enter departure date(dd.MM.yyyy)\n>> ");
+        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy");
+        for (int i = 0; i < 1; i++) {
+            try {
+                flight.departureDate = ft.parse(sc.next());
+            } catch (Exception ignored) {
+                System.out.print("Input error\n>> ");
+                i--;
+            }
         }
-        
+
+        //TODO: add service add request
+        System.out.println("Flight successfully added.");
+        pause();
     }
 
     public void deleteFlight() throws Exception {
