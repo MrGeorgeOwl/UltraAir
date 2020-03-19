@@ -1,10 +1,10 @@
 package presentation;
 
+import service.ClientService;
 import service.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.TicketService;
-
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class Console {
     public final static Logger log = LogManager.getLogger(Console.class.getName());
     static final Scanner sc = new Scanner(System.in);
-
 
     boolean isAdmin = false;
     String userLogin = "guest";
@@ -33,21 +32,25 @@ public class Console {
                 + "4. Exit.\n"
                 + "------\n"
                 +"Choose menu item\n>> ";
-        console.menu(menuStr, menuStrAdmin);
+        String menuStrUser = "\n------\n"
+                + "1. All flights;\n"
+                + "2. Logout;\n"
+                + "3. Exit.\n"
+                + "------\n"
+                +"Choose menu item\n>> ";
+        console.menu(menuStr, menuStrAdmin, menuStrUser);
     }
 
-    public void menu(String menuStr, String menuStrAdmin) throws Exception {
+    public void menu(String menuStr, String menuStrAdmin, String menuStrUser) throws Exception {
         int choose = -1;
         int chooseExit = 4;
         while(choose != chooseExit){
             chooseExit = (isAdmin) ? 4 : 3;
-            System.out.print("Hello, " + userLogin + "! ");
-            System.out.print(((isAdmin) ? menuStrAdmin : menuStr)); //check for admin menu
+            menuOutput(menuStr, menuStrAdmin, menuStrUser);
             while (!sc.hasNextInt() || (choose = sc.nextInt()) < 1 || choose > chooseExit){ //check for proper input
                 wrongInput();
                 System.out.print(">> ");
             }
-
             switch (choose) {
                 case 1:
                     chooseFlight();
@@ -64,7 +67,7 @@ public class Console {
         }
     }
 
-    private String logInOut(){
+    private String logInOut() throws Exception {
         if (!userLogin.equals("guest")){ //case when user press logout
             System.out.println("Now you logged as guest");
             pause();
@@ -75,19 +78,28 @@ public class Console {
         //when you press log in
         System.out.print("\nEnter your login\n>> ");
         String login = sc.next();
-        UserDTO user = new UserDTO(login);
-        if (true/*TODO: get response from service if login as admin*/) { //maybe later add some guard
+        ClientService clientService = new ClientService();
+        boolean admin = false;
+        try {
+            admin = clientService.isAdmin(login);
+        }
+        catch (Exception ignored){
+            System.out.println("There are no such user. Returning to menu.");
+            pause();
+            return "guest";
+        }
+        if (admin) { //maybe later add some guard
             System.out.println("\nHello, " + login +". You've logged as admin!");
             log.info("Admin logged in.");
             isAdmin = true;
         }
-        else if (false/*TODO: get if login is old user*/) {
+        else {
             System.out.println("\nHello, " + login +". You've logged as user!");
         }
-        else{
+        /*else{
             //TODO: create new user with unknown login
             System.out.println("\nWelcome, " + login +". You've logged as a new user!");
-        }
+        }*/
         pause();
         return login;
     }
@@ -160,9 +172,10 @@ public class Console {
             pause();
             return;
         }
-        //TODO: delete service call
-        //FlightService flights = new FlightService();
-        //flights.delete(flightNum - 1);
+        FlightService flights = new FlightService();
+        flights.deleteFlight(flightNum - 1);
+        System.out.println("Flight deleted successfully.");
+        pause();
     }
 
     public void chooseFlight() throws Exception {
@@ -226,6 +239,19 @@ public class Console {
             System.out.println("\nYour " + ticket.toString() + '\n');
         }
         pause();
+    }
+
+    public void menuOutput(String menuStr, String menuStrAdmin, String menuStrUser){
+        System.out.print("Hello, " + userLogin + "! ");
+        if(isAdmin) {
+            System.out.print(menuStrAdmin);//check for admin menu
+        }
+        else if(!userLogin.equals("guest")) {
+            System.out.print(menuStrUser);
+        }
+        else {
+            System.out.print(menuStr);
+        }
     }
 
     public static void wrongInput(){
