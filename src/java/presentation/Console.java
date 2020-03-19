@@ -1,10 +1,12 @@
 package presentation;
 
+import org.json.simple.parser.ParseException;
 import service.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.TicketService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,34 +49,32 @@ public class Console {
 
             switch (choose) {
                 case 1:
-                    //get information about all flights from service
-                    showFlights();
+                    chooseFlight();
                     break;
-                case 2: {
+                case 2:
                     userLogin = logInOut();
                     break;
-                }
-                case 3: {
+                case 3:
                     if (chooseExit == 3){
                         break;
                     }
                     manageFlights();
-                }
             }
         }
     }
 
     private String logInOut(){
-        if (!userLogin.equals("guest")){ //case when user want to logout
+        if (!userLogin.equals("guest")){ //case when user press logout
             System.out.println("Now you logged as guest");
             pause();
             isAdmin = false;
             return "guest";
         }
+
         //when you press log in
         System.out.print("\nEnter your login\n>> ");
         String login = sc.next();
-
+        UserDTO user = new UserDTO(login);
         if (true/*TODO: get response from service if login as admin*/) { //maybe later add some guard
             System.out.println("\nHello, " + login +". You've logged as admin!");
             log.info("Admin logged in.");
@@ -91,20 +91,67 @@ public class Console {
         return login;
     }
 
-    public void manageFlights(){
-        System.out.print("Choose flight to manage\n>> ");
-        /*TODO: ability to add and delete flights data*/
-        log.warn("***THIS PART INCOMPLETE***\n");
+    public void manageFlights() throws Exception {
+        int chooseExit = 3;
+        int choose = -1;
+        while(choose != chooseExit) {
+            System.out.println("Manage menu"
+                    + "\n------\n"
+                    + "1. Add;\n"
+                    + "2. Delete;\n"
+                    + "3. Exit.\n"
+                    + "------\n"
+                    + "Choose menu item\n>> ");
+            while (!sc.hasNextInt() || (choose = sc.nextInt()) < 1 || choose > 3) { //check for proper input
+                wrongInput();
+                System.out.print(">> ");
+            }
+            switch (choose) {
+                case 1:
+                    addFlight();
+                    break;
+                case 2:
+                    //deleteFlight();
+                    //TODO: Ability to delete flight
+            }
+        }
     }
 
-    public void showFlights() throws Exception {
-        FlightService flights = new FlightService();
-        ArrayList<String> flightsList = flights.getFlightsStrings();
-        System.out.print("\nFlights:\n------\n\n");
-        for (int i = 0; i < flightsList.size(); i++) {
-            System.out.println((i+1) + ". " + flightsList.get(i));
+    public void addFlight() throws Exception {
+        int flightsSize = showFlights();
+        System.out.print("Choose flight\n>> ");
+        while (!sc.hasNextInt()) { //check for proper input
+            wrongInput();
+            System.out.print(">> ");
         }
-        System.out.print("------\n");
+        int flightNum = sc.nextInt();
+        if (flightNum < 1 || flightNum > flightsSize){
+            System.out.println("There are no such flight. Go to main menu");
+            pause();
+            return;
+        }
+        
+    }
+
+    public void deleteFlight() throws Exception {
+        int flightsSize = showFlights();
+        System.out.print("Choose flight\n>> ");
+        while (!sc.hasNextInt()) { //check for proper input
+            wrongInput();
+            System.out.print(">> ");
+        }
+        int flightNum = sc.nextInt();
+        if (flightNum < 1 || flightNum > flightsSize){
+            System.out.println("There are no such flight. Go to menu");
+            pause();
+            return;
+        }
+        //FlightService flights = new FlightService();
+        //flights.delete(flightNum - 1);
+    }
+
+    public void chooseFlight() throws Exception {
+        int flightsSize = showFlights();
 
         System.out.print("Enter number of flight to buy a ticket\n>> ");
         while (!sc.hasNextInt()) { //check for proper input
@@ -113,12 +160,23 @@ public class Console {
         }
 
         int flightNum = sc.nextInt();
-        if (flightNum < 1 || flightNum > flightsList.size()){
+        if (flightNum < 1 || flightNum > flightsSize){
             System.out.println("There are no such flight. Returning to menu");
             pause();
             return;
         }
         createTicket(flightNum);
+    }
+    //also return size of flights array
+    int showFlights() throws Exception {
+        FlightService flights = new FlightService();
+        ArrayList<String> flightsList = flights.getFlightsStrings();
+        System.out.print("\nFlights:\n------\n\n");
+        for (int i = 0; i < flightsList.size(); i++) {
+            System.out.println((i+1) + ". " + flightsList.get(i));
+        }
+        System.out.print("------\n");
+        return flightsList.size();
     }
 
     public void createTicket(int flightNum) throws Exception {
@@ -155,12 +213,12 @@ public class Console {
         pause();
     }
 
-    private static void wrongInput(){
+    public static void wrongInput(){
         sc.nextLine();
         System.out.println("Input error");
     }
 
-    private static void pause(){
+    public static void pause(){
         System.out.print("Enter any symbol to continue...");
         sc.next();
         System.out.println();
