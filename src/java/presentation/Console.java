@@ -5,6 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.TicketService;
 
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,31 +14,35 @@ public class Console {
     public final static Logger log = LogManager.getLogger(Console.class.getName());
     static final Scanner sc = new Scanner(System.in);
 
+
+    boolean isAdmin = false;
+    String userLogin = "guest";
+
     public static void main(String[] args) throws Exception {
         Console console = new Console(); //variables creating
-        String menuPart1 = "\"Меню\""
-                + "\n------\n"
-                + "1. Show all flights;\n";
-        String menuPart2 = "2. Log in as Admin;\n"
+        String menuStr = "\n------\n"
+                + "1. All flights;\n"
+                + "2. Log in;\n"
                 + "3. Exit.\n"
                 + "------\n"
                 +"Choose menu item\n>> ";
-        String menuPart2Admin = "2. Logout;\n"
+        String menuStrAdmin = "\n------\n"
+                + "1. All flights;\n"
+                + "2. Logout;\n"
                 + "3. Manage flights;\n"
                 + "4. Exit.\n"
                 + "------\n"
                 +"Choose menu item\n>> ";
-        console.menu(false, menuPart1, menuPart2, menuPart2Admin);
+        console.menu(menuStr, menuStrAdmin);
     }
 
-    public void menu(boolean admin, String menuPart1
-            , String menuPart2, String menuPart2Admin/* + service array of class later*/)
-            throws Exception {
+    public void menu(String menuStr, String menuStrAdmin) throws Exception {
         int choose = -1;
         int chooseExit = 4;
         while(choose != chooseExit){
-            chooseExit = (admin) ? 4 : 3;
-            System.out.print(menuPart1 + ((admin) ? menuPart2Admin : menuPart2)); //check for admin menu
+            chooseExit = (isAdmin) ? 4 : 3;
+            System.out.print("Hello, " + userLogin + "! ");
+            System.out.print(((isAdmin) ? menuStrAdmin : menuStr)); //check for admin menu
             while (!sc.hasNextInt() || (choose = sc.nextInt()) < 1 || choose > chooseExit){ //check for proper input
                 wrongInput();
                 System.out.print(">> ");
@@ -44,60 +50,123 @@ public class Console {
 
             switch (choose) {
                 case 1:
-                    //get information about all flights from service
-                    showFlights();
+                    chooseFlight();
                     break;
-                case 2: {
-                    admin = logInOutAsAdmin(admin);
+                case 2:
+                    userLogin = logInOut();
                     break;
-                }
-                case 3: {
+                case 3:
                     if (chooseExit == 3){
                         break;
                     }
                     manageFlights();
-                }
             }
         }
     }
 
-    private boolean logInOutAsAdmin(boolean admin){
-        if (admin){ //case when admin want to logout
-            System.out.println("Now you logged as usual user");
-            log.info("Admin logout");
+    private String logInOut(){
+        if (!userLogin.equals("guest")){ //case when user press logout
+            System.out.println("Now you logged as guest");
             pause();
-            return false;
+            isAdmin = false;
+            return "guest";
         }
+
         //when you press log in
-        System.out.print("\nEnter password\n>> ");
-        String password = sc.next();
-        if (password.equals("admin")) { //maybe later add some guard
-            System.out.println("You've logged as admin!");
+        System.out.print("\nEnter your login\n>> ");
+        String login = sc.next();
+        UserDTO user = new UserDTO(login);
+        if (true/*TODO: get response from service if login as admin*/) { //maybe later add some guard
+            System.out.println("\nHello, " + login +". You've logged as admin!");
             log.info("Admin logged in.");
-            admin = true;
+            isAdmin = true;
+        }
+        else if (false/*TODO: get if login is old user*/) {
+            System.out.println("\nHello, " + login +". You've logged as user!");
         }
         else{
-            log.warn("Unsuccessful try to log as admin");
-            System.out.println("Incorrect password.");
+            //TODO: create new user with unknown login
+            System.out.println("\nWelcome, " + login +". You've logged as a new user!");
         }
         pause();
-        return admin;
+        return login;
     }
 
-    public void manageFlights(){
-        System.out.print("Choose flight to manage\n>> ");
-        /*TODO: ability to add and delete flights data*/
-        log.warn("***THIS PART INCOMPLETE***\n");
-    }
-
-    public void showFlights() throws Exception {
-        FlightService flights = new FlightService();
-        ArrayList<String> flightsList = flights.getFlightsStrings();
-        System.out.print("\nFlights:\n------\n\n");
-        for (int i = 0; i < flightsList.size(); i++) {
-            System.out.println((i+1) + ". " + flightsList.get(i));
+    public void manageFlights() throws Exception {
+        int chooseExit = 3;
+        int choose = -1;
+        while(choose != chooseExit) {
+            System.out.print("Manage menu"
+                    + "\n------\n"
+                    + "1. Add;\n"
+                    + "2. Delete;\n"
+                    + "3. Exit.\n"
+                    + "------\n"
+                    + "Choose menu item\n>> ");
+            while (!sc.hasNextInt() || (choose = sc.nextInt()) < 1 || choose > 3) { //check for proper input
+                wrongInput();
+                System.out.print(">> ");
+            }
+            switch (choose) {
+                case 1:
+                    addFlight();
+                    break;
+                case 2:
+                    deleteFlight();
+            }
         }
-        System.out.print("------\n");
+    }
+
+    public void addFlight() throws Exception {
+        FlightDTO flight = new FlightDTO();
+        System.out.print("\nWhere does the flight come from?\n>> ");
+        flight.from = sc.next();
+
+        System.out.print("Where the flight goes to?\n>> ");
+        flight.to = sc.next();
+
+        System.out.print("Enter amount of passengers:\n>> ");
+        while (!sc.hasNextInt() || (flight.passengersAmount = sc.nextInt()) < 0) { //check for proper input
+            wrongInput();
+            System.out.print(">> ");
+        }
+
+        System.out.print("Enter departure date(dd.MM.yyyy)\n>> ");
+        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy");
+        for (int i = 0; i < 1; i++) {
+            try {
+                flight.departureDate = ft.parse(sc.next());
+            } catch (Exception ignored) {
+                System.out.print("Input error\n>> ");
+                i--;
+            }
+        }
+
+        //TODO: add service add request
+        System.out.println("Flight successfully added.");
+        pause();
+    }
+
+    public void deleteFlight() throws Exception {
+        int flightsSize = showFlights();
+        System.out.print("Choose flight\n>> ");
+        while (!sc.hasNextInt()) { //check for proper input
+            wrongInput();
+            System.out.print(">> ");
+        }
+        int flightNum = sc.nextInt();
+        if (flightNum < 1 || flightNum > flightsSize){
+            System.out.println("There are no such flight. Go to menu");
+            pause();
+            return;
+        }
+        //TODO: delete service call
+        //FlightService flights = new FlightService();
+        //flights.delete(flightNum - 1);
+    }
+
+    public void chooseFlight() throws Exception {
+        int flightsSize = showFlights();
 
         System.out.print("Enter number of flight to buy a ticket\n>> ");
         while (!sc.hasNextInt()) { //check for proper input
@@ -106,12 +175,23 @@ public class Console {
         }
 
         int flightNum = sc.nextInt();
-        if (flightNum < 1 || flightNum > flightsList.size()){
+        if (flightNum < 1 || flightNum > flightsSize){
             System.out.println("There are no such flight. Returning to menu");
             pause();
             return;
         }
         createTicket(flightNum);
+    }
+    //also return size of flights array
+    int showFlights() throws Exception {
+        FlightService flights = new FlightService();
+        ArrayList<String> flightsList = flights.getFlightsStrings();
+        System.out.print("\nFlights:\n------\n\n");
+        for (int i = 0; i < flightsList.size(); i++) {
+            System.out.println((i+1) + ". " + flightsList.get(i));
+        }
+        System.out.print("------\n");
+        return flightsList.size();
     }
 
     public void createTicket(int flightNum) throws Exception {
@@ -148,12 +228,12 @@ public class Console {
         pause();
     }
 
-    private static void wrongInput(){
+    public static void wrongInput(){
         sc.nextLine();
         System.out.println("Input error");
     }
 
-    private static void pause(){
+    public static void pause(){
         System.out.print("Enter any symbol to continue...");
         sc.next();
         System.out.println();
