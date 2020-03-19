@@ -1,4 +1,4 @@
-package Presentation;
+package presentation;
 
 import service.FlightService;
 import org.apache.logging.log4j.LogManager;

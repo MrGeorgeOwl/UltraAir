@@ -1,8 +1,8 @@
 17:38:21.505 [main] INFO  Console.Console - Admin logged in.
-18:37:32.917 [main] INFO  Presentation.Console - Admin logged in.
-18:37:35.792 [main] WARN  Presentation.Console - ***THIS PART INCOMPLETE***
+18:37:32.917 [main] INFO  presentation.Console - Admin logged in.
+18:37:35.792 [main] WARN  presentation.Console - ***THIS PART INCOMPLETE***
 
-18:37:41.548 [main] INFO  Presentation.Console - Admin logout
+18:37:41.548 [main] INFO  presentation.Console - Admin logout
 19:27:20.285 [main] INFO  FlightDAOTest - {
 "flights" : [
 {
