@@ -112,8 +112,7 @@ public class Console {
                     addFlight();
                     break;
                 case 2:
-                    //deleteFlight();
-                    //TODO: Ability to delete flight
+                    deleteFlight();
             }
         }
     }
@@ -161,6 +160,7 @@ public class Console {
             pause();
             return;
         }
+        //TODO: delete service call
         //FlightService flights = new FlightService();
         //flights.delete(flightNum - 1);
     }
