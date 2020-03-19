@@ -1,9 +1,12 @@
 package presentation;
 
+import org.json.simple.parser.ParseException;
 import service.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import service.TicketService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -113,10 +116,10 @@ public class Console {
         createTicket(flightNum);
     }
 
-    public void createTicket(int flightNum) {
+    public void createTicket(int flightNum) throws Exception {
         TicketDTO ticket = new TicketDTO();
 
-        ticket.flightOrder = flightNum;
+        ticket.flightOrder = flightNum - 1;
         System.out.print("Enter you name\n>> ");
         ticket.clientName = sc.next();
 
@@ -129,14 +132,14 @@ public class Console {
         System.out.print("Do you want to be first on sitting?(y/n)\n>> ");
         ticket.wantRightFirstSitting = sc.next().equals("y");
 
-        //TODO: service method to get price from created ticket
-        double ticketPrice = 0;
-        System.out.print("\nFinal price is " + ticketPrice + ". Do you want to buy it?(y/n)\n>>");
+        //service processing
+        TicketService ticketService = new TicketService();
+        double ticketPrice =  ticketService.getTicketPrice(ticket);
+        System.out.print("\nFinal price is " + ticketPrice + ". Do you want to buy it?(y/n)\n>> ");
         if(sc.next().equals("y")){
-            //TODO: service send method to add this ticket to database
+            ticketService.receiveUserTicket(ticket);
+            System.out.println("\nYour " + ticket.toString() + '\n');
         }
-
-        System.out.println("Your " + ticket.toString());
         pause();
     }
 
