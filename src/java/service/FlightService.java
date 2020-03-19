@@ -3,6 +3,7 @@ package service;
 import DAO.FlightEntity;
 import DAO.FlightRepository;
 import org.json.simple.parser.ParseException;
+import presentation.FlightDTO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,9 +45,9 @@ public class FlightService {
         return getFlights().get(order);
     }
 
-    public void addFlight() throws IOException {
-        //TODO: Add mapping from FlightTDO to FlightEntity
-        FlightEntity flightEntity = new FlightEntity();
+    public void addFlight(FlightDTO flightDTO) throws IOException {
+
+        FlightEntity flightEntity = mapper.mapToFlightEntity(flightDTO);
 
         flightRepository.add(flightEntity);
     }

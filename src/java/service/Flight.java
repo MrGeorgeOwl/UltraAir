@@ -6,6 +6,7 @@ public class Flight {
     private String from;
     private String to;
     private Date departureDate;
+    private Date arrivalDate;
     private int passengersAmount;
 
     public String getDestination() {
@@ -24,15 +25,16 @@ public class Flight {
         return passengersAmount;
     }
 
-    public Flight(String from, String to, Date departureDate, int passengersAmount) throws Exception {
+    public Flight(String from, String to, Date departureDate, Date arrivalDate, int passengersAmount) {
         this.from = from;
         this.to = to;
         this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
         this.passengersAmount = passengersAmount;
         checkSeats();
     }
 
-    public void checkSeats() throws Exception{
+    public void checkSeats() {
         try{
             if (!enoughtSeats()){
                 throw new Exception("Flight " + from + "-" + to + " has too much seats");
@@ -52,7 +54,8 @@ public class Flight {
     public String toString() {
         return "From: ".concat(from).concat("\n")
                 .concat("To: ").concat(to).concat("\n")
-                .concat("Date: ").concat(String.valueOf(departureDate)).concat("\n")
+                .concat("Date: ").concat(String.valueOf(departureDate)).concat(" - ")
+                .concat(String.valueOf(arrivalDate)).concat("\n")
                 .concat("Amount of valuable sits: ").concat(
                         String.valueOf(Constants.MAX_PASSENGERS - passengersAmount)
                 ).concat("\n");
