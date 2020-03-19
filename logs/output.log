@@ -206,3 +206,8 @@
 }
 ]
 }
+18:05:42.978 [main] INFO  presentation.Console - Admin logged in.
+18:05:52.957 [main] WARN  presentation.Console - ***THIS PART INCOMPLETE***
+
+18:06:36.312 [main] INFO  presentation.Console - Admin logged in.
+18:07:33.869 [main] INFO  presentation.Console - Admin logged in.

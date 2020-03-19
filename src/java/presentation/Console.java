@@ -12,31 +12,34 @@ public class Console {
     public final static Logger log = LogManager.getLogger(Console.class.getName());
     static final Scanner sc = new Scanner(System.in);
 
+    boolean isAdmin = false;
+    String userLogin = "guest";
+
     public static void main(String[] args) throws Exception {
         Console console = new Console(); //variables creating
-        String menuPart1 = "\"Меню\""
-                + "\n------\n"
-                + "1. Show all flights;\n";
-        String menuPart2 = "2. Log in as Admin;\n"
+        String menuStr = "\n------\n"
+                + "1. All flights;\n"
+                + "2. Log in;\n"
                 + "3. Exit.\n"
                 + "------\n"
                 +"Choose menu item\n>> ";
-        String menuPart2Admin = "2. Logout;\n"
+        String menuStrAdmin = "\n------\n"
+                + "1. All flights;\n"
+                + "2. Logout;\n"
                 + "3. Manage flights;\n"
                 + "4. Exit.\n"
                 + "------\n"
                 +"Choose menu item\n>> ";
-        console.menu(false, menuPart1, menuPart2, menuPart2Admin);
+        console.menu(menuStr, menuStrAdmin);
     }
 
-    public void menu(boolean admin, String menuPart1
-            , String menuPart2, String menuPart2Admin/* + service array of class later*/)
-            throws Exception {
+    public void menu(String menuStr, String menuStrAdmin) throws Exception {
         int choose = -1;
         int chooseExit = 4;
         while(choose != chooseExit){
-            chooseExit = (admin) ? 4 : 3;
-            System.out.print(menuPart1 + ((admin) ? menuPart2Admin : menuPart2)); //check for admin menu
+            chooseExit = (isAdmin) ? 4 : 3;
+            System.out.print("Hello, " + userLogin + "! ");
+            System.out.print(((isAdmin) ? menuStrAdmin : menuStr)); //check for admin menu
             while (!sc.hasNextInt() || (choose = sc.nextInt()) < 1 || choose > chooseExit){ //check for proper input
                 wrongInput();
                 System.out.print(">> ");
@@ -48,7 +51,7 @@ public class Console {
                     showFlights();
                     break;
                 case 2: {
-                    admin = logInOutAsAdmin(admin);
+                    userLogin = logInOut();
                     break;
                 }
                 case 3: {
@@ -61,27 +64,31 @@ public class Console {
         }
     }
 
-    private boolean logInOutAsAdmin(boolean admin){
-        if (admin){ //case when admin want to logout
-            System.out.println("Now you logged as usual user");
-            log.info("Admin logout");
+    private String logInOut(){
+        if (!userLogin.equals("guest")){ //case when user want to logout
+            System.out.println("Now you logged as guest");
             pause();
-            return false;
+            isAdmin = false;
+            return "guest";
         }
         //when you press log in
-        System.out.print("\nEnter password\n>> ");
-        String password = sc.next();
-        if (password.equals("admin")) { //maybe later add some guard
-            System.out.println("You've logged as admin!");
+        System.out.print("\nEnter your login\n>> ");
+        String login = sc.next();
+
+        if (true/*TODO: get response from service if login as admin*/) { //maybe later add some guard
+            System.out.println("\nHello, " + login +". You've logged as admin!");
             log.info("Admin logged in.");
-            admin = true;
+            isAdmin = true;
+        }
+        else if (false/*TODO: get if login is old user*/) {
+            System.out.println("\nHello, " + login +". You've logged as user!");
         }
         else{
-            log.warn("Unsuccessful try to log as admin");
-            System.out.println("Incorrect password.");
+            //TODO: create new user with unknown login
+            System.out.println("\nWelcome, " + login +". You've logged as a new user!");
         }
         pause();
-        return admin;
+        return login;
     }
 
     public void manageFlights(){
