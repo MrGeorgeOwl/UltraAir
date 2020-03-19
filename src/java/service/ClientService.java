@@ -13,10 +13,14 @@ public class ClientService {
     public ClientService() throws IOException, ParseException {
     }
 
-    public boolean isAdmin(String username){
+    public boolean isAdmin(String username) throws Exception {
         Optional<ClientEntity> clientEntityOptional = clientRepository.get(username);
-        ClientEntity clientEntity = clientEntityOptional.orElse(new ClientEntity());
-
-        return clientEntity.isAdmin();
+        ClientEntity clientEntity = clientEntityOptional.orElse(null);
+        if (clientEntity != null){
+            return clientEntity.isAdmin();
+        }
+        else{
+            throw new Exception("No such user");
+        }
     }
 }
