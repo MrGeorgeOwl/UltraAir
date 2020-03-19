@@ -79,7 +79,7 @@ public class Console {
         System.out.print("\nEnter your login\n>> ");
         String login = sc.next();
         ClientService clientService = new ClientService();
-        boolean admin = false;
+        boolean admin;
         try {
             admin = clientService.isAdmin(login);
         }
@@ -154,7 +154,18 @@ public class Console {
             }
         }
 
-        //TODO: add service add request
+        System.out.print("Enter arrival date(dd.MM.yyyy)\n>> ");
+        for (int i = 0; i < 1; i++) {
+            try {
+                flight.arrivalDate = ft.parse(sc.next());
+            } catch (Exception ignored) {
+                System.out.print("Input error\n>> ");
+                i--;
+            }
+        }
+
+        FlightService flightService = new FlightService();
+        flightService.addFlight(flight);
         System.out.println("Flight successfully added.");
         pause();
     }
