@@ -5,15 +5,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Optional;
+import java.util.Random;
 
-public class FlightRepository implements DAO<FlightEntity> {
+public class FlightRepository implements DAO<Integer, FlightEntity> {
 
     Hashtable<Integer, FlightEntity> flightTable = new Hashtable<Integer, FlightEntity>();
 
@@ -55,22 +54,40 @@ public class FlightRepository implements DAO<FlightEntity> {
     }
 
     @Override
-    public void add(FlightEntity flightEntity) { }
-
-    @Override
-    public void save() {
-
+    public void save() throws IOException {
+        ClassLoader classLoader = FlightRepository.class.getClassLoader();
+        File file = new File(classLoader.getResource("Flights.json").getFile());
+        String fileName = file.getAbsolutePath();
+        String str = this.toString();
+        FileOutputStream outputStream = new FileOutputStream(fileName);
+        byte[] strToBytes = str.getBytes();
+        outputStream.write(strToBytes);
+        outputStream.close();
     }
 
     @Override
-    public void update(FlightEntity flightEntity, Integer id) {
-
+    public void delete(Integer id) throws IOException {
+        flightTable.remove(id);
+        this.save();
     }
 
     @Override
-    public void delete(FlightEntity flightEntity, Integer id) {
-
+    public void update(FlightEntity flightEntity, Integer id) throws IOException {
+        flightTable.remove(id);
+        flightTable.put(id, flightEntity);
+        this.save();
     }
+
+    @Override
+    public void add(FlightEntity flightEntity) throws IOException {
+        Integer id = new Random().nextInt(900) + 100;
+        while (flightTable.keySet().contains(id)){
+            id = new Random().nextInt(900) + 100;
+        }
+        flightTable.put(id, flightEntity);
+        this.save();
+    }
+
 
     @Override
     public String toString() {

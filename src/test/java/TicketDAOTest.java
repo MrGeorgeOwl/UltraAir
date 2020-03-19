@@ -24,7 +24,7 @@ public class TicketDAOTest {
     @Test
     public void ticketTest() throws IOException, ParseException {
         TicketRepository ticketRepository = new TicketRepository();
-        Optional<TicketEntity> ticketEntityOptional = ticketRepository.get(564);
+        Optional<TicketEntity> ticketEntityOptional = ticketRepository.get(5642);
         TicketEntity ticketEntity = ticketEntityOptional.orElse(new TicketEntity());
         logger.info(ticketEntity.toString());
     }
@@ -38,19 +38,17 @@ public class TicketDAOTest {
         logger.info(ticketRepository.toString());
     }
 
+
+
     @Test
     public void saveTicketsTest() throws IOException, ParseException {
         ClassLoader classLoader = TicketRepository.class.getClassLoader();
         File file = new File(classLoader.getResource("Tickets.json").getFile());
         String fileName = file.getAbsolutePath();
-        logger.info(fileName);
+        logger.info("Saved at " + fileName);
 
         TicketRepository ticketRepository = new TicketRepository();
-        TicketEntity ticketEntity = new TicketEntity(313, 45.50, true, true);
-        ticketRepository.add(ticketEntity);
         ticketRepository.save();
-
-
     }
 
 }

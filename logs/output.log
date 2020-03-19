@@ -206,3 +206,201 @@
 }
 ]
 }
+18:15:49.121 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+}
+]
+}
+18:15:49.168 [main] INFO  TicketDAOTest - C:\Users\user\Dropbox\University\Java\UltraAir\target\classes\Tickets.json
+18:15:49.282 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+}
+]
+}
+18:15:49.292 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+},
+{
+"id" : 4352,
+"flightId" : 313,
+"price" : 45.5,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : true
+}
+]
+}
+18:18:53.280 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+},
+{
+"id" : 4352,
+"flightId" : 313,
+"price" : 45.5,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : true
+}
+]
+}
+18:18:53.316 [main] INFO  TicketDAOTest - C:\Users\user\Dropbox\University\Java\UltraAir\target\classes\Tickets.json
+18:18:53.418 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+},
+{
+"id" : 4352,
+"flightId" : 313,
+"price" : 45.5,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : true
+}
+]
+}
+18:18:53.426 [main] INFO  TicketDAOTest - {
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+},
+{
+"id" : 4352,
+"flightId" : 313,
+"price" : 45.5,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : true
+},
+{
+"id" : 1464,
+"flightId" : 313,
+"price" : 45.5,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : true
+}
+]
+}
+18:21:02.747 [main] INFO  FlightDAOTest - {
+"flights" : [
+{
+"id" : 644,
+"fromPlace" : "Paris",
+"toPlace" : "Minsk",
+"departureDate" : "08.06.2020, 03:45 PM",
+"arrivalDate" : "07.06.2020, 05:45 PM",
+"passengersAmount" : 65
+},
+{
+"id" : 123,
+"fromPlace" : "Kiev",
+"toPlace" : "Minsk",
+"departureDate" : "19.08.2020, 04:20 PM",
+"arrivalDate" : "19.08.2020, 06:20 PM",
+"passengersAmount" : 50
+},
+{
+"id" : 452,
+"fromPlace" : "Minsk",
+"toPlace" : "Paris",
+"departureDate" : "07.06.2020, 12:30 PM",
+"arrivalDate" : "07.06.2020, 02:30 PM",
+"passengersAmount" : 68
+}
+]
+}
+18:21:02.782 [main] INFO  FlightDAOTest - "fromPlace" : "Minsk",
+"toPlace" : "Paris",
+"departureDate" : "07.06.2020, 12:30 PM",
+"arrivalDate" : "07.06.2020, 02:30 PM",
+"passengersAmount" : 68
+
+18:21:37.468 [main] INFO  TicketDAOTest - "flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false
+
+18:58:39.393 [main] INFO  ClientDAOTest - {"tickets" : [
+{
+"username" :admin,
+"isAdmin" :true
+},
+{
+"username" :normie2,
+"isAdmin" :false
+},
+{
+"username" :normie,
+"isAdmin" :false
+}
+]
+}
+18:58:39.425 [main] INFO  ClientDAOTest - "username" :admin,
+"isAdmin" :true
+
+18:59:02.164 [main] INFO  ClientDAOTest - {"clients" : [
+{
+"username" :admin,
+"isAdmin" :true
+},
+{
+"username" :normie2,
+"isAdmin" :false
+},
+{
+"username" :normie,
+"isAdmin" :false
+}
+]
+}
+18:59:02.197 [main] INFO  ClientDAOTest - "username" :admin,
+"isAdmin" :true
+
+18:59:39.123 [main] INFO  ClientDAOTest - {"clients" : [
+{
+"username" : "admin",
+"isAdmin" : true
+},
+{
+"username" : "normie2",
+"isAdmin" : false
+},
+{
+"username" : "normie",
+"isAdmin" : false
+}
+]
+}
+18:59:39.151 [main] INFO  ClientDAOTest - "username" : "admin",
+"isAdmin" : true
+
+19:03:28.142 [main] INFO  ClientDAOTest - Saved at C:\Users\user\Dropbox\University\Java\UltraAir\target\classes\Clients.json
+19:04:14.612 [main] INFO  ClientDAOTest - Saved at C:\Users\user\Dropbox\University\Java\UltraAir\target\classes\Clients.json
