@@ -1,7 +1,7 @@
 package service;
 
 import DAO.TicketEntity;
-import Presentation.TicketDTO;
+import presentation.TicketDTO;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
