@@ -11,6 +11,7 @@ import java.util.Hashtable;
 public class FlightService {
     FlightRepository flightRepository = new FlightRepository();
     FlightMapper mapper = new FlightMapper();
+    FlightIndexIdMapper flightIndexIdMapper = new FlightIndexIdMapper();
 
     public FlightService() throws ParseException, java.text.ParseException, IOException {
     }
@@ -41,5 +42,18 @@ public class FlightService {
 
     public Flight getFlightByOrder(int order) throws Exception {
         return getFlights().get(order);
+    }
+
+    public void addFlight() throws IOException {
+        //TODO: Add mapping from FlightTDO to FlightEntity
+        FlightEntity flightEntity = new FlightEntity();
+
+        flightRepository.add(flightEntity);
+    }
+
+    public void deleteFlight(int order) throws IOException {
+        Integer flightId = flightIndexIdMapper.getIdByIndex(order);
+
+        flightRepository.delete(flightId);
     }
 }
