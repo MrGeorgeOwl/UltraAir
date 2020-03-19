@@ -1,12 +1,10 @@
 package presentation;
 
-import org.json.simple.parser.ParseException;
 import service.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.TicketService;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -125,6 +123,13 @@ public class Console {
 
         System.out.print("Do you have luggage?(y/n)\n>> ");
         ticket.clientHaveLuggage = sc.next().equals("y");
+        if(ticket.clientHaveLuggage){
+            System.out.print("Enter luggage weight\n>> ");
+            while (!sc.hasNextInt() || (ticket.luggageWeight = sc.nextInt()) <= 0) { //check for proper input
+                wrongInput();
+                System.out.print(">> ");
+            }
+        }
 
         System.out.print("Do you want to be first on registration?(y/n)\n>> ");
         ticket.wantRightFirstRegistration = sc.next().equals("y");
@@ -134,7 +139,7 @@ public class Console {
 
         //service processing
         TicketService ticketService = new TicketService();
-        double ticketPrice =  ticketService.getTicketPrice(ticket);
+        double ticketPrice = ticketService.getTicketPrice(ticket);
         System.out.print("\nFinal price is " + ticketPrice + ". Do you want to buy it?(y/n)\n>> ");
         if(sc.next().equals("y")){
             ticketService.receiveUserTicket(ticket);
@@ -144,7 +149,7 @@ public class Console {
     }
 
     private static void wrongInput(){
-        Console.sc.nextLine();
+        sc.nextLine();
         System.out.println("Input error");
     }
 
