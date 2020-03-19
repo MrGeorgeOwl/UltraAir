@@ -12,7 +12,7 @@ public class TicketDTO {
         return "Ticket {\n" +
                 "clientName = " + clientName + ";\n" +
                 "clientHaveLuggage = " + ((clientHaveLuggage) ? "yes" : "no") + ";\n" +
-                "flightID = " + flightOrder + ";\n" +
+                "flightID = " + (flightOrder + 1) + ";\n" +
                 "wantRightFirstSitting = " + ((wantRightFirstSitting) ? "yes" : "no") + ";\n" +
                 "wantRightFirstRegistration = " + ((wantRightFirstRegistration) ? "yes" : "no") + ";\n" +
                 "}";
