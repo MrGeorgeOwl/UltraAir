@@ -9,10 +9,6 @@ public class Flight {
     private Date arrivalDate;
     private int passengersAmount;
 
-    public String getDestination() {
-        return to;
-    }
-
     public Date getDepartureDate() {
         return departureDate;
     }
@@ -21,8 +17,36 @@ public class Flight {
         this.departureDate = departureDate;
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public Date getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(Date arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
     public int getPassengersAmount() {
         return passengersAmount;
+    }
+
+    public void setPassengersAmount(int passengersAmount) {
+        this.passengersAmount = passengersAmount;
     }
 
     public Flight(String from, String to, Date departureDate, Date arrivalDate, int passengersAmount) {
