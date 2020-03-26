@@ -71,7 +71,7 @@ public class Ticket {
         if (rightFirstRegistration){
             price += 10;
         }
-        price += flight.getDestination().length() * 10;
+        price += flight.getTo().length() * 10;
 
         this.price = price;
     }
