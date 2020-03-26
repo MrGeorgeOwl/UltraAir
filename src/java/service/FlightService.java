@@ -3,7 +3,7 @@ package service;
 import DAO.FlightEntity;
 import DAO.FlightRepository;
 import org.json.simple.parser.ParseException;
-import presentation.FlightDTO;
+import presentation.DTO.FlightDTO;
 
 import java.io.IOException;
 import java.util.ArrayList;

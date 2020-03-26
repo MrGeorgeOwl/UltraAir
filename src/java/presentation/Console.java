@@ -1,5 +1,7 @@
 package presentation;
 
+import presentation.DTO.FlightDTO;
+import presentation.DTO.TicketDTO;
 import service.ClientService;
 import service.FlightService;
 import org.apache.logging.log4j.LogManager;

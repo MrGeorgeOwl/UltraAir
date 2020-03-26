@@ -1,4 +1,4 @@
-package presentation;
+package presentation.DTO;
 
 public class TicketDTO {
     public String clientName;
@@ -8,7 +8,7 @@ public class TicketDTO {
     public boolean wantRightFirstSitting;
     public boolean wantRightFirstRegistration;
 
-    TicketDTO(){
+    public TicketDTO(){
         clientName = "";
         clientHaveLuggage = false;
         luggageWeight = 0;
