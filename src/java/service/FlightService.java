@@ -17,7 +17,7 @@ public class FlightService {
     public FlightService() throws ParseException, java.text.ParseException, IOException {
     }
 
-    public ArrayList<String> getFlightsStrings() throws Exception {
+    public ArrayList<String> getFlightsStrings() {
         ArrayList<Flight> flights = getFlights();
         ArrayList<String> flightStrings = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public class FlightService {
         return flightStrings;
     }
 
-    public ArrayList<Flight> getFlights() throws Exception{
+    public ArrayList<Flight> getFlights(){
         Hashtable<Integer, FlightEntity> flightsInFile = flightRepository.getAll();
         ArrayList<Flight> flights = new ArrayList<>();
 
@@ -38,10 +38,12 @@ public class FlightService {
             flights.add(flight);
         }
 
+        flights.removeIf(n -> (n.getPassengersAmount() == Constants.MAX_PASSENGERS));
+
         return flights;
     }
 
-    public Flight getFlightByOrder(int order) throws Exception {
+    public Flight getFlightByOrder(int order) {
         return getFlights().get(order);
     }
 
