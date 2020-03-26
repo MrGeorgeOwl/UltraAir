@@ -17,12 +17,24 @@ public class FlightMapper {
         return new Flight(fromPlace, toPlace, departureDate, arrivalDate, passengersAmount);
     }
 
-    public FlightEntity mapToFlightEntity(FlightDTO flightDTO){
+    public Flight mapToFlight(FlightDTO flightDTO){
         String fromPlace = flightDTO.from;
         String toPlace = flightDTO.to;
         Date departureDate = flightDTO.departureDate;
         Date arrivalDate = flightDTO.arrivalDate;
         int passengersAmount = flightDTO.passengersAmount;
+
+        return new Flight(fromPlace, toPlace, departureDate, arrivalDate, passengersAmount);
+    }
+
+    public FlightEntity mapToFlightEntity(FlightDTO flightDTO){
+        Flight flight = mapToFlight(flightDTO);
+
+        String fromPlace = flight.getFrom();
+        String toPlace = flight.getTo();
+        Date departureDate = flight.getDepartureDate();
+        Date arrivalDate = flight.getArrivalDate();
+        int passengersAmount = flight.getPassengersAmount();
 
         return new FlightEntity(fromPlace, toPlace, departureDate, arrivalDate, passengersAmount);
     }
