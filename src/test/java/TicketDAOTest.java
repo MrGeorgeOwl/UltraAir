@@ -1,7 +1,5 @@
-import DAO.FlightEntity;
-import DAO.FlightRepository;
-import DAO.TicketEntity;
-import DAO.TicketRepository;
+import dao.entities.TicketEntity;
+import dao.repositories.TicketRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
@@ -33,7 +31,7 @@ public class TicketDAOTest {
     public void addTicketTest() throws IOException, ParseException {
         TicketRepository ticketRepository = new TicketRepository();
         logger.info(ticketRepository.toString());
-        TicketEntity ticketEntity = new TicketEntity(313, 45.50, true, true);
+        TicketEntity ticketEntity = new TicketEntity(313, 45.50, true, true, "syoma");
         ticketRepository.add(ticketEntity);
         logger.info(ticketRepository.toString());
     }

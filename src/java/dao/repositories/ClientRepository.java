@@ -1,5 +1,6 @@
-package DAO;
+package dao.repositories;
 
+import dao.entities.ClientEntity;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

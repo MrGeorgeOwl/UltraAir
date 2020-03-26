@@ -1,7 +1,7 @@
 package service;
 
-import DAO.FlightEntity;
-import DAO.FlightRepository;
+import dao.entities.FlightEntity;
+import dao.repositories.FlightRepository;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package service;
 
-import DAO.FlightEntity;
+import dao.entities.FlightEntity;
 import presentation.DTO.FlightDTO;
 
 import java.util.Date;

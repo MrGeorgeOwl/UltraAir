@@ -1,6 +1,6 @@
 package service;
 
-import DAO.TicketEntity;
+import dao.entities.TicketEntity;
 import presentation.DTO.TicketDTO;
 import org.json.simple.parser.ParseException;
 
@@ -20,8 +20,9 @@ public class TicketMapper {
         double price = ticket.getPrice();
         boolean rightFirstSitting = ticket.isRightFirstSitting();
         boolean rightFirstRegistration = ticket.isRightFirstRegistration();
+        String username = ticket.getClient().getName();
 
-        return new TicketEntity(flightId, price, rightFirstSitting, rightFirstRegistration);
+        return new TicketEntity(flightId, price, rightFirstSitting, rightFirstRegistration, username);
 
     }
 

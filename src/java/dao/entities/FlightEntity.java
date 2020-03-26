@@ -1,6 +1,5 @@
-package DAO;
+package dao.entities;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 

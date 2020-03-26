@@ -1,7 +1,7 @@
 package service;
 
-import DAO.ClientEntity;
-import DAO.ClientRepository;
+import dao.entities.ClientEntity;
+import dao.repositories.ClientRepository;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;

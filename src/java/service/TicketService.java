@@ -1,7 +1,7 @@
 package service;
 
-import DAO.TicketEntity;
-import DAO.TicketRepository;
+import dao.entities.TicketEntity;
+import dao.repositories.TicketRepository;
 import presentation.DTO.TicketDTO;
 import org.json.simple.parser.ParseException;
 

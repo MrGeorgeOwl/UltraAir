@@ -1,5 +1,6 @@
-package DAO;
+package dao.repositories;
 
+import dao.entities.TicketEntity;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,7 +11,7 @@ import java.util.Hashtable;
 import java.util.Optional;
 import java.util.Random;
 
-public class TicketRepository implements DAO<Integer, TicketEntity>{
+public class TicketRepository implements DAO<Integer, TicketEntity> {
 
     Hashtable<Integer, TicketEntity> ticketTable = new Hashtable<Integer, TicketEntity>();
 
@@ -31,8 +32,9 @@ public class TicketRepository implements DAO<Integer, TicketEntity>{
             double price = Double.valueOf(object.get("price").toString());
             boolean rightFirstSitting = Boolean.valueOf(object.get("rightFirstSitting").toString());
             boolean rightFirstRegistration = Boolean.valueOf(object.get("rightFirstRegistration").toString());
+            String username = object.get("username").toString();
 
-            ticketTable.put(id, new TicketEntity(flightId, price, rightFirstSitting, rightFirstRegistration));
+            ticketTable.put(id, new TicketEntity(flightId, price, rightFirstSitting, rightFirstRegistration, username));
         }
     }
 

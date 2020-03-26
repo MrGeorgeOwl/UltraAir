@@ -1,6 +1,4 @@
-package DAO;
-
-import service.Client;
+package dao.entities;
 
 public class ClientEntity {
     private String username;

@@ -5,7 +5,8 @@
       "flightId": 452,
       "price" : 21.99,
       "rightFirstSitting" : true,
-      "rightFirstRegistration" : false
+      "rightFirstRegistration" : false,
+      "username" : "vasya"
     }
   ]
 }

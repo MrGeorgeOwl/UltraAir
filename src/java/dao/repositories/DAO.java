@@ -1,4 +1,4 @@
-package DAO;
+package dao.repositories;
 
 import java.io.IOException;
 import java.util.Hashtable;
