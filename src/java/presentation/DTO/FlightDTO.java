@@ -1,4 +1,4 @@
-package presentation.DTO;
+package presentation.dto;
 
 import java.util.Date;
 
