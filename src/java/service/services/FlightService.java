@@ -3,7 +3,7 @@ package service.services;
 import dao.entities.FlightEntity;
 import dao.repositories.FlightRepository;
 import org.json.simple.parser.ParseException;
-import presentation.DTO.FlightDTO;
+import presentation.dto.FlightDTO;
 import service.Constants;
 import service.domain_objects.Flight;
 import service.mappers.FlightIndexIdMapper;
