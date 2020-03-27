@@ -3,12 +3,14 @@ package service;
 import dao.entities.ClientEntity;
 import dao.repositories.ClientRepository;
 import org.json.simple.parser.ParseException;
+import presentation.DTO.TicketDTO;
 
 import java.io.IOException;
 import java.util.Optional;
 
 public class ClientService {
     private ClientRepository clientRepository = new ClientRepository();
+    private ClientMapper clientMapper = new ClientMapper();
 
     public ClientService() throws IOException, ParseException {
     }
@@ -18,6 +20,17 @@ public class ClientService {
         ClientEntity clientEntity = clientEntityOptional.orElse(null);
         if (clientEntity != null){
             return clientEntity.isAdmin();
+        }
+        else{
+            throw new Exception("No such user");
+        }
+    }
+
+    public Client getByUsername(String username) throws Exception {
+        Optional<ClientEntity> clientEntityOptional = clientRepository.get(username);
+        ClientEntity clientEntity = clientEntityOptional.orElse(null);
+        if (clientEntity != null){
+            return clientMapper.mapToClient(clientEntity);
         }
         else{
             throw new Exception("No such user");

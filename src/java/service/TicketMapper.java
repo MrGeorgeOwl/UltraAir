@@ -1,5 +1,6 @@
 package service;
 
+import dao.entities.ClientEntity;
 import dao.entities.TicketEntity;
 import presentation.DTO.TicketDTO;
 import org.json.simple.parser.ParseException;
@@ -26,7 +27,7 @@ public class TicketMapper {
 
     }
 
-    public Ticket mapToTicket(TicketDTO ticketDTO) throws Exception {
+    public Ticket mapToTicket(TicketDTO ticketDTO) {
         String name = ticketDTO.clientName;
         boolean haveLuggage = ticketDTO.clientHaveLuggage;
 
@@ -35,6 +36,17 @@ public class TicketMapper {
         Flight flight = flightService.getFlightByOrder(ticketDTO.flightOrder);
         boolean rightFirstSitting = ticketDTO.wantRightFirstSitting;
         boolean rightFirstRegistration = ticketDTO.wantRightFirstRegistration;
+        return new Ticket(client, flight, rightFirstRegistration, rightFirstSitting);
+    }
+
+    public Ticket mapToTicket(TicketEntity ticketEntity) throws Exception {
+        ClientService clientService = new ClientService();
+        Client client = clientService.getByUsername(ticketEntity.getUsername());
+
+        FlightService flightService = new FlightService();
+        Flight flight = flightService.getFlightById(ticketEntity.getFlightId());
+        boolean rightFirstSitting = ticketEntity.isRightFirstSitting();
+        boolean rightFirstRegistration = ticketEntity.isRightFirstRegistration();
         return new Ticket(client, flight, rightFirstRegistration, rightFirstSitting);
     }
 }

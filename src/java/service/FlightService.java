@@ -8,6 +8,7 @@ import presentation.DTO.FlightDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Optional;
 
 public class FlightService {
     FlightRepository flightRepository = new FlightRepository();
@@ -58,5 +59,14 @@ public class FlightService {
         Integer flightId = flightIndexIdMapper.getIdByIndex(order);
 
         flightRepository.delete(flightId);
+    }
+
+    public Flight getFlightById(int Integer) throws Exception{
+        Optional<FlightEntity> flightEntityOptional = flightRepository.get(Integer);
+        FlightEntity flightEntity = flightEntityOptional.orElse(null);
+        if (flightEntity == null){
+            throw new Exception("No such flight");
+        }
+        return mapper.mapToFlight(flightEntity);
     }
 }
