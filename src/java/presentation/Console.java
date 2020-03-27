@@ -1,12 +1,12 @@
 package presentation;
 
-import presentation.DTO.FlightDTO;
-import presentation.DTO.TicketDTO;
-import service.services.ClientService;
-import service.services.FlightService;
+import presentation.dto.FlightDTO;
+import presentation.dto.TicketDTO;
+import service.ClientService;
+import service.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import service.services.TicketService;
+import service.TicketService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,15 +29,17 @@ public class Console {
                 +"Choose menu item\n>> ";
         String menuStrAdmin = "\n------\n"
                 + "1. All flights;\n"
-                + "2. Logout;\n"
-                + "3. Manage flights;\n"
-                + "4. Exit.\n"
+                + "2. Your tickets;\n"
+                + "3. Logout;\n"
+                + "4. Manage flights;\n"
+                + "5. Exit.\n"
                 + "------\n"
                 +"Choose menu item\n>> ";
         String menuStrUser = "\n------\n"
                 + "1. All flights;\n"
-                + "2. Logout;\n"
-                + "3. Exit.\n"
+                + "2. Your tickets;\n"
+                + "3. Logout;\n"
+                + "4. Exit.\n"
                 + "------\n"
                 +"Choose menu item\n>> ";
         console.menu(menuStr, menuStrAdmin, menuStrUser);
@@ -45,9 +47,11 @@ public class Console {
 
     public void menu(String menuStr, String menuStrAdmin, String menuStrUser) throws Exception {
         int choose = -1;
-        int chooseExit = 4;
+        int chooseExit = 3;
         while(choose != chooseExit){
-            chooseExit = (isAdmin) ? 4 : 3;
+            chooseExit = 3;
+            chooseExit = (isAdmin) ? 5 : chooseExit;
+            chooseExit = (!isAdmin && !userLogin.equals("guest")) ? 4 : chooseExit;
             menuOutput(menuStr, menuStrAdmin, menuStrUser);
             while (!sc.hasNextInt() || (choose = sc.nextInt()) < 1 || choose > chooseExit){ //check for proper input
                 wrongInput();
@@ -58,13 +62,16 @@ public class Console {
                     chooseFlight();
                     break;
                 case 2:
-                    userLogin = logInOut();
+                    if(userLogin.equals("guest")) userLogin = logInOut();
+                    else showTickets();
                     break;
                 case 3:
-                    if (chooseExit == 3){
-                        break;
-                    }
-                    manageFlights();
+                    if (chooseExit == 3) break;
+                    userLogin = logInOut();
+                    break;
+                case 4:
+                    if (chooseExit == 4) break;
+                    if(isAdmin) manageFlights();
             }
         }
     }
@@ -110,7 +117,7 @@ public class Console {
         int chooseExit = 3;
         int choose = -1;
         while(choose != chooseExit) {
-            System.out.print("Manage menu"
+            System.out.print("\nManage menu"
                     + "\n------\n"
                     + "1. Add;\n"
                     + "2. Delete;\n"
@@ -128,6 +135,7 @@ public class Console {
                 case 2:
                     deleteFlight();
             }
+            System.out.println();
         }
     }
 
@@ -194,6 +202,12 @@ public class Console {
     public void chooseFlight() throws Exception {
         int flightsSize = showFlights();
 
+        if(userLogin.equals("guest")) {
+            System.out.println("Log in to order a ticket. Returning to main menu.");
+            pause();
+            return;
+        }
+
         System.out.print("Enter number of flight to buy a ticket\n>> ");
         while (!sc.hasNextInt()) { //check for proper input
             wrongInput();
@@ -224,8 +238,7 @@ public class Console {
         TicketDTO ticket = new TicketDTO();
 
         ticket.flightOrder = flightNum - 1;
-        System.out.print("Enter you name\n>> ");
-        ticket.clientName = sc.next();
+        ticket.clientName = userLogin;
 
         System.out.print("Do you have luggage?(y/n)\n>> ");
         ticket.clientHaveLuggage = sc.next().equals("y");
@@ -252,6 +265,16 @@ public class Console {
             System.out.println("\nYour " + ticket.toString() + '\n');
         }
         pause();
+    }
+
+    public void showTickets(){
+        /*TicketService tickets = new TicketService();
+        ArrayList<String> ticketsList = tickets.getTicketsStrings(userLogin);
+        System.out.print("\nYour tickets:\n------\n\n");
+        for (int i = 0; i < ticketsList.size(); i++) {
+            System.out.println((i+1) + ". " + ticketsList.get(i));
+        }
+        System.out.print("------\n");*/
     }
 
     public void menuOutput(String menuStr, String menuStrAdmin, String menuStrUser){

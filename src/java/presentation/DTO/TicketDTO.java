@@ -1,4 +1,4 @@
-package presentation.DTO;
+package presentation.dto;
 
 public class TicketDTO {
     public String clientName;
