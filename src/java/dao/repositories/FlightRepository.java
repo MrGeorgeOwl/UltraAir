@@ -18,11 +18,12 @@ public class FlightRepository implements DAO<Integer, FlightEntity> {
     Hashtable<Integer, FlightEntity> flightTable = new Hashtable<Integer, FlightEntity>();
 
     public FlightRepository() throws IOException, ParseException, java.text.ParseException {
-        ClassLoader classLoader = FlightRepository.class.getClassLoader();
-        File file = new File(classLoader.getResource("Flights.json").getFile());
-        String path = file.getAbsolutePath();
+        String path = "src/resources/Flights.json";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
         JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(absolutePath));
         JSONArray jsonArray = (JSONArray) jsonObject.get("flights");
 
 
@@ -56,11 +57,12 @@ public class FlightRepository implements DAO<Integer, FlightEntity> {
 
     @Override
     public void save() throws IOException {
-        ClassLoader classLoader = FlightRepository.class.getClassLoader();
-        File file = new File(classLoader.getResource("Flights.json").getFile());
-        String fileName = file.getAbsolutePath();
+        String path = "src/resources/Flights.json";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
         String str = this.toString();
-        FileOutputStream outputStream = new FileOutputStream(fileName);
+        FileOutputStream outputStream = new FileOutputStream(absolutePath);
         byte[] strToBytes = str.getBytes();
         outputStream.write(strToBytes);
         outputStream.close();

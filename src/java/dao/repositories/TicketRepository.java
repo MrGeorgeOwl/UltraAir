@@ -16,11 +16,12 @@ public class TicketRepository implements DAO<Integer, TicketEntity> {
     Hashtable<Integer, TicketEntity> ticketTable = new Hashtable<Integer, TicketEntity>();
 
     public TicketRepository() throws IOException, ParseException {
-        ClassLoader classLoader = TicketRepository.class.getClassLoader();
-        File file = new File(classLoader.getResource("Tickets.json").getFile());
-        String path = file.getAbsolutePath();
+        String path = "src/resources/Tickets.json";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
         JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(absolutePath));
         JSONArray jsonArray = (JSONArray) jsonObject.get("tickets");
 
         for (Object o : jsonArray) {
@@ -50,11 +51,12 @@ public class TicketRepository implements DAO<Integer, TicketEntity> {
 
     @Override
     public void save() throws IOException {
-        ClassLoader classLoader = TicketRepository.class.getClassLoader();
-        File file = new File(classLoader.getResource("Tickets.json").getFile());
-        String fileName = file.getAbsolutePath();
+        String path = "src/resources/Tickets.json";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
         String str = this.toString();
-        FileOutputStream outputStream = new FileOutputStream(fileName);
+        FileOutputStream outputStream = new FileOutputStream(absolutePath);
         byte[] strToBytes = str.getBytes();
         outputStream.write(strToBytes);
         outputStream.close();

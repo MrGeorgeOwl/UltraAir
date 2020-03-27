@@ -1,6 +1,8 @@
 package dao.repositories;
 
 import dao.entities.ClientEntity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,12 +16,15 @@ public class ClientRepository implements DAO<String, ClientEntity> {
 
     Hashtable<String, ClientEntity> clientTable = new Hashtable<String, ClientEntity>();
 
+    Logger logger = (Logger) LogManager.getLogger();
+
     public ClientRepository() throws IOException, ParseException {
-        ClassLoader classLoader = ClientRepository.class.getClassLoader();
-        File file = new File(classLoader.getResource("Clients.json").getFile());
-        String path = file.getAbsolutePath();
+        String path = "src/resources/Clients.json";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
         JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(absolutePath));
         JSONArray jsonArray = (JSONArray) jsonObject.get("clients");
 
         for (Object o : jsonArray) {
@@ -44,11 +49,12 @@ public class ClientRepository implements DAO<String, ClientEntity> {
 
     @Override
     public void save() throws IOException {
-        ClassLoader classLoader = ClientRepository.class.getClassLoader();
-        File file = new File(classLoader.getResource("Clients.json").getFile());
-        String fileName = file.getAbsolutePath();
+        String path = "src/resources/Clients.json";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
         String str = this.toString();
-        FileOutputStream outputStream = new FileOutputStream(fileName);
+        FileOutputStream outputStream = new FileOutputStream(absolutePath);
         byte[] strToBytes = str.getBytes();
         outputStream.write(strToBytes);
         outputStream.close();

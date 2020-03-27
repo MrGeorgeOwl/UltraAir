@@ -19,7 +19,7 @@ public class ClientDAOTest {
     }
 
     @Test
-    public void flightTest() throws ParseException, java.text.ParseException, IOException {
+    public void clientEntityTest() throws ParseException, java.text.ParseException, IOException {
         ClientRepository clientRepository = new ClientRepository();
         Optional<ClientEntity> clientEntityOptional = clientRepository.get("admin");
         ClientEntity clientEntity = clientEntityOptional.orElse(new ClientEntity());
@@ -29,13 +29,13 @@ public class ClientDAOTest {
 
     @Test
     public void saveTest() throws IOException, ParseException {
-        ClassLoader classLoader = ClientRepository.class.getClassLoader();
-        File file = new File(classLoader.getResource("Clients.json").getFile());
-        String fileName = file.getAbsolutePath();
+        String path = "src/resources/Clients.json";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
 
-        logger.info("Saved at " + fileName);
+        logger.info("Got path: " + absolutePath);
+
         ClientRepository clientRepository = new ClientRepository();
         clientRepository.save();
-
     }
 }

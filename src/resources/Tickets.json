@@ -1,12 +1,12 @@
 {
-  "tickets": [
-    {
-      "id" : 5642,
-      "flightId": 452,
-      "price" : 21.99,
-      "rightFirstSitting" : true,
-      "rightFirstRegistration" : false,
-      "username" : ""
-    }
-  ]
+"tickets" : [
+{
+"id" : 5642,
+"flightId" : 452,
+"price" : 21.99,
+"rightFirstSitting" : true,
+"rightFirstRegistration" : false,
+"username" : ""
+}
+]
 }

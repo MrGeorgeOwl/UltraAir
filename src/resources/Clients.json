@@ -1,16 +1,16 @@
 {
-  "clients" : [
-    {
-      "username" : "admin",
-      "isAdmin" : true
-    },
-    {
-      "username" : "normie",
-      "isAdmin" : false
-    },
-    {
-      "username" : "normie2",
-      "isAdmin" :  false
-    }
-  ]
+"clients" : [
+{
+"username" : "admin",
+"isAdmin" : true
+},
+{
+"username" : "normie2",
+"isAdmin" : false
+},
+{
+"username" : "normie",
+"isAdmin" : false
+}
+]
 }

@@ -40,10 +40,11 @@ public class TicketDAOTest {
 
     @Test
     public void saveTicketsTest() throws IOException, ParseException {
-        ClassLoader classLoader = TicketRepository.class.getClassLoader();
-        File file = new File(classLoader.getResource("Tickets.json").getFile());
-        String fileName = file.getAbsolutePath();
-        logger.info("Saved at " + fileName);
+        String path = "src/resources/Tickets.json";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
+        logger.info("Saved at " + absolutePath);
 
         TicketRepository ticketRepository = new TicketRepository();
         ticketRepository.save();
