@@ -1,4 +1,4 @@
-package service;
+package service.domain_objects;
 
 public class Client {
     private String name;

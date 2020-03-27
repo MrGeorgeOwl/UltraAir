@@ -1,9 +1,13 @@
-package service;
+package service.mappers;
 
-import dao.entities.ClientEntity;
 import dao.entities.TicketEntity;
 import presentation.DTO.TicketDTO;
 import org.json.simple.parser.ParseException;
+import service.domain_objects.Client;
+import service.domain_objects.Flight;
+import service.domain_objects.Ticket;
+import service.services.ClientService;
+import service.services.FlightService;
 
 import java.io.IOException;
 

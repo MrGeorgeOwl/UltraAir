@@ -1,4 +1,7 @@
-package service;
+package service.domain_objects;
+
+import service.domain_objects.Client;
+import service.domain_objects.Flight;
 
 public class Ticket {
     private Client client;

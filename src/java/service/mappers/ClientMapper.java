@@ -1,6 +1,7 @@
-package service;
+package service.mappers;
 
 import dao.entities.ClientEntity;
+import service.domain_objects.Client;
 
 public class ClientMapper {
 

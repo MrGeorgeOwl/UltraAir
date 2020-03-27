@@ -1,7 +1,8 @@
-package service;
+package service.mappers;
 
 import dao.entities.FlightEntity;
 import presentation.DTO.FlightDTO;
+import service.domain_objects.Flight;
 
 import java.util.Date;
 

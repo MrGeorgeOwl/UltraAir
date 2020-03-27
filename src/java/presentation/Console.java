@@ -2,11 +2,11 @@ package presentation;
 
 import presentation.DTO.FlightDTO;
 import presentation.DTO.TicketDTO;
-import service.ClientService;
-import service.FlightService;
+import service.services.ClientService;
+import service.services.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import service.TicketService;
+import service.services.TicketService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

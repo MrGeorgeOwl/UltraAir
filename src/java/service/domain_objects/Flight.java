@@ -1,4 +1,6 @@
-package service;
+package service.domain_objects;
+
+import service.Constants;
 
 import java.util.Date;
 

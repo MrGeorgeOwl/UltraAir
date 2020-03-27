@@ -1,4 +1,4 @@
-package service;
+package service.mappers;
 
 import dao.entities.FlightEntity;
 import dao.repositories.FlightRepository;
