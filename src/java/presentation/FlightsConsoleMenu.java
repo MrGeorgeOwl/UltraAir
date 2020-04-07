@@ -12,15 +12,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Console {
-    public final static Logger log = LogManager.getLogger(Console.class.getName());
+public class FlightsConsoleMenu {
+    public final static Logger log = LogManager.getLogger(FlightsConsoleMenu.class.getName());
     static final Scanner sc = new Scanner(System.in);
 
     boolean isAdmin = false;
     String userLogin = "guest";
 
     public static void main(String[] args) throws Exception {
-        Console console = new Console(); //variables creating
+        FlightsConsoleMenu console = new FlightsConsoleMenu(); //variables creating
         String menuStr = "\n------\n"
                 + "1. All flights;\n"
                 + "2. Log in;\n"

@@ -7,8 +7,8 @@ import service.services.TicketService;
 
 import java.util.ArrayList;
 
-class ConsoleTest {
-    public static Logger log = LogManager.getLogger(ConsoleTest.class.getName());
+class FlightsConsoleMenuTest {
+    public static Logger log = LogManager.getLogger(FlightsConsoleMenuTest.class.getName());
 
     @Test
     public void showTicketsTest() throws Exception {
