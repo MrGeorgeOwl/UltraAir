@@ -1,4 +1,4 @@
-package by.epam.ultraair.service.mappers;
+package by.epam.ultraair.persistence.mappers;
 
 import by.epam.ultraair.dao.entities.FlightEntity;
 import by.epam.ultraair.dao.repositories.FlightRepository;

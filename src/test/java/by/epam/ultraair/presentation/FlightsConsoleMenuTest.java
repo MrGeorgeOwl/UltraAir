@@ -3,7 +3,7 @@ package by.epam.ultraair.presentation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
-import by.epam.ultraair.service.services.TicketService;
+import by.epam.ultraair.persistence.services.TicketService;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package by.epam.ultraair.service.domain_objects;
+package by.epam.ultraair.persistence.domain_objects;
 
 public class Ticket {
     private Client client;

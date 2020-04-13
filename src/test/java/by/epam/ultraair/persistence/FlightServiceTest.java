@@ -1,8 +1,8 @@
-package by.epam.ultraair.service;
+package by.epam.ultraair.persistence;
 
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
-import by.epam.ultraair.service.services.FlightService;
+import by.epam.ultraair.persistence.services.FlightService;
 
 import java.io.IOException;
 import java.util.ArrayList;

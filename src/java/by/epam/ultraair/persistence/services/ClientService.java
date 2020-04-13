@@ -1,7 +1,7 @@
-package by.epam.ultraair.service.services;
+package by.epam.ultraair.persistence.services;
 
-import by.epam.ultraair.service.domain_objects.Client;
-import by.epam.ultraair.service.mappers.ClientMapper;
+import by.epam.ultraair.persistence.domain_objects.Client;
+import by.epam.ultraair.persistence.mappers.ClientMapper;
 import by.epam.ultraair.dao.entities.ClientEntity;
 import by.epam.ultraair.dao.repositories.ClientRepository;
 import org.json.simple.parser.ParseException;

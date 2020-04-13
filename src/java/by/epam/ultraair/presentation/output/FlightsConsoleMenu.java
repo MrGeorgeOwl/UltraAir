@@ -2,11 +2,11 @@ package by.epam.ultraair.presentation.output;
 
 import by.epam.ultraair.presentation.dto.FlightDTO;
 import by.epam.ultraair.presentation.dto.TicketDTO;
-import by.epam.ultraair.service.services.ClientService;
-import by.epam.ultraair.service.services.FlightService;
+import by.epam.ultraair.persistence.services.ClientService;
+import by.epam.ultraair.persistence.services.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import by.epam.ultraair.service.services.TicketService;
+import by.epam.ultraair.persistence.services.TicketService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

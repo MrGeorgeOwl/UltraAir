@@ -1,4 +1,4 @@
-package by.epam.ultraair.service;
+package by.epam.ultraair.persistence;
 
 public interface Constants {
     double LUGGAGE_TRANSFER_COST = 15.49;

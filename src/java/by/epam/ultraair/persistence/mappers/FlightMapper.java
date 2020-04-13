@@ -1,8 +1,8 @@
-package by.epam.ultraair.service.mappers;
+package by.epam.ultraair.persistence.mappers;
 
 import by.epam.ultraair.dao.entities.FlightEntity;
 import by.epam.ultraair.presentation.dto.FlightDTO;
-import by.epam.ultraair.service.domain_objects.Flight;
+import by.epam.ultraair.persistence.domain_objects.Flight;
 
 import java.util.Date;
 

@@ -1,9 +1,9 @@
-package by.epam.ultraair.service.services;
+package by.epam.ultraair.persistence.services;
 
 import by.epam.ultraair.dao.repositories.TicketRepository;
 import by.epam.ultraair.presentation.dto.TicketDTO;
-import by.epam.ultraair.service.domain_objects.Ticket;
-import by.epam.ultraair.service.mappers.TicketMapper;
+import by.epam.ultraair.persistence.domain_objects.Ticket;
+import by.epam.ultraair.persistence.mappers.TicketMapper;
 import by.epam.ultraair.dao.entities.TicketEntity;
 import org.json.simple.parser.ParseException;
 

@@ -1,6 +1,6 @@
-package by.epam.ultraair.service.domain_objects;
+package by.epam.ultraair.persistence.domain_objects;
 
-import by.epam.ultraair.service.Constants;
+import by.epam.ultraair.persistence.Constants;
 
 public class Luggage {
     private double weight;

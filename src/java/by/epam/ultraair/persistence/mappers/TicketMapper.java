@@ -1,13 +1,13 @@
-package by.epam.ultraair.service.mappers;
+package by.epam.ultraair.persistence.mappers;
 
 import by.epam.ultraair.dao.entities.TicketEntity;
 import by.epam.ultraair.presentation.dto.TicketDTO;
 import org.json.simple.parser.ParseException;
-import by.epam.ultraair.service.domain_objects.Client;
-import by.epam.ultraair.service.domain_objects.Flight;
-import by.epam.ultraair.service.domain_objects.Ticket;
-import by.epam.ultraair.service.services.ClientService;
-import by.epam.ultraair.service.services.FlightService;
+import by.epam.ultraair.persistence.domain_objects.Client;
+import by.epam.ultraair.persistence.domain_objects.Flight;
+import by.epam.ultraair.persistence.domain_objects.Ticket;
+import by.epam.ultraair.persistence.services.ClientService;
+import by.epam.ultraair.persistence.services.FlightService;
 
 import java.io.IOException;
 
