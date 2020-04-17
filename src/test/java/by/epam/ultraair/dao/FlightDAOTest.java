@@ -6,7 +6,7 @@ import by.epam.ultraair.persistence.domain.BaseEntity;
 import by.epam.ultraair.persistence.domain.Flight;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,22 +18,11 @@ import java.util.stream.Collectors;
 
 public class FlightDAOTest {
     private static final Logger logger = LogManager.getLogger();
-    private FlightDAO flightDAO;
+    private static FlightDAO flightDAO;
 
     public FlightDAOTest() {
         SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
         flightDAO = new FlightDAOImpl(sqlDatabaseConnection);
-    }
-
-    @Test
-    public void getFlight() throws SQLException {
-        System.out.println(flightDAO.get(1));
-    }
-
-    @Test
-    public void getFlights() throws SQLException{
-        ArrayList<Flight> flights = flightDAO.getAll();
-        Assertions.assertEquals(3, flights.size());
     }
 
     @Test
@@ -67,8 +56,8 @@ public class FlightDAOTest {
         Assertions.assertEquals(was - 1, become);
     }
 
-    @AfterEach
-    public void deleteFlightFixtures(){
+    @AfterAll
+    static void deleteFlightFixtures(){
         flightDAO.deleteFlightFixtures();
     }
 

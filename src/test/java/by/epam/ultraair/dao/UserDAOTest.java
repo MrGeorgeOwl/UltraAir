@@ -6,40 +6,20 @@ import by.epam.ultraair.persistence.domain.BaseEntity;
 import by.epam.ultraair.persistence.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserDAOTest {
-    private UserDAO userDAO;
+    private static UserDAO userDAO;
     private static final Logger logger = LogManager.getLogger(UserDAOTest.class.getName());
 
     public UserDAOTest(){
         SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
         userDAO = new UserDAOImpl(sqlDatabaseConnection);
-    }
-
-    @Test
-    public void getAllTest() throws SQLException {
-        ArrayList<User> users = userDAO.getAll();
-
-        Assertions.assertEquals(2, users.size());
-    }
-
-    @Test
-    public void getTest() throws SQLException {
-        Optional<User> userOptional = userDAO.get(1);
-        User user = userOptional.orElse(null);
-
-        Assertions.assertEquals(user.getLogin(), "test_admin");
-        Assertions.assertEquals(user.getPassword(), "test_password");
-        Assertions.assertTrue(user.isAdmin());
     }
 
     @Test
@@ -73,8 +53,8 @@ public class UserDAOTest {
         Assertions.assertEquals(was - 1, become);
     }
 
-    @AfterEach
-    public void deleteUserFixture(){
+    @AfterAll
+    static void deleteUserFixture(){
         userDAO.deleteUserFixture();
     }
 }

@@ -122,7 +122,10 @@ public class UserDAOImpl implements UserDAO {
     public void deleteUserFixture(){
         try {
             Statement statement = connection.createStatement();
-            String query = String.format("DELETE FROM %s.Users WHERE id > 2", database);
+            String query = String.format(
+                    "DELETE FROM %s.Flight WHERE id >= 1" +
+                            "DBCC CHECKIDENT ('ultraAir_test.%s', RESEED, 0)"
+                    , database, database);
             statement.executeUpdate(query);
         }
         catch (SQLException e){

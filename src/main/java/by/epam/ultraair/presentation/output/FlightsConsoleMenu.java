@@ -77,7 +77,7 @@ public class FlightsConsoleMenu {
         }
     }
 
-    private String logInOut() throws Exception {
+    private String logInOut() {
         if (!userLogin.equals("guest")){ //case when user press logout
             System.out.println("Now you logged as guest");
             pause();
@@ -140,7 +140,7 @@ public class FlightsConsoleMenu {
         }
     }
 
-    public void addFlight() throws Exception {
+    public void addFlight() {
         FlightDTO flight = new FlightDTO();
         System.out.print("\nWhere does the flight come from?\n>> ");
         flight.from = sc.next();
