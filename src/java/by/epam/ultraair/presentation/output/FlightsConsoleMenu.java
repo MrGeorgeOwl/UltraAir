@@ -1,12 +1,13 @@
 package by.epam.ultraair.presentation.output;
 
+import by.epam.ultraair.persistence.domain.Flight;
+import by.epam.ultraair.persistence.service.TicketService;
+import by.epam.ultraair.persistence.service.UserService;
 import by.epam.ultraair.presentation.dto.FlightDTO;
 import by.epam.ultraair.presentation.dto.TicketDTO;
-import by.epam.ultraair.persistence.services.ClientService;
-import by.epam.ultraair.persistence.services.FlightService;
+import by.epam.ultraair.persistence.service.FlightService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import by.epam.ultraair.persistence.services.TicketService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class FlightsConsoleMenu {
                     break;
                 case 4:
                     if (chooseExit == 4) break;
-                    if(isAdmin) manageFlights();
+//                    if(isAdmin) manageFlights();
             }
         }
     }
@@ -87,10 +88,10 @@ public class FlightsConsoleMenu {
         //when you press log in
         System.out.print("\nEnter your login\n>> ");
         String login = sc.next();
-        ClientService clientService = new ClientService();
+        UserService userService = new UserService();
         boolean admin;
         try {
-            admin = clientService.isAdmin(login);
+            admin = userService.isAdmin(login);
         }
         catch (Exception ignored){
             System.out.println("There are no such user. Returning to menu.");
@@ -193,8 +194,9 @@ public class FlightsConsoleMenu {
             pause();
             return;
         }
-        FlightService flights = new FlightService();
-        flights.deleteFlight(flightNum - 1);
+        FlightService flightService = new FlightService();
+        ArrayList<Flight> flights = flightService.getFlights();
+        flightService.deleteFlight(flights.get(flightNum - 1).getId());
         System.out.println("Flight deleted successfully.");
         pause();
     }
@@ -236,8 +238,9 @@ public class FlightsConsoleMenu {
 
     public void createTicket(int flightNum) throws Exception {
         TicketDTO ticket = new TicketDTO();
+        Flight flight = new FlightService().getFlights().get(flightNum - 1);
 
-        ticket.flightOrder = flightNum - 1;
+        ticket.flightID = flight.getId();
         ticket.clientName = userLogin;
 
         System.out.print("Do you have luggage?(y/n)\n>> ");
@@ -261,7 +264,7 @@ public class FlightsConsoleMenu {
         double ticketPrice = ticketService.getTicketPrice(ticket);
         System.out.print("\nFinal price is " + ticketPrice + ". Do you want to buy it?(y/n)\n>> ");
         if(sc.next().equals("y")){
-            ticketService.receiveUserTicket(ticket);
+            ticketService.createUserTicket(ticket);
             System.out.println("\nYour " + ticket.toString() + '\n');
         }
         pause();
