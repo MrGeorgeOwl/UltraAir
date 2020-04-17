@@ -4,7 +4,7 @@ public class TicketDTO {
     public String clientName;
     public boolean clientHaveLuggage;
     public double luggageWeight;
-    public int flightOrder;
+    public Integer flightID;
     public boolean wantRightFirstSitting;
     public boolean wantRightFirstRegistration;
 
@@ -12,7 +12,7 @@ public class TicketDTO {
         clientName = "";
         clientHaveLuggage = false;
         luggageWeight = 0;
-        flightOrder = 0;
+        flightID = 0;
         wantRightFirstSitting = false;
         wantRightFirstRegistration = false;
     }
@@ -22,7 +22,7 @@ public class TicketDTO {
         return "Ticket {\n" +
                 "clientName = " + clientName + ";\n" +
                 "clientHaveLuggage = " + ((clientHaveLuggage) ? "yes" : "no") + ";\n" +
-                "flightID = " + (flightOrder + 1) + ";\n" +
+                "flightID = " + (flightID + 1) + ";\n" +
                 "wantRightFirstSitting = " + ((wantRightFirstSitting) ? "yes" : "no") + ";\n" +
                 "wantRightFirstRegistration = " + ((wantRightFirstRegistration) ? "yes" : "no") + ";\n" +
                 "}";
