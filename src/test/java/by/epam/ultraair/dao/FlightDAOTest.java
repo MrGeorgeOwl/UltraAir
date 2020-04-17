@@ -1,44 +1,75 @@
 package by.epam.ultraair.dao;
 
-import by.epam.ultraair.dao.entities.FlightEntity;
-import by.epam.ultraair.dao.repositories.FlightRepository;
+import by.epam.ultraair.dao.implementations.FlightDAOImpl;
+import by.epam.ultraair.dao.interfaces.FlightDAO;
+import by.epam.ultraair.persistence.domain.BaseEntity;
+import by.epam.ultraair.persistence.domain.Flight;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 public class FlightDAOTest {
-    Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
+    private FlightDAO flightDAO;
 
-    @Test
-    public void constructorTest() throws ParseException, java.text.ParseException, IOException {
-        FlightRepository flightRepository = new FlightRepository();
-        logger.info(flightRepository.toString());
+    public FlightDAOTest() {
+        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
+        flightDAO = new FlightDAOImpl(sqlDatabaseConnection);
     }
 
     @Test
-    public void flightTest() throws ParseException, java.text.ParseException, IOException {
-        FlightRepository flightRepository = new FlightRepository();
-        Optional<FlightEntity> flightEntityOptional = flightRepository.get(452);
-        FlightEntity flightEntity = flightEntityOptional.orElse(new FlightEntity());
-
-        logger.info(flightEntity.toString());
+    public void getFlight() throws SQLException {
+        System.out.println(flightDAO.get(1));
     }
 
     @Test
-    public void saveTest() throws ParseException, java.text.ParseException, IOException {
-        String path = "src/resources/Flights.json";
-        File file = new File(path);
-        String absolutePath = file.getAbsolutePath();
+    public void getFlights() throws SQLException{
+        ArrayList<Flight> flights = flightDAO.getAll();
+        Assertions.assertEquals(3, flights.size());
+    }
 
-        logger.info("Saved at " + absolutePath);
+    @Test
+    public void createFlightTest() throws SQLException {
+        int was = flightDAO.getAll().size();
 
-        FlightRepository flightRepository = new FlightRepository();
-        flightRepository.save();
+        Flight flight = new Flight("Minsk", "Minsk", new Date(), new Date());
+        flightDAO.createFlight(flight);
+
+        int become = flightDAO.getAll().size();
+
+        Assertions.assertEquals(was + 1, become);
+    }
+
+    @Test
+    public void deleteFlightTest() throws SQLException {
+
+        ArrayList<Flight> flights = flightDAO.getAll();
+        flights = flights
+                .stream()
+                .sorted(Comparator.comparingInt(BaseEntity::getId))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        int was = flights.size();
+
+        Integer id = flights.get(flights.size() - 1).getId();
+        flightDAO.deleteFlight(id);
+
+        int become = flightDAO.getAll().size();
+
+        Assertions.assertEquals(was - 1, become);
+    }
+
+    @AfterEach
+    public void deleteFlightFixtures(){
+        flightDAO.deleteFlightFixtures();
     }
 
 }
