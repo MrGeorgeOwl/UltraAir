@@ -63,3 +63,9 @@
 | | Manage Flights | Выводит меню с возможностью перехода на “Add Flight” и “Delete Flight” use-ы |
 | | Add Flight | Просит ввести значения Городов отправки и назначения, вместимость. Затем отправляет в Service запрос на добавление этого полета. |
 | | Delete Flight | Выводит список полетов. Просит ввести номер полета из списка и отправляет запрос на его удаление. |
+
+
+
+
+Jenkins:
+Пархоменко Георгий https://github.com/MrGeorgeOwl/jenkins-project-test/tree/master
