@@ -68,4 +68,4 @@
 
 
 Jenkins:
-Пархоменко Георгий https://github.com/MrGeorgeOwl/jenkins-project-test/tree/master
+* Пархоменко Георгий https://github.com/MrGeorgeOwl/jenkins-project-test/tree/master
