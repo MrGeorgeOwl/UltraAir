@@ -18,13 +18,11 @@ public class UserService {
     private Logger logger = LogManager.getLogger(UserService.class.getName());
 
     public UserService(){
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.MAIN_DATABASE);
-        userDAO = new UserDAOImpl(sqlDatabaseConnection);
+        userDAO = new UserDAOImpl();
     }
 
     public UserService(String database){
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(database);
-        userDAO = new UserDAOImpl(sqlDatabaseConnection);
+        userDAO = new UserDAOImpl();
     }
 
     public boolean isAdmin(String login) throws SQLException {

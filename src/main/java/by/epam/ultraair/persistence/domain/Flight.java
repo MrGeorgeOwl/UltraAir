@@ -20,6 +20,8 @@ public class Flight extends BaseEntity{
     @Column(name = "arrivalDate")
     private Date arrivalDate;
 
+    public Flight(){}
+
     public Flight(Integer id, String fromPlace, String toPlace, Date departureDate, Date arrivalDate) {
         super.setId(id);
         this.fromPlace = fromPlace;

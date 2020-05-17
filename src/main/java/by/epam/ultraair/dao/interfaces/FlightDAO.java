@@ -10,6 +10,7 @@ public interface FlightDAO {
     Optional<Flight> get(Integer id) throws SQLException;
     ArrayList<Flight> getAll() throws SQLException;
     void createFlight(Flight flight);
-    void deleteFlight(Integer id);
+    void updateFlight(Flight flight);
+    void deleteFlight(Flight flight);
     void deleteFlightFixtures();
 }

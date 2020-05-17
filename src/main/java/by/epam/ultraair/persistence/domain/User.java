@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User extends BaseEntity {
 
     @Column(name = "login")
@@ -16,6 +16,8 @@ public class User extends BaseEntity {
 
     @Column(name = "admin")
     private boolean admin;
+
+    public User(){}
 
     public User(String login, String password, boolean admin){
         this.login = login;

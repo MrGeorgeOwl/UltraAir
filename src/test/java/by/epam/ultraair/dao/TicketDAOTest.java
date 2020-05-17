@@ -12,8 +12,7 @@ import by.epam.ultraair.persistence.domain.Ticket;
 import by.epam.ultraair.persistence.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,30 +28,34 @@ public class TicketDAOTest {
 
     public TicketDAOTest(){
         SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
-        userDAO = new UserDAOImpl(sqlDatabaseConnection);
-        flightDAO = new FlightDAOImpl(sqlDatabaseConnection);
+        userDAO = new UserDAOImpl();
+        flightDAO = new FlightDAOImpl();
         ticketDAO = new TicketDAOImpl(sqlDatabaseConnection);
     }
 
     @Test
+    public void getTicketTest() throws SQLException {
+        logger.info(ticketDAO.get(2).orElse(null));
+    }
+
+    @Test
+    public void getAllTicketsTest() throws SQLException{
+        logger.info(ticketDAO.getAll());
+    }
+
+    @Test
+    public void getTicketsByUser() throws SQLException{
+        User user = userDAO.get(1).orElse(null);
+        logger.info("User " + user + "has tickets below: ");
+        logger.info(ticketDAO.getUserTickets(user));
+    }
+
+    @Test
     public void createTicketTest() throws SQLException {
-        User user = new User("test", "test", false);
-        userDAO.createUser(user);
-
-        Flight flight = new Flight("Test", "Test", new Date(), new Date());
-        flightDAO.createFlight(flight);
-
-        Integer userID = userDAO.get(user.getLogin()).orElse(null).getId();
-
-        ArrayList<Flight> flights = flightDAO.getAll()
-                .stream()
-                .sorted(Comparator.comparingInt(BaseEntity::getId))
-                .collect(Collectors.toCollection(ArrayList::new));
-        Integer flightID = flights.get(flights.size() - 1).getId();
 
         int was =  ticketDAO.getAll().size();
 
-        Ticket ticket = new Ticket(userID, flightID, true, false);
+        Ticket ticket = new Ticket(2, 3, true, false);
         ticketDAO.createTicket(ticket);
 
         ArrayList<Ticket> tickets = ticketDAO.getAll()
@@ -62,11 +65,27 @@ public class TicketDAOTest {
         int become = tickets.size();
 
         Assertions.assertEquals(was + 1, become);
-
-
-        ticketDAO.deleteTicket(tickets.get(tickets.size() - 1).getId());
-        flightDAO.deleteFlight(flightID);
-        userDAO.deleteUser(userID);
     }
 
+    @Test
+    public void upgradeTicketTest() throws SQLException{
+        Ticket ticket_was = ticketDAO.get(3).orElse(null);
+        logger.info(ticket_was);
+        ticket_was.setPrice(1000);
+        ticketDAO.updateTicket(ticket_was);
+        Ticket ticket_become = ticketDAO.get(3).orElse(null);
+        logger.info(ticket_become);
+    }
+
+    @Test
+    public void deleteTicketTest() throws SQLException{
+        int expected = ticketDAO.getAll().size() - 1;
+
+        Ticket ticket = ticketDAO.getAll().get(expected);
+        ticketDAO.deleteTicket(ticket);
+
+        int actual = ticketDAO.getAll().size();
+
+        Assertions.assertEquals(expected, actual);
+    }
 }

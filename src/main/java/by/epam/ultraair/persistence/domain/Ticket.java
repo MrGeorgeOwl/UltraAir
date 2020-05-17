@@ -21,6 +21,7 @@ public class Ticket extends BaseEntity{
     @Column(name = "rightFirstSitting")
     private boolean rightFirstSitting;
 
+    public Ticket(){}
 
     public Ticket(Integer userId, Integer flightId, boolean rightFirstRegistration, boolean rightFirstSitting){
         this.userID = userId;

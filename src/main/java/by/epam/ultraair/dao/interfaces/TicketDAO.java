@@ -12,5 +12,6 @@ public interface TicketDAO {
     ArrayList<Ticket> getAll() throws SQLException;
     ArrayList<Ticket> getUserTickets(User user) throws SQLException;
     void createTicket(Ticket ticket);
-    void deleteTicket(Integer id);
+    void updateTicket(Ticket ticket);
+    void deleteTicket(Ticket ticket);
 }

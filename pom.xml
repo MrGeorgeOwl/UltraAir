@@ -109,5 +109,11 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>8.2.2.jre11</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-agroal</artifactId>
+            <version>5.4.15.Final</version>
+            <type>pom</type>
+        </dependency>
     </dependencies>
 </project>

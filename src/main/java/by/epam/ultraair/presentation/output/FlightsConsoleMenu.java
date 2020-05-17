@@ -196,7 +196,7 @@ public class FlightsConsoleMenu {
         }
         FlightService flightService = new FlightService();
         ArrayList<Flight> flights = flightService.getFlights();
-        flightService.deleteFlight(flights.get(flightNum - 1).getId());
+        flightService.deleteFlight(flights.get(flightNum - 1));
         System.out.println("Flight deleted successfully.");
         pause();
     }
