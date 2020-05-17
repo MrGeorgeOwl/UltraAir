@@ -53,23 +53,10 @@ public class TicketDAOTest {
 
     @Test
     public void createTicketTest() throws SQLException {
-        User user = new User("test", "test", false);
-        userDAO.createUser(user);
-
-        Flight flight = new Flight("Test", "Test", new Date(), new Date());
-        flightDAO.createFlight(flight);
-
-        Integer userID = userDAO.get(user.getLogin()).orElse(null).getId();
-
-        ArrayList<Flight> flights = flightDAO.getAll()
-                .stream()
-                .sorted(Comparator.comparingInt(BaseEntity::getId))
-                .collect(Collectors.toCollection(ArrayList::new));
-        Integer flightID = flights.get(flights.size() - 1).getId();
 
         int was =  ticketDAO.getAll().size();
 
-        Ticket ticket = new Ticket(userID, flightID, true, false);
+        Ticket ticket = new Ticket(2, 3, true, false);
         ticketDAO.createTicket(ticket);
 
         ArrayList<Ticket> tickets = ticketDAO.getAll()
@@ -79,11 +66,29 @@ public class TicketDAOTest {
         int become = tickets.size();
 
         Assertions.assertEquals(was + 1, become);
+    }
 
+    @Test
+    public void deleteTicketTest() throws SQLException{
+        int expected = ticketDAO.getAll().size() - 1;
 
-        ticketDAO.deleteTicket(tickets.get(tickets.size() - 1).getId());
-        flightDAO.deleteFlight(flightID);
-        userDAO.deleteUser(userDAO.get(userID).orElse(null));
+        Ticket ticket = new Ticket(2, 3, true, false);
+        ticket.setId(4);
+        ticketDAO.deleteTicket(ticket);
+
+        int actual = ticketDAO.getAll().size();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void upgradeTicketTest() throws SQLException{
+        Ticket ticket_was = ticketDAO.get(3).orElse(null);
+        logger.info(ticket_was);
+        ticket_was.setPrice(1000);
+        ticketDAO.updateTicket(ticket_was);
+        Ticket ticket_become = ticketDAO.get(3).orElse(null);
+        logger.info(ticket_become);
     }
 
 }

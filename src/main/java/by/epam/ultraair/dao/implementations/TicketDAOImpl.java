@@ -67,10 +67,20 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
-    public void updateTicket(Ticket ticket){}
+    public void updateTicket(Ticket ticket){
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.update(ticket);
+        tx1.commit();
+        session.close();
+    }
 
     @Override
-    public void deleteTicket(Integer id){
-
+    public void deleteTicket(Ticket ticket){
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.delete(ticket);
+        tx1.commit();
+        session.close();
     }
 }
