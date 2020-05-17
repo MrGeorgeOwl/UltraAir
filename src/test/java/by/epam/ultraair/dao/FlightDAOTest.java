@@ -26,7 +26,9 @@ public class FlightDAOTest {
 
     @Test
     public void getFlightTest() throws SQLException{
-        logger.info(flightDAO.get(3).orElse(null));
+        int index = flightDAO.getAll().size() - 1;
+        int id = flightDAO.getAll().get(index).getId();
+        logger.info(flightDAO.get(id).orElse(null));
     }
 
     @Test
@@ -37,39 +39,27 @@ public class FlightDAOTest {
     @Test
     public void createFlightTest() throws SQLException {
         int expected = flightDAO.getAll().size() + 1;
-
         Flight flight = new Flight("Minsk", "Minsk", new Date(), new Date());
         flightDAO.createFlight(flight);
-
         int actual = flightDAO.getAll().size();
-
         Assertions.assertEquals(expected, actual);
-        flightDAO.deleteFlight(flight);
     }
 
     @Test
     public void updateFlightTest() throws SQLException{
-        logger.info(flightDAO.get(4));
+        int index = flightDAO.getAll().size() - 1;
         Flight flight = new Flight("Minsk", "Moscow", new Date(), new Date());
-        flight.setId(4);
+        flight.setId(flightDAO.getAll().get(index).getId());
         flightDAO.updateFlight(flight);
-        logger.info(flightDAO.get(4).orElse(null));
-        flightDAO.deleteFlight(flightDAO.get(4).orElse(null));
     }
 
     @Test
     public void deleteFlightTest() throws SQLException {
         int expected = flightDAO.getAll().size() - 1;
-
-        flightDAO.deleteFlight(flightDAO.get(4).orElse(null));
+        Flight flight = flightDAO.getAll().get(expected);
+        flightDAO.deleteFlight(flight);
         int actual = flightDAO.getAll().size();
-
         Assertions.assertEquals(expected, actual);
-    }
-
-    @AfterAll
-    static void deleteFlightFixtures(){
-        flightDAO.deleteFlightFixtures();
     }
 
 }
