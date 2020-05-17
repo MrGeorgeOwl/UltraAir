@@ -29,9 +29,26 @@ public class TicketDAOTest {
 
     public TicketDAOTest(){
         SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
-        userDAO = new UserDAOImpl(sqlDatabaseConnection);
+        userDAO = new UserDAOImpl();
         flightDAO = new FlightDAOImpl(sqlDatabaseConnection);
         ticketDAO = new TicketDAOImpl(sqlDatabaseConnection);
+    }
+
+    @Test
+    public void getTicketTest() throws SQLException {
+        logger.info(ticketDAO.get(2).orElse(null));
+    }
+
+    @Test
+    public void getAllTicketsTest() throws SQLException{
+        logger.info(ticketDAO.getAll());
+    }
+
+    @Test
+    public void getTicketsByUser() throws SQLException{
+        User user = userDAO.get(1).orElse(null);
+        logger.info("User " + user + "has tickets below: ");
+        logger.info(ticketDAO.getUserTickets(user));
     }
 
     @Test
@@ -66,7 +83,7 @@ public class TicketDAOTest {
 
         ticketDAO.deleteTicket(tickets.get(tickets.size() - 1).getId());
         flightDAO.deleteFlight(flightID);
-        userDAO.deleteUser(userID);
+        userDAO.deleteUser(userDAO.get(userID).orElse(null));
     }
 
 }

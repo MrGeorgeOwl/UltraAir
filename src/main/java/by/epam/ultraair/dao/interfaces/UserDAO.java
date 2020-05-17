@@ -11,6 +11,7 @@ public interface UserDAO {
     Optional<User> get(String login) throws SQLException;
     ArrayList<User> getAll() throws SQLException;
     void createUser(User user);
-    void deleteUser(Integer id);
+    void updateUser(User user);
+    void deleteUser(User user);
     void deleteUserFixture();
 }

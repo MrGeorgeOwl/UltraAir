@@ -16,8 +16,7 @@ public class UserServiceTest {
     private static UserDAO userDAO;
     private UserService userService;
     public UserServiceTest(){
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
-        userDAO = new UserDAOImpl(sqlDatabaseConnection);
+        userDAO = new UserDAOImpl();
         userService = new UserService(DatabaseNames.TEST_DATABASE);
     }
 

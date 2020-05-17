@@ -18,9 +18,24 @@ public class UserDAOTest {
     private static final Logger logger = LogManager.getLogger(UserDAOTest.class.getName());
 
     public UserDAOTest(){
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
-        userDAO = new UserDAOImpl(sqlDatabaseConnection);
+        userDAO = new UserDAOImpl();
     }
+
+    @Test
+    public void getAllUsersTest() throws SQLException{
+        logger.info(userDAO.getAll());
+    }
+
+    @Test
+    public void getSingleUserByIdTest() throws SQLException{
+        logger.info(userDAO.get(1));
+    }
+
+    @Test
+    public void getSingleUserByLoginTest() throws SQLException {
+        logger.info(userDAO.get("admin"));
+    }
+
 
     @Test
     public void createUserTest() throws SQLException{
@@ -37,6 +52,16 @@ public class UserDAOTest {
     }
 
     @Test
+    public void updateUserTest() throws SQLException {
+        User user_was = userDAO.get(2).orElse(null);
+        logger.info(user_was);
+        user_was.setLogin("Ignot");
+        userDAO.updateUser(user_was);
+        User user_become = userDAO.get(2).orElse(null);
+        logger.info(user_become);
+    }
+
+    @Test
     public void deleteUserTest() throws SQLException{
         ArrayList<User> users = userDAO.getAll();
         users = users
@@ -46,15 +71,15 @@ public class UserDAOTest {
         int was = users.size();
 
         User user = users.get(users.size() - 1);
-        userDAO.deleteUser(user.getId());
+        userDAO.deleteUser(user);
 
         int become = userDAO.getAll().size();
 
         Assertions.assertEquals(was - 1, become);
     }
 
-    @AfterAll
-    static void deleteUserFixture(){
-        userDAO.deleteUserFixture();
-    }
+//    @AfterAll
+//    static void deleteUserFixture(){
+//        userDAO.deleteUserFixture();
+//    }
 }
