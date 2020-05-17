@@ -3,8 +3,6 @@ package by.epam.ultraair.dao.implementations;
 import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.User;
 import by.epam.ultraair.utils.HibernateSessionFactoryUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -13,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDAOImpl implements UserDAO {
-
-    private static final Logger logger = LogManager.getLogger(UserDAOImpl.class.getName());
 
     public UserDAOImpl() {
     }

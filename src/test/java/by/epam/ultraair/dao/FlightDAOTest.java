@@ -21,39 +21,50 @@ public class FlightDAOTest {
     private static FlightDAO flightDAO;
 
     public FlightDAOTest() {
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
-        flightDAO = new FlightDAOImpl(sqlDatabaseConnection);
+        flightDAO = new FlightDAOImpl();
+    }
+
+    @Test
+    public void getFlightTest() throws SQLException{
+        logger.info(flightDAO.get(3).orElse(null));
+    }
+
+    @Test
+    public void getAllTest() throws SQLException{
+        logger.info(flightDAO.getAll());
     }
 
     @Test
     public void createFlightTest() throws SQLException {
-        int was = flightDAO.getAll().size();
+        int expected = flightDAO.getAll().size() + 1;
 
         Flight flight = new Flight("Minsk", "Minsk", new Date(), new Date());
         flightDAO.createFlight(flight);
 
-        int become = flightDAO.getAll().size();
+        int actual = flightDAO.getAll().size();
 
-        Assertions.assertEquals(was + 1, become);
+        Assertions.assertEquals(expected, actual);
+        flightDAO.deleteFlight(flight);
+    }
+
+    @Test
+    public void updateFlightTest() throws SQLException{
+        logger.info(flightDAO.get(4));
+        Flight flight = new Flight("Minsk", "Moscow", new Date(), new Date());
+        flight.setId(4);
+        flightDAO.updateFlight(flight);
+        logger.info(flightDAO.get(4).orElse(null));
+        flightDAO.deleteFlight(flightDAO.get(4).orElse(null));
     }
 
     @Test
     public void deleteFlightTest() throws SQLException {
+        int expected = flightDAO.getAll().size() - 1;
 
-        ArrayList<Flight> flights = flightDAO.getAll();
-        flights = flights
-                .stream()
-                .sorted(Comparator.comparingInt(BaseEntity::getId))
-                .collect(Collectors.toCollection(ArrayList::new));
+        flightDAO.deleteFlight(flightDAO.get(4).orElse(null));
+        int actual = flightDAO.getAll().size();
 
-        int was = flights.size();
-
-        Integer id = flights.get(flights.size() - 1).getId();
-        flightDAO.deleteFlight(id);
-
-        int become = flightDAO.getAll().size();
-
-        Assertions.assertEquals(was - 1, become);
+        Assertions.assertEquals(expected, actual);
     }
 
     @AfterAll

@@ -16,9 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class TicketDAOImpl implements TicketDAO {
-    private Connection connection;
-    private String database;
-    private Logger logger = LogManager.getLogger(TicketDAO.class.getName());
 
 
     public TicketDAOImpl(SQLDatabaseConnection sqlDatabaseConnection) {

@@ -78,8 +78,4 @@ public class UserDAOTest {
         Assertions.assertEquals(was - 1, become);
     }
 
-//    @AfterAll
-//    static void deleteUserFixture(){
-//        userDAO.deleteUserFixture();
-//    }
 }

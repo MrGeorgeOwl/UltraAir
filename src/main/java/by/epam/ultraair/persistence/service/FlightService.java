@@ -17,13 +17,11 @@ public class FlightService {
     private final Logger logger = LogManager.getLogger(FlightService.class.getName());
 
     public FlightService() {
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.MAIN_DATABASE);
-        flightDAO = new FlightDAOImpl(sqlDatabaseConnection);
+        flightDAO = new FlightDAOImpl();
     }
 
     public FlightService(String database){
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(database);
-        flightDAO = new FlightDAOImpl(sqlDatabaseConnection);
+        flightDAO = new FlightDAOImpl();
     }
 
     public ArrayList<String> getFlightsStrings() throws SQLException {
@@ -46,7 +44,7 @@ public class FlightService {
         flightDAO.createFlight(flight);
     }
 
-    public void deleteFlight(Integer id) {
-        flightDAO.deleteFlight(id);
+    public void deleteFlight(Flight flight) {
+        flightDAO.deleteFlight(flight);
     }
 }
