@@ -1,17 +1,14 @@
 package by.epam.ultraair.persistence.service;
 
-import by.epam.ultraair.dao.implementations.UserDAOImpl;
+import by.epam.ultraair.dao.implementation.UserDAOImpl;
 import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
 public class UserService {
     private UserDAO userDAO;
-    private Logger logger = LogManager.getLogger(UserService.class.getName());
 
     public UserService(){
         userDAO = new UserDAOImpl();

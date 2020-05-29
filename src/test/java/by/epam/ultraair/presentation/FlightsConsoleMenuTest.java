@@ -1,6 +1,5 @@
 package by.epam.ultraair.presentation;
 
-import by.epam.ultraair.dao.DatabaseNames;
 import by.epam.ultraair.persistence.service.TicketService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +12,7 @@ class FlightsConsoleMenuTest {
 
     @Test
     public void showTicketsTest() throws Exception {
-        TicketService tickets = new TicketService(DatabaseNames.TEST_DATABASE);
+        TicketService tickets = new TicketService();
         ArrayList<String> ticketsList = tickets.getUserTicketsStrings("test_admin");
         StringBuilder result = new StringBuilder();
         for (String ticket : ticketsList) {

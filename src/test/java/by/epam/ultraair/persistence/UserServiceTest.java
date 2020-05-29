@@ -1,6 +1,6 @@
 package by.epam.ultraair.persistence;
 
-import by.epam.ultraair.dao.implementations.UserDAOImpl;
+import by.epam.ultraair.dao.implementation.UserDAOImpl;
 import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.User;
 import by.epam.ultraair.persistence.service.UserService;

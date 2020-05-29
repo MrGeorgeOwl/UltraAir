@@ -1,9 +1,7 @@
 package by.epam.ultraair.persistence.service;
 
-import by.epam.ultraair.dao.DatabaseNames;
-import by.epam.ultraair.dao.SQLDatabaseConnection;
-import by.epam.ultraair.dao.implementations.TicketDAOImpl;
-import by.epam.ultraair.dao.implementations.UserDAOImpl;
+import by.epam.ultraair.dao.implementation.TicketDAOImpl;
+import by.epam.ultraair.dao.implementation.UserDAOImpl;
 import by.epam.ultraair.dao.interfaces.TicketDAO;
 import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.Ticket;
@@ -23,13 +21,6 @@ public class TicketService {
     private final static Logger logger = LogManager.getLogger(TicketService.class.getName());
 
     public TicketService() {
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.MAIN_DATABASE);
-        ticketDAO = new TicketDAOImpl();
-        userDAO = new UserDAOImpl();
-    }
-
-    public TicketService(String database) {
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(database);
         ticketDAO = new TicketDAOImpl();
         userDAO = new UserDAOImpl();
     }

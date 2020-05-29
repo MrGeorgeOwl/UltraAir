@@ -1,8 +1,8 @@
-package by.epam.ultraair.dao.implementations;
+package by.epam.ultraair.dao.implementation;
 
 import by.epam.ultraair.dao.interfaces.FlightDAO;
 import by.epam.ultraair.persistence.domain.Flight;
-import by.epam.ultraair.utils.HibernateSessionFactoryUtil;
+import by.epam.ultraair.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class FlightDAOImpl implements FlightDAO {
-    public FlightDAOImpl() {
-    }
-
     @Override
     public Optional<Flight> get(Integer id) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
@@ -52,10 +49,5 @@ public class FlightDAOImpl implements FlightDAO {
         session.delete(flight);
         tx1.commit();
         session.close();
-    }
-
-    @Override
-    public void deleteFlightFixtures(){
-
     }
 }

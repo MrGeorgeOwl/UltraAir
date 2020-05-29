@@ -1,20 +1,15 @@
 package by.epam.ultraair.dao;
 
-import by.epam.ultraair.dao.implementations.FlightDAOImpl;
+import by.epam.ultraair.dao.implementation.FlightDAOImpl;
 import by.epam.ultraair.dao.interfaces.FlightDAO;
-import by.epam.ultraair.persistence.domain.BaseEntity;
 import by.epam.ultraair.persistence.domain.Flight;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 public class FlightDAOTest {
     private static final Logger logger = LogManager.getLogger();

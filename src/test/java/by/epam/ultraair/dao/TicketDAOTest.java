@@ -1,8 +1,8 @@
 package by.epam.ultraair.dao;
 
-import by.epam.ultraair.dao.implementations.FlightDAOImpl;
-import by.epam.ultraair.dao.implementations.TicketDAOImpl;
-import by.epam.ultraair.dao.implementations.UserDAOImpl;
+import by.epam.ultraair.dao.implementation.FlightDAOImpl;
+import by.epam.ultraair.dao.implementation.TicketDAOImpl;
+import by.epam.ultraair.dao.implementation.UserDAOImpl;
 import by.epam.ultraair.dao.interfaces.FlightDAO;
 import by.epam.ultraair.dao.interfaces.TicketDAO;
 import by.epam.ultraair.dao.interfaces.UserDAO;
@@ -25,7 +25,6 @@ public class TicketDAOTest {
     private static final Logger logger = LogManager.getLogger();
 
     public TicketDAOTest(){
-        SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
         userDAO = new UserDAOImpl();
         flightDAO = new FlightDAOImpl();
         ticketDAO = new TicketDAOImpl();

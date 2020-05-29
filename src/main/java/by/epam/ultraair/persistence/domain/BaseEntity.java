@@ -3,10 +3,8 @@ package by.epam.ultraair.persistence.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 @MappedSuperclass
 public class BaseEntity implements Serializable {
-
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", unique = true)
