@@ -8,7 +8,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Ultra Air | Log In</title>
+    <title>Ultra Air | Ticket order</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style type="text/css">
         body{

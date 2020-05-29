@@ -11,7 +11,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Ultra Air</title>
+    <title>Ultra Air | Home</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style type="text/css">
         body{
@@ -66,9 +66,25 @@
 </head>
 <body>
 <main>
-    <div style="text-align:center; margin-top: -25px">
+    <div style="text-align:center; margin-top: -25px;">
         <h1>Flights</h1>
         <p>Easy buy - easy fly!</p>
+    </div>
+
+    <div style="text-align:center;margin-bottom: 15px;">
+        <%
+            String user = (String) session.getAttribute("user");
+            if (user == null) {
+                user = "Guest";
+            }
+            StringBuilder message = new StringBuilder();
+            message.append("Hello, <b>")
+                    .append(user)
+                    .append("</b>! You can ")
+                    .append("<a href=\"login\">Log In</a>")
+                    .append(" again");
+            out.print(message.toString());
+        %>
     </div>
 
     <div id="flights-container">
