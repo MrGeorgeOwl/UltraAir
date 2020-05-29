@@ -11,16 +11,19 @@ import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 public class FlightsConsoleMenu {
-    public final static Logger log = LogManager.getLogger(FlightsConsoleMenu.class.getName());
+    public final static Logger log = LogManager.getLogger(FlightsConsoleMenu.class.getSimpleName());
     static final Scanner sc = new Scanner(System.in);
 
     boolean isAdmin = false;
     String userLogin = "guest";
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         FlightsConsoleMenu console = new FlightsConsoleMenu(); //variables creating
         String menuStr = "\n------\n"
                 + "1. All flights;\n"
@@ -46,7 +49,7 @@ public class FlightsConsoleMenu {
         console.menu(menuStr, menuStrAdmin, menuStrUser);
     }
 
-    public void menu(String menuStr, String menuStrAdmin, String menuStrUser) throws Exception {
+    public void menu(String menuStr, String menuStrAdmin, String menuStrUser) {
         int choose = -1;
         int chooseExit = 3;
         while(choose != chooseExit){
@@ -60,11 +63,24 @@ public class FlightsConsoleMenu {
             }
             switch (choose) {
                 case 1:
-                    chooseFlight();
+                    try {
+                        chooseFlight();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        log.error(e.getMessage());
+                    }
                     break;
                 case 2:
-                    if(userLogin.equals("guest")) userLogin = logInOut();
-                    else showTickets();
+                    if(userLogin.equals("guest")) {
+                        userLogin = logInOut();
+                    }
+                    else {
+                        try {
+                            showTickets();
+                        } catch (Exception e){
+                            log.error(e.getMessage());
+                        }
+                    }
                     break;
                 case 3:
                     if (chooseExit == 3) break;
@@ -72,7 +88,7 @@ public class FlightsConsoleMenu {
                     break;
                 case 4:
                     if (chooseExit == 4) break;
-//                    if(isAdmin) manageFlights();
+                    if(isAdmin) manageFlights();
             }
         }
     }
@@ -98,7 +114,7 @@ public class FlightsConsoleMenu {
             pause();
             return "guest";
         }
-        if (admin) { //maybe later add some guard
+        if (admin) {
             System.out.println("\nHello, " + login +". You've logged as admin!");
             log.info("Admin logged in.");
             isAdmin = true;
@@ -106,15 +122,11 @@ public class FlightsConsoleMenu {
         else {
             System.out.println("\nHello, " + login +". You've logged as user!");
         }
-        /*else{
-            //TODO: create new user with unknown login
-            System.out.println("\nWelcome, " + login +". You've logged as a new user!");
-        }*/
         pause();
         return login;
     }
 
-    public void manageFlights() throws Exception {
+    public void manageFlights() {
         int chooseExit = 3;
         int choose = -1;
         while(choose != chooseExit) {
@@ -134,7 +146,11 @@ public class FlightsConsoleMenu {
                     addFlight();
                     break;
                 case 2:
-                    deleteFlight();
+                    try {
+                        deleteFlight();
+                    } catch (Exception e) {
+                        log.error(e.getMessage());
+                    }
             }
             System.out.println();
         }
@@ -155,23 +171,36 @@ public class FlightsConsoleMenu {
         }
 
         System.out.print("Enter departure date(dd.MM.yyyy)\n>> ");
-        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy");
-        for (int i = 0; i < 1; i++) {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        if (sc.hasNextLine()){
+            sc.nextLine();
+        }
+        boolean inputSuccess = false;
+        while (!inputSuccess) {
             try {
-                flight.departureDate = ft.parse(sc.next());
+                Date date = format.parse(sc.nextLine());
+                if (date.getTime() < 0){
+                    throw new Exception();
+                }
+                flight.departureDate = date;
+                inputSuccess = true;
             } catch (Exception ignored) {
                 System.out.print("Input error\n>> ");
-                i--;
             }
         }
 
         System.out.print("Enter arrival date(dd.MM.yyyy)\n>> ");
-        for (int i = 0; i < 1; i++) {
+        inputSuccess = false;
+        while (!inputSuccess) {
             try {
-                flight.arrivalDate = ft.parse(sc.next());
+                Date date = format.parse(sc.nextLine());
+                if (date.getTime() < 0){
+                    throw new Exception();
+                }
+                flight.arrivalDate = date;
+                inputSuccess = true;
             } catch (Exception ignored) {
                 System.out.print("Input error\n>> ");
-                i--;
             }
         }
 
@@ -224,11 +253,12 @@ public class FlightsConsoleMenu {
         }
         createTicket(flightNum);
     }
+
     //also return size of flights array
     int showFlights() throws Exception {
         FlightService flights = new FlightService();
         ArrayList<String> flightsList = flights.getFlightsStrings();
-        System.out.print("\nFlights:\n------\n\n");
+        System.out.print("\nFlights:\n------\n");
         for (int i = 0; i < flightsList.size(); i++) {
             System.out.println((i+1) + ". " + flightsList.get(i));
         }
@@ -273,9 +303,12 @@ public class FlightsConsoleMenu {
     public void showTickets() throws Exception{
         TicketService tickets = new TicketService();
         ArrayList<String> ticketsList = tickets.getUserTicketsStrings(userLogin);
-        System.out.print("\nYour tickets:\n------\n\n");
+        System.out.print("\nYour tickets:\n------\n");
         for (int i = 0; i < ticketsList.size(); i++) {
             System.out.println((i+1) + ". " + ticketsList.get(i));
+        }
+        if(ticketsList.size() == 0){
+            System.out.println("You have no tickets...");
         }
         System.out.print("------\n");
         pause();
