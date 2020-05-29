@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public interface TicketDAO {
-    Optional<Ticket> get(Integer id) throws SQLException;
-    ArrayList<Ticket> getAll() throws SQLException;
-    ArrayList<Ticket> getUserTickets(User user) throws SQLException;
+    Optional<Ticket> get(Integer id);
+    ArrayList<Ticket> getAll();
+    ArrayList<Ticket> getUserTickets(User user);
     void createTicket(Ticket ticket);
     void updateTicket(Ticket ticket);
     void deleteTicket(Ticket ticket);

@@ -15,7 +15,7 @@ public class FlightService {
         flightDAO = new FlightDAOImpl();
     }
 
-    public ArrayList<String> getFlightsStrings() throws SQLException {
+    public ArrayList<String> getFlightsStrings() {
         ArrayList<Flight> flights = getFlights();
         ArrayList<String> flightStrings = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class FlightService {
         return flightStrings;
     }
 
-    public ArrayList<Flight> getFlights() throws SQLException{
+    public ArrayList<Flight> getFlights() {
         return flightDAO.getAll();
     }
 

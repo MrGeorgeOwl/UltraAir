@@ -7,8 +7,6 @@ import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.Ticket;
 import by.epam.ultraair.persistence.domain.User;
 import by.epam.ultraair.presentation.dto.TicketDTO;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,39 +16,31 @@ import java.util.stream.Collectors;
 public class TicketService {
     private TicketDAO ticketDAO;
     private UserDAO userDAO;
-    private final static Logger logger = LogManager.getLogger(TicketService.class.getName());
 
     public TicketService() {
         ticketDAO = new TicketDAOImpl();
         userDAO = new UserDAOImpl();
     }
 
-    public ArrayList<String> getUserTicketsStrings(String login) throws Exception {
+    public ArrayList<String> getUserTicketsStrings(String login) {
         ArrayList<Ticket> userTickets = getUserTickets(login);
+        if (userTickets == null){
+            return new ArrayList<>();
+        }
         return userTickets
                 .stream()
                 .map(Ticket::toString)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Ticket> getUserTickets(String login) throws Exception {
+    public ArrayList<Ticket> getUserTickets(String login){
         Optional<User> userOptional = userDAO.get(login);
         User user = userOptional.orElse(null);
-        if (user == null){
-            throw new Exception("There is no such user");
-        }
         return getUserTickets(user);
     }
 
     public ArrayList<Ticket> getUserTickets(User user) {
-        ArrayList<Ticket> userTickets = new ArrayList<>();
-        try{
-            userTickets = ticketDAO.getUserTickets(user);
-        }
-        catch (SQLException e){
-            logger.error(e);
-        }
-        return userTickets;
+        return ticketDAO.getUserTickets(user);
     }
 
     public double getTicketPrice(TicketDTO ticketDTO){
