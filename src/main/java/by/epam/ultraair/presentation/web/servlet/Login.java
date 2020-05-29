@@ -24,19 +24,17 @@ public class Login extends HttpServlet {
 
         UserService userService = new UserService();
         try {
-            log.debug(user);
             userService.isAdmin(user);
         } catch (Exception e) {
             log.warn("Unsuccessful try to log in");
             request.setAttribute("logResult", "Incorrect Username or Password");
-            request.getRequestDispatcher("PAGES/login.jsp").forward(request,response);
+            request.getRequestDispatcher("LogIn").forward(request,response);
             return;
         }
 
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         session.setAttribute("pass", pass);
-        log.debug(request.getContextPath());
-        request.getRequestDispatcher("index.jsp").forward(request,response);
+        request.getRequestDispatcher("Home").forward(request,response);
     }
 }
