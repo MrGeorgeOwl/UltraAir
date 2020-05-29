@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public interface FlightDAO {
-    Optional<Flight> get(Integer id) throws SQLException;
-    ArrayList<Flight> getAll() throws SQLException;
+    Optional<Flight> get(Integer id);
+    ArrayList<Flight> getAll();
     void createFlight(Flight flight);
     void updateFlight(Flight flight);
     void deleteFlight(Flight flight);

@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public interface UserDAO {
-    Optional<User> get(Integer id) throws SQLException;
-    Optional<User> get(String login) throws SQLException;
-    ArrayList<User> getAll() throws SQLException;
+    Optional<User> get(Integer id);
+    Optional<User> get(String login);
+    ArrayList<User> getAll();
     void createUser(User user);
     void updateUser(User user);
     void deleteUser(User user);
