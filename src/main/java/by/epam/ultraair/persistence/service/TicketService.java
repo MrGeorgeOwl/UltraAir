@@ -24,13 +24,13 @@ public class TicketService {
 
     public TicketService() {
         SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.MAIN_DATABASE);
-        ticketDAO = new TicketDAOImpl(sqlDatabaseConnection);
+        ticketDAO = new TicketDAOImpl();
         userDAO = new UserDAOImpl();
     }
 
     public TicketService(String database) {
         SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(database);
-        ticketDAO = new TicketDAOImpl(sqlDatabaseConnection);
+        ticketDAO = new TicketDAOImpl();
         userDAO = new UserDAOImpl();
     }
 

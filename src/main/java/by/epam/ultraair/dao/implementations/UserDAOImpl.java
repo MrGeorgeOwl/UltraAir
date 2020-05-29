@@ -12,9 +12,6 @@ import java.util.Optional;
 
 public class UserDAOImpl implements UserDAO {
 
-    public UserDAOImpl() {
-    }
-
     @Override
     public Optional<User> get(Integer id) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ticket")
+@Table(name = "ticket", catalog = "ultraAir")
 public class Ticket extends BaseEntity{
     @Column(name = "userID")
     private Integer userID;

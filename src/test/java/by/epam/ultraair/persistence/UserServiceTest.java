@@ -1,7 +1,5 @@
 package by.epam.ultraair.persistence;
 
-import by.epam.ultraair.dao.DatabaseNames;
-import by.epam.ultraair.dao.SQLDatabaseConnection;
 import by.epam.ultraair.dao.implementations.UserDAOImpl;
 import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.User;
@@ -17,7 +15,7 @@ public class UserServiceTest {
     private UserService userService;
     public UserServiceTest(){
         userDAO = new UserDAOImpl();
-        userService = new UserService(DatabaseNames.TEST_DATABASE);
+        userService = new UserService();
     }
 
     @Test

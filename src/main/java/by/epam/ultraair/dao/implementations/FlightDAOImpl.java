@@ -1,26 +1,16 @@
 package by.epam.ultraair.dao.implementations;
 
-import by.epam.ultraair.dao.SQLDatabaseConnection;
 import by.epam.ultraair.dao.interfaces.FlightDAO;
 import by.epam.ultraair.persistence.domain.Flight;
-import by.epam.ultraair.persistence.domain.Ticket;
 import by.epam.ultraair.utils.HibernateSessionFactoryUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class FlightDAOImpl implements FlightDAO {
-    private Connection connection;
-    private String database;
-    private static final Logger logger = LogManager.getLogger(FlightDAOImpl.class.getName());
-
     public FlightDAOImpl() {
     }
 
