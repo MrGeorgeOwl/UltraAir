@@ -81,7 +81,7 @@
             message.append("Hello, <b>")
                     .append(user)
                     .append("</b>! You can ")
-                    .append("<a href=\"login\">Log In</a>")
+                    .append("<a href=\"LogIn\">Log In</a>")
                     .append(" again");
             out.print(message.toString());
         %>
@@ -107,7 +107,7 @@
                         .append(flight.getArrivalDate())
                         .append("</p>")
 
-                        .append("<form action=\"OrderTicket\"")
+                        .append("<form action=\"Order\"")
                         .append("enctype=\"multipart/form-data\" method=\"get\">")
                         .append("<input name=\"flight\" type=\"number\" value=")
                         .append(i+1)
