@@ -7,7 +7,6 @@ import by.epam.ultraair.dao.interfaces.FlightDAO;
 import by.epam.ultraair.dao.interfaces.TicketDAO;
 import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.BaseEntity;
-import by.epam.ultraair.persistence.domain.Flight;
 import by.epam.ultraair.persistence.domain.Ticket;
 import by.epam.ultraair.persistence.domain.User;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +16,6 @@ import org.junit.jupiter.api.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 public class TicketDAOTest {
@@ -30,7 +28,7 @@ public class TicketDAOTest {
         SQLDatabaseConnection sqlDatabaseConnection = new SQLDatabaseConnection(DatabaseNames.TEST_DATABASE);
         userDAO = new UserDAOImpl();
         flightDAO = new FlightDAOImpl();
-        ticketDAO = new TicketDAOImpl(sqlDatabaseConnection);
+        ticketDAO = new TicketDAOImpl();
     }
 
     @Test

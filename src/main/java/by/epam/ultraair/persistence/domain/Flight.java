@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "flight")
+@Table(name = "flight", catalog = "ultraAir")
 public class Flight extends BaseEntity{
     @Column(name = "fromPlace")
     private String fromPlace;

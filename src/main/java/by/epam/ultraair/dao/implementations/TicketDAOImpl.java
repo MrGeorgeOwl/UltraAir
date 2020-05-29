@@ -1,12 +1,9 @@
 package by.epam.ultraair.dao.implementations;
 
-import by.epam.ultraair.dao.SQLDatabaseConnection;
 import by.epam.ultraair.dao.interfaces.TicketDAO;
 import by.epam.ultraair.persistence.domain.Ticket;
 import by.epam.ultraair.persistence.domain.User;
 import by.epam.ultraair.utils.HibernateSessionFactoryUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -17,10 +14,6 @@ import java.util.Optional;
 
 public class TicketDAOImpl implements TicketDAO {
 
-
-    public TicketDAOImpl(SQLDatabaseConnection sqlDatabaseConnection) {
-    }
-
     @Override
     public Optional<Ticket> get(Integer id) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
@@ -28,30 +21,18 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
-    public ArrayList<Ticket> getAll() throws SQLException{
+    public ArrayList<Ticket> getAll() {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         List<Ticket> tickets = (List<Ticket>) session.createQuery("From Ticket").list();
         return (ArrayList<Ticket>) tickets;
     }
 
     @Override
-    public ArrayList<Ticket> getUserTickets(User user) throws SQLException{
+    public ArrayList<Ticket> getUserTickets(User user) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         String query = "From Ticket WHERE userID=" + user.getId();
         List<Ticket> tickets = (List<Ticket>) session.createQuery(query).list();
         return (ArrayList<Ticket>) tickets;
-    }
-
-    //По поводу этого метода: как я понял, к бд он не обращается, а значит изменениям не подвергается
-    public Ticket getTicketFromResultSet(ResultSet resultSet) throws SQLException {
-        Integer id = resultSet.getInt("id");
-        Integer userID = resultSet.getInt("userID");
-        Integer flightID = resultSet.getInt("flightID");
-        boolean rightFirstSitting = resultSet.getInt("rightFirstSitting") == 1;
-        boolean rightFirstRegistration = resultSet.getInt("rightFirstRegistration") == 1;
-        double price = resultSet.getDouble("price");
-
-        return new Ticket(id, userID, flightID, rightFirstRegistration, rightFirstSitting, price);
     }
 
     @Override
