@@ -1,8 +1,8 @@
-package by.epam.ultraair.dao.implementations;
+package by.epam.ultraair.dao.implementation;
 
 import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.User;
-import by.epam.ultraair.utils.HibernateSessionFactoryUtil;
+import by.epam.ultraair.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

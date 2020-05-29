@@ -12,5 +12,4 @@ public interface FlightDAO {
     void createFlight(Flight flight);
     void updateFlight(Flight flight);
     void deleteFlight(Flight flight);
-    void deleteFlightFixtures();
 }

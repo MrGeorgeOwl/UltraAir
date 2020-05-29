@@ -1,6 +1,6 @@
 package by.epam.ultraair.persistence.service;
 
-import by.epam.ultraair.dao.implementations.FlightDAOImpl;
+import by.epam.ultraair.dao.implementation.FlightDAOImpl;
 import by.epam.ultraair.dao.interfaces.FlightDAO;
 import by.epam.ultraair.persistence.domain.Flight;
 import by.epam.ultraair.presentation.dto.FlightDTO;

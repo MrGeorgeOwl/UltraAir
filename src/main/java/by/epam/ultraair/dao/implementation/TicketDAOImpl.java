@@ -1,13 +1,12 @@
-package by.epam.ultraair.dao.implementations;
+package by.epam.ultraair.dao.implementation;
 
 import by.epam.ultraair.dao.interfaces.TicketDAO;
 import by.epam.ultraair.persistence.domain.Ticket;
 import by.epam.ultraair.persistence.domain.User;
-import by.epam.ultraair.utils.HibernateSessionFactoryUtil;
+import by.epam.ultraair.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
