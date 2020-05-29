@@ -210,7 +210,7 @@ public class FlightsConsoleMenu {
         pause();
     }
 
-    public void deleteFlight() throws Exception {
+    public void deleteFlight() {
         int flightsSize = showFlights();
         System.out.print("Choose flight\n>> ");
         while (!sc.hasNextInt()) { //check for proper input
@@ -255,7 +255,7 @@ public class FlightsConsoleMenu {
     }
 
     //also return size of flights array
-    int showFlights() throws Exception {
+    int showFlights() {
         FlightService flights = new FlightService();
         ArrayList<String> flightsList = flights.getFlightsStrings();
         System.out.print("\nFlights:\n------\n");
@@ -264,6 +264,7 @@ public class FlightsConsoleMenu {
         }
         System.out.print("------\n");
         return flightsList.size();
+
     }
 
     public void createTicket(int flightNum) throws Exception {
@@ -300,7 +301,7 @@ public class FlightsConsoleMenu {
         pause();
     }
 
-    public void showTickets() throws Exception{
+    public void showTickets(){
         TicketService tickets = new TicketService();
         ArrayList<String> ticketsList = tickets.getUserTicketsStrings(userLogin);
         System.out.print("\nYour tickets:\n------\n");
