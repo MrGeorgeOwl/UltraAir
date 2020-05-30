@@ -17,6 +17,7 @@ public class Login extends HttpServlet {
     static public Logger log = LogManager.getLogger(Login.class.getSimpleName());
 
     @Override
+    // Login user in system
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String user = request.getParameter("user");
@@ -24,27 +25,34 @@ public class Login extends HttpServlet {
 
         UserService userService = new UserService();
         try {
+            // If user doesn't exist, an exception is returned
             userService.isAdmin(user);
         } catch (Exception e) {
             log.warn("Unsuccessful try to log in");
+            // Output of error on login page
             request.setAttribute("logResult", "Incorrect Username or Password");
+            // Send user back to login page
             request.getRequestDispatcher("LogIn").forward(request,response);
             return;
         }
 
+        // Save password and user to session memory
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         session.setAttribute("pass", pass);
+        // Send logged user to home page
         request.getRequestDispatcher("Home").forward(request,response);
     }
 
     @Override
+    // Logout method
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("logout") != null){
             HttpSession session = request.getSession();
             session.removeAttribute("user");
         }
+        // Send user back to home
         request.getRequestDispatcher("Home").forward(request,response);
     }
 }

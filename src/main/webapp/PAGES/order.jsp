@@ -92,6 +92,7 @@
                 <br>First on board:<br>
                 <input type="checkbox" name="onboard" placeholder="Password">
             </label>
+                <input type="hidden" name="getOrderPrice" value = "yes">
             <input id="submit" type="submit" value="Order">
             <%
                 if (request.getAttribute("logResult") != null) {
