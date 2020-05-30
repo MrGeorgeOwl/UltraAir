@@ -82,6 +82,7 @@
             <input style="display: none;" type="hidden" name="toOrder" value="yes">
             <input id="submit" type="submit" value="Order">
         </form>
+        <p style="text-align: center"><a href="Home">Back to home page</a></p>
         <%
             // save ticket to session
             session.setAttribute("ticket", ticket);

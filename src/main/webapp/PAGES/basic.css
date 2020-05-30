@@ -15,8 +15,8 @@ h1 {
     font-size: 18pt;
 }
 a {
-    color: royalblue;
+    color:blueviolet;
 }
 a:hover {
-    color: crimson;
+    color: orangered;
 }

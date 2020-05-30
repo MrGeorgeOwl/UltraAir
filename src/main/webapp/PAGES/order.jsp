@@ -99,6 +99,7 @@
                 }
             %>
         </form>
+        <p style="text-align: center"><a href="Home">Back to home page</a></p>
     </div>
 </div>
 </main>
