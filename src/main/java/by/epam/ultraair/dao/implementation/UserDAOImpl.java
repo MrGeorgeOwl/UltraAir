@@ -6,6 +6,7 @@ import by.epam.ultraair.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,6 +58,34 @@ public class UserDAOImpl implements UserDAO {
         session.delete(user);
         transaction.commit();
         session.close();
+    }
+
+    @Override
+    public void deleteUser(String login) throws SQLException {
+        User user = get(login).orElse(null);
+        if (user != null){
+            Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+            session.delete(user);
+            transaction.commit();
+            session.close();
+        }
+        throw new SQLException("No such user as " + login);
+    }
+
+    @Override
+    public void deleteUser(Integer id) throws SQLException {
+        User user = get(id).orElse(null);
+        if (user != null){
+            Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+            session.delete(user);
+            transaction.commit();
+            session.close();
+        }
+        else{
+            throw new SQLException("No such user with id: " + id);
+        }
     }
 
     @Override
