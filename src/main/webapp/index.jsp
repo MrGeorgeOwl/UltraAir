@@ -36,10 +36,12 @@
 
         .flights-container {
             display: flex;
+            margin: auto;
             flex-direction: row;
             justify-content: space-evenly;
-            flex-basis: 25%;
+            flex-basis: 30%;
             flex-wrap: wrap;
+            width: 75%;
         }
         .flights-container div {
             display: flex;
@@ -49,9 +51,9 @@
             margin: 5px;
             border: black solid 1px;
             background: white;
-            width: 25%;
+            width: 30%;
             min-height: 35vh;
-            max-height: 42%;
+            max-height: 45%;
         }
         .flights-container div p {
             color: gray;
@@ -93,7 +95,6 @@
 
         <hr>
         <div class="flights-container">
-            <hr>
             <%
                 ArrayList<Flight> flights = new FlightService().getFlights();
                 for (int i = 0; i < flights.size(); i++) {
@@ -110,23 +111,22 @@
                     out.print("<input type=\"submit\" value=\"Order\"></form></span></div>");
                 }
             %>
-            <hr>
         </div>
         <hr>
         <h2 style="text-align:center;">Your Tickets</h2>
         <hr>
         <div class="flights-container">
-            <hr>
             <%
                 try {
                     ArrayList<Ticket> tickets = new TicketService().getUserTickets(user);
                     for (Ticket ticket : tickets) {
                         out.print("<div><span>");
-                        out.print("<h2 style=\"margin-top: -15px;margin-bottom: 5px;\">Ticket</h2>");
+                        out.print("<b style=\"Font-Size: 16pt;\">Ticket</b><br>");
                         out.print("Username = <b>" + user + "</b><br>");
                         out.print("Flight Num = <b>" + ticket.getFlightID() + "</b><br>");
                         out.print("First on board = <b>" + ticket.isRightFirstSitting() + "</b><br>");
                         out.print("First on registration = <b>" + ticket.isRightFirstRegistration() + "</b><br>");
+                        //out.print("Departure date = <b>" +  + "</b><br>");
                         out.print("<br>Ticket price = <b>" + ticket.getPrice() + "</b>");
                         out.print("</span></div>");
                     }
@@ -138,7 +138,6 @@
                     out.print("</p>");
                 }
             %>
-            <hr>
         </div>
         <hr>
     </div>

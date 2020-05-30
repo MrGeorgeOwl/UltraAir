@@ -59,10 +59,13 @@
 <body>
 <main>
 <div style="display: table-cell;vertical-align: middle;">
+    <!-- Greetings -->
     <div style="text-align:center; margin-top: -25px">
         <h1>Ultra Air</h1>
         <p>Ticket ordering</p>
     </div>
+
+    <!-- Ticket output -->
     <div>
         <%
             TicketDTO ticket = (TicketDTO) request.getAttribute("ticket");
