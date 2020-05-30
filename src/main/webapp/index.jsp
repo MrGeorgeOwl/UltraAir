@@ -96,19 +96,23 @@
         <div class="flights-container">
             <%
                 // output of available flights
-                ArrayList<Flight> flights = new FlightService().getFlights();
-                for (int i = 0; i < flights.size(); i++) {
-                    Flight flight = flights.get(i);
-                    out.print("<div><span>");
-                    out.print("<h2>" + flight.getFromPlace() + " - " + flight.getToPlace() + "</h2>");
-                    out.print("<p style=\"margin-top: -20px;color: black;\">#" + flight.getId() + "<br></p>");
+                try {
+                    ArrayList<Flight> flights = new FlightService().getFlights();
+                    for (int i = 0; i < flights.size(); i++) {
+                        Flight flight = flights.get(i);
+                        out.print("<div><span>");
+                        out.print("<h2>" + flight.getFromPlace() + " - " + flight.getToPlace() + "</h2>");
+                        out.print("<p style=\"margin-top: -20px;color: black;\">#" + flight.getId() + "<br></p>");
 
-                    out.print("<p><b>Departure:</b><br>" + flight.getDepartureDate() + "<br><br>");
-                    out.print("<b>Arrival:</b><br>" + flight.getArrivalDate() + "</p>");
+                        out.print("<p><b>Departure:</b><br>" + flight.getDepartureDate() + "<br><br>");
+                        out.print("<b>Arrival:</b><br>" + flight.getArrivalDate() + "</p>");
 
-                    out.print("<form action=\"Order\"" + "enctype=\"multipart/form-data\" method=\"get\">");
-                    out.print("<input name=\"flight\" type=\"number\" value=" + (i + 1) + " style=\"display: none;\">");
-                    out.print("<input type=\"submit\" value=\"Order\"></form></span></div>");
+                        out.print("<form action=\"Order\"" + "enctype=\"multipart/form-data\" method=\"get\">");
+                        out.print("<input name=\"flight\" type=\"number\" value=" + (i + 1) + " style=\"display: none;\">");
+                        out.print("<input type=\"submit\" value=\"Order\"></form></span></div>");
+                    }
+                } catch (Exception ignored) {
+                    out.print("There are temporarily no flights...");
                 }
             %>
         </div>
