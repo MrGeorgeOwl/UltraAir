@@ -13,5 +13,7 @@ public interface UserDAO {
     void createUser(User user);
     void updateUser(User user);
     void deleteUser(User user);
+    void deleteUser(String login) throws SQLException;
+    void deleteUser(Integer id) throws SQLException;
     void deleteUserFixture();
 }
