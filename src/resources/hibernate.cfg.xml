@@ -12,7 +12,7 @@
             com.microsoft.sqlserver.jdbc.SQLServerDriver
         </property>
         <property name="hibernate.connection.url">
-            jdbc:sqlserver://localhost:1433;database=ultraAir_test
+            jdbc:sqlserver://localhost:1433;database=ultraAir
         </property>
         <property name="hibernate.connection.username">
             sa
