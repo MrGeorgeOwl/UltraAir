@@ -30,6 +30,10 @@ public class FlightService {
         return flightDAO.getAll();
     }
 
+    public Flight getFlight(Integer id) {
+        return flightDAO.get(id).orElse(null);
+    }
+
     public void addFlight(FlightDTO flightDTO) {
         Flight flight = new Flight(flightDTO.from, flightDTO.to, flightDTO.departureDate, flightDTO.arrivalDate);
         flightDAO.createFlight(flight);

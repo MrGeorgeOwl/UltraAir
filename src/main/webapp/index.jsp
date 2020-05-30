@@ -3,7 +3,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="by.epam.ultraair.persistence.service.TicketService" %>
 <%@ page import="by.epam.ultraair.persistence.domain.Ticket" %>
-<%@ page import="javax.persistence.NoResultException" %>
 <%--
   Created by IntelliJ IDEA.
   User: timoh
@@ -96,6 +95,7 @@
         <hr>
         <div class="flights-container">
             <%
+                // output of available flights
                 ArrayList<Flight> flights = new FlightService().getFlights();
                 for (int i = 0; i < flights.size(); i++) {
                     Flight flight = flights.get(i);
@@ -117,16 +117,18 @@
         <hr>
         <div class="flights-container">
             <%
+                // output of user ordered tickets
                 try {
                     ArrayList<Ticket> tickets = new TicketService().getUserTickets(user);
                     for (Ticket ticket : tickets) {
+                        Flight flight = new FlightService().getFlight(ticket.getFlightID());
                         out.print("<div><span>");
                         out.print("<b style=\"Font-Size: 16pt;\">Ticket</b><br>");
                         out.print("Username = <b>" + user + "</b><br>");
-                        out.print("Flight Num = <b>" + ticket.getFlightID() + "</b><br>");
+                        out.print("Flight ID = <b>" + ticket.getFlightID() + "</b><br>");
                         out.print("First on board = <b>" + ticket.isRightFirstSitting() + "</b><br>");
                         out.print("First on registration = <b>" + ticket.isRightFirstRegistration() + "</b><br>");
-                        //out.print("Departure date = <b>" +  + "</b><br>");
+                        out.print("Departure date = <b>" + flight.getDepartureDate()  + "</b><br>");
                         out.print("<br>Ticket price = <b>" + ticket.getPrice() + "</b>");
                         out.print("</span></div>");
                     }

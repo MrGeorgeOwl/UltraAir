@@ -68,6 +68,7 @@
     <!-- Ticket output -->
     <div>
         <%
+            // get Ticket and sum, that will be show if ticket summary
             TicketDTO ticket = (TicketDTO) request.getAttribute("ticket");
             double sum = (double)request.getAttribute("sum");
             if (ticket == null) {
@@ -90,6 +91,7 @@
             <input id="submit" type="submit" value="Order">
         </form>
         <%
+            // save ticket to session
             session.setAttribute("ticket", ticket);
         %>
     </div>

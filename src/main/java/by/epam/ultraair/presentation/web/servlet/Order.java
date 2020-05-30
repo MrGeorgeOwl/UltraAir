@@ -43,7 +43,6 @@ public class Order extends HttpServlet {
         if (getOrderPrice != null && getOrderPrice.equals("yes")) {
             // get all inputted ticket parameters from order.jsp
             String user = (String) request.getSession().getAttribute("user");
-            int weight = 0;
             int flightNum = 0;
             try {
                 flightNum = Integer.parseInt(request.getParameter("flightNum"));
@@ -62,7 +61,7 @@ public class Order extends HttpServlet {
             }
 
             // create ticket to transfer
-            TicketDTO ticket = createTicket(flightNum, user, weight, firstOnRegistration, firstOnBoard);
+            TicketDTO ticket = createTicket(flightNum, user, firstOnRegistration, firstOnBoard);
             double sum = new TicketService().getTicketPrice(ticket);
 
             // set ticket and sum attributes to get them on the order_summary.jsp
@@ -86,7 +85,7 @@ public class Order extends HttpServlet {
     }
 
     // make TicketDTO object from given fields
-    private TicketDTO createTicket(int flightNum, String user, int luggage, boolean registration, boolean board) {
+    private TicketDTO createTicket(int flightNum, String user, boolean registration, boolean board) {
         TicketDTO ticket = new TicketDTO();
         // get flight from list
         Flight flight = new FlightService().getFlights().get(flightNum - 1);
