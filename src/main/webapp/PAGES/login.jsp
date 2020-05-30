@@ -11,22 +11,9 @@
     <title>Ultra Air | Log In</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style type="text/css">
-        body{
-            font-family: "Open Sans Light", serif;
-            margin: 0;
-            padding: 0;
-            background: white;
-        }
+        <%@include file="basic.css"%>
         main {
             display: table;
-            margin: 0 auto;
-            padding: 1% 2%;
-            width: 70%;
-            min-height: 95vh;
-            background: whitesmoke;
-        }
-        h1 {
-            font-size: 18pt;
         }
 
         #login {
@@ -71,13 +58,14 @@
             <label>
                 <input type="password" name="pass" placeholder="Password">
             </label>
-            <input id="submit" type="submit" value="Sign in">
+            <input id="submit" type="submit" value="Log In">
             <%
                 if (request.getAttribute("logResult") != null) {
                     out.print("<br><b>" + request.getAttribute("logResult") + "</b>");
                 }
             %>
         </form>
+        <p style="text-align: center"><a href="Home">Back to home page</a></p>
     </div>
 </div>
 </main>

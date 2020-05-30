@@ -12,22 +12,9 @@
     <title>Ultra Air | Ticket order</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style type="text/css">
-        body{
-            font-family: "Open Sans Light", serif;
-            margin: 0;
-            padding: 0;
-            background: white;
-        }
+        <%@include file="basic.css"%>
         main {
             display: table;
-            margin: 0 auto;
-            padding: 1% 2%;
-            width: 70%;
-            min-height: 95vh;
-            background: whitesmoke;
-        }
-        h1 {
-            font-size: 18pt;
         }
 
         #order {
@@ -92,7 +79,7 @@
                     out.print("<br>Username:<br> <input id=\"readonly\""
                             +  "type=\"text\" readonly value=\"" + user + "\">");
                     out.print("<br>Flight:<br> <input id=\"readonly\" type=\"number\""
-                            + "name=\"flightNum\" readonly value=\"" + flight.getId() + "\">");
+                            + "name=\"flightID\" readonly value=\"" + flight.getId() + "\">");
                 %>
             </label>
             <label>

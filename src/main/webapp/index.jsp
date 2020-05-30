@@ -16,22 +16,7 @@
     <title>Ultra Air | Home</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style type="text/css">
-        body{
-            font-family: "Open Sans Light", serif;
-            margin: 0;
-            padding: 0;
-            background: white;
-        }
-        main {
-            margin: 0 auto;
-            padding: 1% 2%;
-            width: 70%;
-            min-height: 95vh;
-            background: whitesmoke;
-        }
-        h1 {
-            font-size: 18pt;
-        }
+        <%@include file="PAGES/basic.css"%>
 
         .flights-container {
             display: flex;

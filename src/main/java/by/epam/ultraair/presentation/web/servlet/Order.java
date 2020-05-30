@@ -43,16 +43,16 @@ public class Order extends HttpServlet {
         if (getOrderPrice != null && getOrderPrice.equals("yes")) {
             // get all inputted ticket parameters from order.jsp
             String user = (String) request.getSession().getAttribute("user");
-            int flightNum = 0;
+            int flightID = 0;
             try {
-                flightNum = Integer.parseInt(request.getParameter("flightNum"));
+                flightID = Integer.parseInt(request.getParameter("flightID"));
             } catch (NumberFormatException ignored) {
             }
             boolean firstOnRegistration = "on".equals(request.getParameter("registration"));
             boolean firstOnBoard = "on".equals(request.getParameter("onboard"));
 
             // if there are problems with getting flight, then user isn't logged
-            if (user == null || flightNum == 0) {
+            if (user == null || flightID == 0) {
                 // set error message
                 request.setAttribute("logResult", "Incorrect Username or Password");
                 // send user back with error message
@@ -61,7 +61,7 @@ public class Order extends HttpServlet {
             }
 
             // create ticket to transfer
-            TicketDTO ticket = createTicket(flightNum, user, firstOnRegistration, firstOnBoard);
+            TicketDTO ticket = createTicket(flightID, user, firstOnRegistration, firstOnBoard);
             double sum = new TicketService().getTicketPrice(ticket);
 
             // set ticket and sum attributes to get them on the order_summary.jsp
@@ -85,12 +85,10 @@ public class Order extends HttpServlet {
     }
 
     // make TicketDTO object from given fields
-    private TicketDTO createTicket(int flightNum, String user, boolean registration, boolean board) {
+    private TicketDTO createTicket(int flightID, String user, boolean registration, boolean board) {
         TicketDTO ticket = new TicketDTO();
-        // get flight from list
-        Flight flight = new FlightService().getFlights().get(flightNum - 1);
 
-        ticket.flightID = flight.getId();
+        ticket.flightID = flightID;
         ticket.clientName = user;
         ticket.wantRightFirstRegistration = registration;
         ticket.wantRightFirstSitting = board;
