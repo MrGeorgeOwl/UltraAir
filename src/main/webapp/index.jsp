@@ -127,7 +127,7 @@
                     for (Ticket ticket : tickets) {
                         Flight flight = new FlightService().getFlight(ticket.getFlightID());
                         out.print("<div><span>");
-                        out.print("<b style=\"Font-Size: 16pt;\">Ticket</b><br>");
+                        out.print("<b style=\"Font-Size: 16pt;\">Ticket #" + ticket.getId() + "</b><br>");
                         out.print("Username = <b>" + user + "</b><br>");
                         out.print("Flight ID = <b>" + ticket.getFlightID() + "</b><br>");
                         out.print("First on board = <b>" + ticket.isRightFirstSitting() + "</b><br>");

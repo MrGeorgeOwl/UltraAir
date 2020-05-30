@@ -80,7 +80,7 @@ public class Order extends HttpServlet {
             // Create new ticket in database
             orderTicket((TicketDTO)request.getSession().getAttribute("ticket"));
             // Send user back to home page index.jsp
-            request.getRequestDispatcher("Home").forward(request,response);
+            response.sendRedirect("Home");
         }
     }
 
