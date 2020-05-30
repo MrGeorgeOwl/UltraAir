@@ -37,4 +37,14 @@ public class Login extends HttpServlet {
         session.setAttribute("pass", pass);
         request.getRequestDispatcher("Home").forward(request,response);
     }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (request.getParameter("logout") != null){
+            HttpSession session = request.getSession();
+            session.removeAttribute("user");
+        }
+        request.getRequestDispatcher("Home").forward(request,response);
+    }
 }

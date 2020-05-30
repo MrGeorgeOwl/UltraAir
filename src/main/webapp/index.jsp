@@ -79,9 +79,12 @@
             String user = (String) session.getAttribute("user");
             if (user == null || user.isEmpty()) {
                 user = "Guest";
+                out.print("Welcome, Guest! <a href=\"LogIn\">Log In</a> to order tickets.");
             }
-            out.print("Hello, <b>" + user + "</b>! You can ");
-            out.print("<a href=\"LogIn\">Log In</a> again");
+            else {
+                out.print("Hello, <b>" + user + "</b>! You can ");
+                out.print("<a href=\"Login?logout=yes\">Logout</a> if you want.");
+            }
         %>
     </div>
 
@@ -124,7 +127,7 @@
                     out.print("<br>Ticket price = <b>" + ticket.getPrice() + "</b>");
                     out.print("</span></div>");
                 }
-            } catch(NoResultException ignored) {
+            } catch(Exception ignored) {
                 out.print("<p style=\"text-align:center;\">You have no tickets yet...");
                 if (user.equals("Guest")) {
                     out.print("<br><a href=\"LogIn\">Log In</a> to order one!");
