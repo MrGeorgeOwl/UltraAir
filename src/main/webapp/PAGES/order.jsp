@@ -82,10 +82,6 @@
                 %>
             </label>
             <label>
-                <br>Luggage Weight:<br>
-                <input type="number" min="0" max="100" name="luggage" placeholder="Weight">
-            </label>
-            <label>
                 <br>First on registration:<br>
                 <input type="checkbox" name="registration" placeholder="Password">
             </label>

@@ -48,7 +48,6 @@ public class Order extends HttpServlet {
             int flightNum = 0;
             try {
                 flightNum = Integer.parseInt(request.getParameter("flightNum"));
-                weight = Integer.parseInt(request.getParameter("luggage"));
             } catch (NumberFormatException ignored) {}
             boolean firstOnRegistration = "on".equals(request.getParameter("registration"));
             boolean firstOnBoard = "on".equals(request.getParameter("onboard"));
@@ -73,8 +72,6 @@ public class Order extends HttpServlet {
 
         ticket.flightID = flight.getId();
         ticket.clientName = user;
-        ticket.clientHaveLuggage = (luggage != 0);
-        ticket.luggageWeight = luggage;
         ticket.wantRightFirstRegistration = registration;
         ticket.wantRightFirstSitting = board;
 

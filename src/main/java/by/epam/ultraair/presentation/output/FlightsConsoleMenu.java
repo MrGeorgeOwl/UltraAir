@@ -274,16 +274,6 @@ public class FlightsConsoleMenu {
         ticket.flightID = flight.getId();
         ticket.clientName = userLogin;
 
-        System.out.print("Do you have luggage?(y/n)\n>> ");
-        ticket.clientHaveLuggage = sc.next().equals("y");
-        if(ticket.clientHaveLuggage){
-            System.out.print("Enter luggage weight\n>> ");
-            while (!sc.hasNextInt() || (ticket.luggageWeight = sc.nextInt()) <= 0) { //check for proper input
-                wrongInput();
-                System.out.print(">> ");
-            }
-        }
-
         System.out.print("Do you want to be first on registration?(y/n)\n>> ");
         ticket.wantRightFirstRegistration = sc.next().equals("y");
 

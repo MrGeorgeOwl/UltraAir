@@ -78,7 +78,6 @@
                     out.print("<h2 style=\"margin-top: -15px;margin-bottom: 5px;\">Ticket</h2>");
                     out.print("Username = <b>" + ticket.clientName + "</b><br>");
                     out.print("Flight Num = <b>" + ticket.flightID + "</b><br>");
-                    out.print("Luggage weight = <b>" + ticket.luggageWeight + "</b><br>");
                     out.print("First on board = <b>" + ticket.wantRightFirstSitting + "</b><br>");
                     out.print("First on registration = <b>" + ticket.wantRightFirstRegistration + "</b><br>");
                     out.print("<br>Ticket price = <b>" + sum + "</b>");
