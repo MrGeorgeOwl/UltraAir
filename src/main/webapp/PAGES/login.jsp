@@ -56,10 +56,13 @@
 <body>
 <main>
 <div style="display: table-cell;vertical-align: middle;">
+    <!-- Greetings -->
     <div style="text-align:center; margin-top: -25px">
         <h1>Log in Ultra Air System</h1>
         <p>Easy buy - easy fly!</p>
     </div>
+
+    <!-- Form Output -->
     <div>
         <form id="login" action="Login" enctype="application/x-www-form-urlencoded" method="post">
             <label>
