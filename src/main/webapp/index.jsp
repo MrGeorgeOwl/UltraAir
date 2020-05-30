@@ -1,6 +1,8 @@
 <%@ page import="by.epam.ultraair.persistence.service.FlightService" %>
 <%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="by.epam.ultraair.persistence.service.TicketService" %>
+<%@ page import="by.epam.ultraair.persistence.domain.Ticket" %>
 <%--
   Created by IntelliJ IDEA.
   User: timoh
@@ -31,14 +33,14 @@
             font-size: 18pt;
         }
 
-        #flights-container {
+        .flights-container {
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
             flex-basis: 25%;
             flex-wrap: wrap;
         }
-        #flights-container div {
+        .flights-container div {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -50,16 +52,16 @@
             min-height: 35vh;
             max-height: 42%;
         }
-        #flights-container div p {
+        .flights-container div p {
             color: gray;
         }
-        #flights-container div input {
+        .flights-container div input {
             border: 1px solid black;
             background: white;
             width: 65%;
             border-radius: 8px;
         }
-        #flights-container div input:hover {
+        .flights-container div input:hover {
             background: whitesmoke;
         }
     </style>
@@ -87,35 +89,37 @@
         %>
     </div>
 
-    <div id="flights-container">
+    <div class="flights-container">
         <%
             ArrayList<Flight> flights = new FlightService().getFlights();
             for (int i = 0; i < flights.size(); i++){
                 Flight flight = flights.get(i);
-                StringBuilder flightBuilder = new StringBuilder();
-                flightBuilder.append("<div><span>")
-                        .append("<h2>")
-                        .append(flight.getFromPlace())
-                        .append(" - ").append(flight.getToPlace())
-                        .append("</h2>")
-                        .append("<p style=\"margin-top: -20px;color: black;\">#")
-                        .append(flight.getId()).append("<br></p>")
+                out.print("<div><span>");
+                out.print("<h2>" + flight.getFromPlace() + " - " + flight.getToPlace() + "</h2>");
+                out.print("<p style=\"margin-top: -20px;color: black;\">#" + flight.getId() + "<br></p>");
 
-                        .append("<p><b>Departure:</b><br>")
-                        .append(flight.getDepartureDate()).append("<br><br>")
-                        .append("<b>Arrival:</b><br>")
-                        .append(flight.getArrivalDate())
-                        .append("</p>")
+                out.print("<p><b>Departure:</b><br>" + flight.getDepartureDate() + "<br><br>");
+                out.print("<b>Arrival:</b><br>" + flight.getArrivalDate() + "</p>");
 
-                        .append("<form action=\"Order\"")
-                        .append("enctype=\"multipart/form-data\" method=\"get\">")
-                        .append("<input name=\"flight\" type=\"number\" value=")
-                        .append(i+1)
-                        .append(" style=\"display: none;\">")
-                        .append("<input type=\"submit\" value=\"Order\"></form>")
-
-                        .append("</span></div>");
-                out.print(flightBuilder.toString());
+                out.print("<form action=\"Order\"" + "enctype=\"multipart/form-data\" method=\"get\">");
+                out.print("<input name=\"flight\" type=\"number\" value=" + (i+1) + " style=\"display: none;\">");
+                out.print("<input type=\"submit\" value=\"Order\"></form></span></div>");
+            }
+        %>
+    </div>
+    <h2 style="text-align:center;">Your Tickets</h2>
+    <div class="flights-container">
+        <%
+            ArrayList<Ticket> tickets = new TicketService().getUserTickets(user);
+            for (Ticket ticket : tickets) {
+                out.print("<div><span>");
+                out.print("<h2 style=\"margin-top: -15px;margin-bottom: 5px;\">Ticket</h2>");
+                out.print("Username = <b>" + user + "</b><br>");
+                out.print("Flight Num = <b>" + ticket.getFlightID() + "</b><br>");
+                out.print("First on board = <b>" + ticket.isRightFirstSitting() + "</b><br>");
+                out.print("First on registration = <b>" + ticket.isRightFirstRegistration() + "</b><br>");
+                out.print("<br>Ticket price = <b>" + ticket.getPrice() + "</b>");
+                out.print("</span></div>");
             }
         %>
     </div>
