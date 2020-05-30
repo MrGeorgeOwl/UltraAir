@@ -62,10 +62,13 @@
 <body>
 <main>
 <div style="display: table-cell;vertical-align: middle;">
+    <!-- Greetings -->
     <div style="text-align:center; margin-top: -25px">
         <h1>Ultra Air</h1>
         <p>Ticket ordering</p>
     </div>
+
+    <!-- Order form -->
     <div>
         <form id="order" autocomplete="off" action="Order" enctype="application/x-www-form-urlencoded" method="post">
             <label>

@@ -69,75 +69,79 @@
 </head>
 <body>
 <main>
+    <!-- Greeting -->
     <div style="text-align:center; margin-top: -25px;">
         <h1>Flights</h1>
         <p>Easy buy - easy fly!</p>
     </div>
 
-    <div style="text-align:center;margin-bottom: 15px;">
-        <%
-            String user = (String) session.getAttribute("user");
-            if (user == null || user.isEmpty()) {
-                user = "Guest";
-                out.print("Welcome, Guest! <a href=\"LogIn\">Log In</a> to order tickets.");
-            }
-            else {
-                out.print("Hello, <b>" + user + "</b>! You can ");
-                out.print("<a href=\"Login?logout=yes\">Logout</a> if you want.");
-            }
-        %>
-    </div>
+    <!-- Flights And Tickets Output -->
+    <div>
+        <div style="text-align:center;margin-bottom: 15px;">
+            <%
+                String user = (String) session.getAttribute("user");
+                if (user == null || user.isEmpty()) {
+                    user = "Guest";
+                    out.print("Welcome, Guest! <a href=\"LogIn\">Log In</a> to order tickets.");
+                }
+                else {
+                    out.print("Hello, <b>" + user + "</b>! You can ");
+                    out.print("<a href=\"Login?logout=yes\">Logout</a> if you want.");
+                }
+            %>
+        </div>
 
-    <hr>
-    <div class="flights-container">
         <hr>
-        <%
-            ArrayList<Flight> flights = new FlightService().getFlights();
-            for (int i = 0; i < flights.size(); i++) {
-                Flight flight = flights.get(i);
-                out.print("<div><span>");
-                out.print("<h2>" + flight.getFromPlace() + " - " + flight.getToPlace() + "</h2>");
-                out.print("<p style=\"margin-top: -20px;color: black;\">#" + flight.getId() + "<br></p>");
-
-                out.print("<p><b>Departure:</b><br>" + flight.getDepartureDate() + "<br><br>");
-                out.print("<b>Arrival:</b><br>" + flight.getArrivalDate() + "</p>");
-
-                out.print("<form action=\"Order\"" + "enctype=\"multipart/form-data\" method=\"get\">");
-                out.print("<input name=\"flight\" type=\"number\" value=" + (i + 1) + " style=\"display: none;\">");
-                out.print("<input type=\"submit\" value=\"Order\"></form></span></div>");
-            }
-        %>
-        <hr>
-    </div>
-    <hr>
-    <h2 style="text-align:center;">Your Tickets</h2>
-    <hr>
-    <div class="flights-container">
-        <hr>
-        <%
-            try {
-                ArrayList<Ticket> tickets = new TicketService().getUserTickets(user);
-                for (Ticket ticket : tickets) {
+        <div class="flights-container">
+            <hr>
+            <%
+                ArrayList<Flight> flights = new FlightService().getFlights();
+                for (int i = 0; i < flights.size(); i++) {
+                    Flight flight = flights.get(i);
                     out.print("<div><span>");
-                    out.print("<h2 style=\"margin-top: -15px;margin-bottom: 5px;\">Ticket</h2>");
-                    out.print("Username = <b>" + user + "</b><br>");
-                    out.print("Flight Num = <b>" + ticket.getFlightID() + "</b><br>");
-                    out.print("First on board = <b>" + ticket.isRightFirstSitting() + "</b><br>");
-                    out.print("First on registration = <b>" + ticket.isRightFirstRegistration() + "</b><br>");
-                    out.print("<br>Ticket price = <b>" + ticket.getPrice() + "</b>");
-                    out.print("</span></div>");
+                    out.print("<h2>" + flight.getFromPlace() + " - " + flight.getToPlace() + "</h2>");
+                    out.print("<p style=\"margin-top: -20px;color: black;\">#" + flight.getId() + "<br></p>");
+
+                    out.print("<p><b>Departure:</b><br>" + flight.getDepartureDate() + "<br><br>");
+                    out.print("<b>Arrival:</b><br>" + flight.getArrivalDate() + "</p>");
+
+                    out.print("<form action=\"Order\"" + "enctype=\"multipart/form-data\" method=\"get\">");
+                    out.print("<input name=\"flight\" type=\"number\" value=" + (i + 1) + " style=\"display: none;\">");
+                    out.print("<input type=\"submit\" value=\"Order\"></form></span></div>");
                 }
-            } catch(Exception ignored) {
-                out.print("<p style=\"text-align:center;\">You have no tickets yet...");
-                if (user.equals("Guest")) {
-                    out.print("<br><a href=\"LogIn\">Log In</a> to order one!");
+            %>
+            <hr>
+        </div>
+        <hr>
+        <h2 style="text-align:center;">Your Tickets</h2>
+        <hr>
+        <div class="flights-container">
+            <hr>
+            <%
+                try {
+                    ArrayList<Ticket> tickets = new TicketService().getUserTickets(user);
+                    for (Ticket ticket : tickets) {
+                        out.print("<div><span>");
+                        out.print("<h2 style=\"margin-top: -15px;margin-bottom: 5px;\">Ticket</h2>");
+                        out.print("Username = <b>" + user + "</b><br>");
+                        out.print("Flight Num = <b>" + ticket.getFlightID() + "</b><br>");
+                        out.print("First on board = <b>" + ticket.isRightFirstSitting() + "</b><br>");
+                        out.print("First on registration = <b>" + ticket.isRightFirstRegistration() + "</b><br>");
+                        out.print("<br>Ticket price = <b>" + ticket.getPrice() + "</b>");
+                        out.print("</span></div>");
+                    }
+                } catch(Exception ignored) {
+                    out.print("<p style=\"text-align:center;\">You have no tickets yet...");
+                    if (user.equals("Guest")) {
+                        out.print("<br><a href=\"LogIn\">Log In</a> to order one!");
+                    }
+                    out.print("</p>");
                 }
-                out.print("</p>");
-            }
-        %>
+            %>
+            <hr>
+        </div>
         <hr>
     </div>
-    <hr>
 </main>
 </body>
 </html>
