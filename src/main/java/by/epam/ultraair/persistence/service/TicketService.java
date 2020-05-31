@@ -40,7 +40,7 @@ public class TicketService {
     }
 
     public ArrayList<Ticket> getUserTickets(User user) {
-        return ticketDAO.getUserTickets(user);
+        return ticketDAO.findUserTickets(user);
     }
 
     public double getTicketPrice(TicketDTO ticketDTO){

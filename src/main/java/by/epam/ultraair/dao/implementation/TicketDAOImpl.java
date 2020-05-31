@@ -14,7 +14,7 @@ import java.util.Optional;
 public class TicketDAOImpl implements TicketDAO {
 
     @Override
-    public Optional<Ticket> get(Integer id) {
+    public Optional<Ticket> findById(Integer id) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         return Optional.of(session.get(Ticket.class, id));
     }
@@ -27,7 +27,7 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
-    public ArrayList<Ticket> getUserTickets(User user) {
+    public ArrayList<Ticket> findUserTickets(User user) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         String query = "From Ticket WHERE userID=" + user.getId();
         List<Ticket> tickets = (List<Ticket>) session.createQuery(query).list();

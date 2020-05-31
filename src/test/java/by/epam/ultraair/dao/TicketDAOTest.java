@@ -32,7 +32,7 @@ public class TicketDAOTest {
 
     @Test
     public void getTicketTest() throws SQLException {
-        logger.info(ticketDAO.get(2).orElse(null));
+        logger.info(ticketDAO.findById(2).orElse(null));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TicketDAOTest {
     public void getTicketsByUser() throws SQLException{
         User user = userDAO.get(1).orElse(null);
         logger.info("User " + user + "has tickets below: ");
-        logger.info(ticketDAO.getUserTickets(user));
+        logger.info(ticketDAO.findUserTickets(user));
     }
 
     @Test
@@ -66,11 +66,11 @@ public class TicketDAOTest {
 
     @Test
     public void upgradeTicketTest() throws SQLException{
-        Ticket ticket_was = ticketDAO.get(3).orElse(null);
+        Ticket ticket_was = ticketDAO.findById(3).orElse(null);
         logger.info(ticket_was);
         ticket_was.setPrice(1000);
         ticketDAO.updateTicket(ticket_was);
-        Ticket ticket_become = ticketDAO.get(3).orElse(null);
+        Ticket ticket_become = ticketDAO.findById(3).orElse(null);
         logger.info(ticket_become);
     }
 
