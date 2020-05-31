@@ -1,6 +1,6 @@
 <%@ page import="by.epam.ultraair.presentation.transfer.TicketDTO" %>
-<%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
-<%@ page import="by.epam.ultraair.util.RestManagerUtil" %>
+<%@ page import="by.epam.ultraair.domain.Flight" %>
+<%@ page import="by.epam.ultraair.RestManagerUtil" %>
 <%--
   Created by IntelliJ IDEA.
   User: timoh

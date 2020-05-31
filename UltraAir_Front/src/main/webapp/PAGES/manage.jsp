@@ -1,8 +1,7 @@
-<%@ page import="by.epam.ultraair.persistence.service.UserService" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
+<%@ page import="by.epam.ultraair.domain.Flight" %>
 <%@ page import="by.epam.ultraair.presentation.ManageServlet" %>
-<%@ page import="by.epam.ultraair.util.RestManagerUtil" %><%--
+<%@ page import="by.epam.ultraair.RestManagerUtil" %><%--
   Created by IntelliJ IDEA.
   User: timoh
   Date: 24.02.2020
@@ -85,7 +84,7 @@
     <%
         String user = (String) session.getAttribute("user");
         try {
-            if (user == null || !(new UserService().isAdmin(user))){
+            if (user == null || !(RestManagerUtil.isUserAdmin(user))){
                 throw new Exception();
             }
         } catch (Exception e) {

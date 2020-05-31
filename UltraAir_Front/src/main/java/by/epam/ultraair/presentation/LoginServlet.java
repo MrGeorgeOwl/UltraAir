@@ -1,6 +1,6 @@
 package by.epam.ultraair.presentation;
 
-import by.epam.ultraair.util.RestManagerUtil;
+import by.epam.ultraair.RestManagerUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     // Logout method
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         if (request.getParameter("logout") != null){
             HttpSession session = request.getSession();
             session.removeAttribute("user");

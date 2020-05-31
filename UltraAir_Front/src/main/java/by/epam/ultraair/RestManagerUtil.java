@@ -1,12 +1,12 @@
-package by.epam.ultraair.util;
+package by.epam.ultraair;
 
-import by.epam.ultraair.persistence.domain.Flight;
+import by.epam.ultraair.domain.Flight;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import by.epam.ultraair.persistence.domain.Ticket;
-import by.epam.ultraair.persistence.domain.User;
+import by.epam.ultraair.domain.Ticket;
+import by.epam.ultraair.domain.User;
 import by.epam.ultraair.presentation.transfer.FlightDTO;
 import by.epam.ultraair.presentation.transfer.TicketDTO;
 import org.apache.logging.log4j.LogManager;
@@ -162,7 +162,7 @@ public class RestManagerUtil {
         template.delete(url);
     }
 
-    /* Ticket */
+    /* Ticket CRUD */
 
     public static void createTicket(TicketDTO ticket) {
         RestTemplate template = new RestTemplate();
@@ -186,6 +186,28 @@ public class RestManagerUtil {
                 REST_URL + "tickets",
                 Ticket.class);
         return response.getBody();
+    }
+
+    public static void updateTicket(Integer id, TicketDTO ticket) {
+        RestTemplate template = new RestTemplate();
+        String url = REST_URL + "tickets/" + id;
+
+        HashMap<String, String> ticketMap = new HashMap<>();
+        ticketMap.put("userId", String.valueOf(getUserId(ticket.clientName)));
+        ticketMap.put("flightId", String.valueOf(ticket.flightID));
+        ticketMap.put("rightFirstRegistration", String.valueOf(ticket.wantRightFirstRegistration));
+        ticketMap.put("rightFirstSitting", String.valueOf(ticket.wantRightFirstSitting));
+
+        template.put(
+                url,
+                ticketMap
+        );
+    }
+
+    public static void deleteTicket(int id) {
+        RestTemplate template = new RestTemplate();
+        String url = REST_URL + "tickets/" + id;
+        template.delete(url);
     }
 
 }

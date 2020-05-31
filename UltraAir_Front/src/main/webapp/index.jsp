@@ -1,9 +1,7 @@
-<%@ page import="by.epam.ultraair.persistence.service.FlightService" %>
-<%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
+<%@ page import="by.epam.ultraair.domain.Flight" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="by.epam.ultraair.persistence.domain.Ticket" %>
-<%@ page import="by.epam.ultraair.persistence.service.UserService" %>
-<%@ page import="by.epam.ultraair.util.RestManagerUtil" %>
+<%@ page import="by.epam.ultraair.domain.Ticket" %>
+<%@ page import="by.epam.ultraair.RestManagerUtil" %>
 <%--
   Created by IntelliJ IDEA.
   User: timoh
@@ -109,7 +107,7 @@
                 // output of user ordered tickets
                 ArrayList<Ticket> tickets = RestManagerUtil.getUserTickets(user);
                 for (Ticket ticket : tickets) {
-                    Flight flight = new FlightService().getFlight(ticket.getFlightID());
+                    Flight flight = RestManagerUtil.getFlight(ticket.getFlightID());
                     out.print("<div><span>");
                     out.print("<b style=\"Font-Size: 16pt;\">Ticket #" + ticket.getId() + "</b><br>");
                     out.print("Username = <b>" + user + "</b><br>");
@@ -134,11 +132,9 @@
 
     <!-- Managing page -->
     <div <%
-        try {
-            if (user.equals("Guest") || !(new UserService().isAdmin(user))){
-                out.print("style=\"display: none;\"");
-            }
-        } catch (Exception ignored) { }
+        if (user.equals("Guest") || !(RestManagerUtil.isUserAdmin(user))){
+            out.print("style=\"display: none;\"");
+        }
     %>>
         <form style="text-align: center" action="Manage" enctype="application/x-www-form-urlencoded" method="get">
             Admins page:<br>

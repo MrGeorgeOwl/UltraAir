@@ -1,7 +1,7 @@
 package by.epam.ultraair.presentation;
 
 import by.epam.ultraair.presentation.transfer.FlightDTO;
-import by.epam.ultraair.util.RestManagerUtil;
+import by.epam.ultraair.RestManagerUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

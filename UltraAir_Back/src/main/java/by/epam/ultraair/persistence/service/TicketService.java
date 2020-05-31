@@ -6,9 +6,7 @@ import by.epam.ultraair.dao.interfaces.TicketDAO;
 import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.Ticket;
 import by.epam.ultraair.persistence.domain.User;
-import by.epam.ultraair.presentation.transfer.TicketDTO;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,26 +39,5 @@ public class TicketService {
 
     public ArrayList<Ticket> getUserTickets(User user) {
         return ticketDAO.findUserTickets(user);
-    }
-
-    public double getTicketPrice(TicketDTO ticketDTO){
-        double price = 200.;
-        price = ticketDTO.wantRightFirstRegistration ? price + 20.: price;
-        price = ticketDTO.wantRightFirstSitting ? price + 15.5: price;
-
-        return price;
-    }
-
-    public void createUserTicket(TicketDTO ticketDTO) throws SQLException {
-        User user = userDAO.get(ticketDTO.clientName).orElse(null);
-        if (user == null){
-            throw new SQLException("There is no such user with login %s ", ticketDTO.clientName);
-        }
-        Integer flightID = ticketDTO.flightID;
-        boolean rightFirstSitting = ticketDTO.wantRightFirstSitting;
-        boolean rightFirstRegistration = ticketDTO.wantRightFirstRegistration;
-        Ticket ticket = new Ticket(user.getId(), flightID, rightFirstRegistration, rightFirstSitting);
-
-        ticketDAO.createTicket(ticket);
     }
 }

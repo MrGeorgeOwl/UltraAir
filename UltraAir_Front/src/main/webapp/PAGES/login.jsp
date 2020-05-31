@@ -1,4 +1,4 @@
-<%@ page import="by.epam.ultraair.util.RestManagerUtil" %><%--
+<%@ page import="by.epam.ultraair.RestManagerUtil" %><%--
   Created by IntelliJ IDEA.
   User: timoh
   Date: 24.02.2020
