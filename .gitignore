@@ -1,6 +1,6 @@
 # Default ignored files
-/.idea/
+.idea/
 *.iml
-/logs/
+logs/
 .DS_Store
-/target/
+target/
