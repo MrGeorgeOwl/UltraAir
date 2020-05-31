@@ -1,5 +1,6 @@
 <%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
 <%@ page import="by.epam.ultraair.persistence.service.FlightService" %>
+<%@ page import="by.epam.ultraair.util.RestManagerUtil" %>
 <%--
   Created by IntelliJ IDEA.
   User: timoh
@@ -68,7 +69,7 @@
                     try {
                        flightNum = Integer.parseInt(request.getParameter("flight"));
                     } catch (Exception ignored){};
-                    Flight flight = new FlightService().getFlights().get(flightNum - 1);
+                    Flight flight = RestManagerUtil.getAllFlights().get(flightNum - 1);
                     // if one of info is invalid than user not logged
                     if (user == null || flightNum == -1){
                         // send user to login page

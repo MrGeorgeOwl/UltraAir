@@ -1,8 +1,7 @@
 package by.epam.ultraair.presentation;
 
-import by.epam.ultraair.persistence.service.FlightService;
-import by.epam.ultraair.persistence.service.UserService;
 import by.epam.ultraair.presentation.transfer.FlightDTO;
+import by.epam.ultraair.util.RestManagerUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,12 +31,8 @@ public class ManageServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         // check if user is admin
-        try {
-            String user = (String)request.getSession().getAttribute("user");
-            if (user == null || !(new UserService().isAdmin(user))){
-                throw new Exception();
-            }
-        } catch (Exception ignored) {
+        String user = (String)request.getSession().getAttribute("user");
+        if (user == null || !RestManagerUtil.isUserAdmin(user)) {
             log.warn("Unauthorized try to edit flights");
             // send user to login page on manage page
             response.sendRedirect("LogIn");
@@ -61,14 +56,13 @@ public class ManageServlet extends HttpServlet {
                 return;
             }
             case "delete": {
-                FlightService service = new FlightService();
                 int flightID;
                 try {
                     flightID = Integer.parseInt(request.getParameter("flightID"));
                 } catch (NumberFormatException e) {
                     break;
                 }
-                service.deleteFlight(service.getFlight(flightID));
+                RestManagerUtil.deleteFlight(flightID);
                 break;
             }
             case "add": {
@@ -83,7 +77,7 @@ public class ManageServlet extends HttpServlet {
                     break;
                 }
 
-                new FlightService().addFlight(flight);
+                RestManagerUtil.createFlight(flight);
                 break;
             }
             case "edit": {
@@ -99,7 +93,7 @@ public class ManageServlet extends HttpServlet {
                 } catch (ParseException | NumberFormatException e) {
                     break;
                 }
-                new FlightService().updateFlight(id, flight);
+                RestManagerUtil.updateFlight(id, flight);
                 break;
             }
             default:

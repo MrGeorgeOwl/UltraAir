@@ -1,9 +1,9 @@
 <%@ page import="by.epam.ultraair.persistence.service.FlightService" %>
 <%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="by.epam.ultraair.persistence.service.TicketService" %>
 <%@ page import="by.epam.ultraair.persistence.domain.Ticket" %>
 <%@ page import="by.epam.ultraair.persistence.service.UserService" %>
+<%@ page import="by.epam.ultraair.util.RestManagerUtil" %>
 <%--
   Created by IntelliJ IDEA.
   User: timoh
@@ -23,6 +23,9 @@
             background: white;
             width: 65%;
             border-radius: 8px;
+        }
+        input:hover {
+            background: whitesmoke;
         }
 
         .flights-container {
@@ -48,9 +51,6 @@
         }
         .flights-container div p {
             color: gray;
-        }
-        .flights-container div input:hover {
-            background: whitesmoke;
         }
     </style>
 </head>
@@ -82,22 +82,21 @@
         <div class="flights-container">
             <%
                 // output of available flights
-                try {
-                    ArrayList<Flight> flights = new FlightService().getFlights();
-                    for (int i = 0; i < flights.size(); i++) {
-                        Flight flight = flights.get(i);
-                        out.print("<div><span>");
-                        out.print("<h2>" + flight.getFromPlace() + " - " + flight.getToPlace() + "</h2>");
-                        out.print("<p style=\"margin-top: -20px;color: black;\">#" + flight.getId() + "<br></p>");
+                ArrayList<Flight> flights = RestManagerUtil.getAllFlights();
+                for (int i = 0; i < flights.size(); i++) {
+                    Flight flight = flights.get(i);
+                    out.print("<div><span>");
+                    out.print("<h2>" + flight.getFromPlace() + " - " + flight.getToPlace() + "</h2>");
+                    out.print("<p style=\"margin-top: -20px;color: black;\">#" + flight.getId() + "<br></p>");
 
-                        out.print("<p><b>Departure:</b><br>" + flight.getDepartureDate() + "<br><br>");
-                        out.print("<b>Arrival:</b><br>" + flight.getArrivalDate() + "</p>");
+                    out.print("<p><b>Departure:</b><br>" + flight.getDepartureDate() + "<br><br>");
+                    out.print("<b>Arrival:</b><br>" + flight.getArrivalDate() + "</p>");
 
-                        out.print("<form action=\"Order\"" + "enctype=\"multipart/form-data\" method=\"get\">");
-                        out.print("<input name=\"flight\" type=\"number\" value=" + (i + 1) + " style=\"display: none;\">");
-                        out.print("<input type=\"submit\" value=\"Order\"></form></span></div>");
-                    }
-                } catch (Exception ignored) {
+                    out.print("<form action=\"Order\"" + "enctype=\"multipart/form-data\" method=\"get\">");
+                    out.print("<input name=\"flight\" type=\"number\" value=" + (i + 1) + " style=\"display: none;\">");
+                    out.print("<input type=\"submit\" value=\"Order\"></form></span></div>");
+                }
+                if (flights.size() == 0) {
                     out.print("There are temporarily no flights...");
                 }
             %>
@@ -108,21 +107,20 @@
         <div class="flights-container">
             <%
                 // output of user ordered tickets
-                try {
-                    ArrayList<Ticket> tickets = new TicketService().getUserTickets(user);
-                    for (Ticket ticket : tickets) {
-                        Flight flight = new FlightService().getFlight(ticket.getFlightID());
-                        out.print("<div><span>");
-                        out.print("<b style=\"Font-Size: 16pt;\">Ticket #" + ticket.getId() + "</b><br>");
-                        out.print("Username = <b>" + user + "</b><br>");
-                        out.print("Flight ID = <b>" + ticket.getFlightID() + "</b><br>");
-                        out.print("First on board = <b>" + ticket.isRightFirstSitting() + "</b><br>");
-                        out.print("First on registration = <b>" + ticket.isRightFirstRegistration() + "</b><br>");
-                        out.print("Departure date = <b>" + flight.getDepartureDate()  + "</b><br>");
-                        out.print("<br>Ticket price = <b>" + ticket.getPrice() + "</b>");
-                        out.print("</span></div>");
-                    }
-                } catch(Exception ignored) {
+                ArrayList<Ticket> tickets = RestManagerUtil.getUserTickets(user);
+                for (Ticket ticket : tickets) {
+                    Flight flight = new FlightService().getFlight(ticket.getFlightID());
+                    out.print("<div><span>");
+                    out.print("<b style=\"Font-Size: 16pt;\">Ticket #" + ticket.getId() + "</b><br>");
+                    out.print("Username = <b>" + user + "</b><br>");
+                    out.print("Flight ID = <b>" + ticket.getFlightID() + "</b><br>");
+                    out.print("First on board = <b>" + ticket.isRightFirstSitting() + "</b><br>");
+                    out.print("First on registration = <b>" + ticket.isRightFirstRegistration() + "</b><br>");
+                    out.print("Departure date = <b>" + flight.getDepartureDate() + "</b><br>");
+                    out.print("<br>Ticket price = <b>" + ticket.getPrice() + "</b>");
+                    out.print("</span></div>");
+                }
+                if (tickets.size() == 0) {
                     out.print("<p style=\"text-align:center;\">You have no tickets yet...");
                     if (user.equals("Guest")) {
                         out.print("<br><a href=\"LogIn\">Log In</a> to order one!");
@@ -144,7 +142,7 @@
     %>>
         <form style="text-align: center" action="Manage" enctype="application/x-www-form-urlencoded" method="get">
             Admins page:<br>
-            <input style="max-width: 250px" type="submit" value="Enter Manage Page">
+            <input style="max-width: 250px; height: 30px" type="submit" value="Enter Manage Page">
         </form>
     </div>
 </main>

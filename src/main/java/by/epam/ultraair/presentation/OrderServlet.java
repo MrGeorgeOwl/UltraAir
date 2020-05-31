@@ -1,7 +1,7 @@
 package by.epam.ultraair.presentation;
 
-import by.epam.ultraair.persistence.service.TicketService;
 import by.epam.ultraair.presentation.transfer.TicketDTO;
+import by.epam.ultraair.util.RestManagerUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/Order")
 public class OrderServlet extends HttpServlet {
@@ -61,7 +60,7 @@ public class OrderServlet extends HttpServlet {
 
             // create ticket to transfer
             TicketDTO ticket = createTicket(flightID, user, firstOnRegistration, firstOnBoard);
-            double sum = new TicketService().getTicketPrice(ticket);
+            double sum = 210;
 
             // set ticket and sum attributes to get them on the order_summary.jsp
             request.setAttribute("ticket", ticket);
@@ -77,7 +76,7 @@ public class OrderServlet extends HttpServlet {
             // Remove attribute to not make order again
             request.removeAttribute("toOrder");
             // Create new ticket in database
-            orderTicket((TicketDTO)request.getSession().getAttribute("ticket"));
+            RestManagerUtil.createTicket((TicketDTO)request.getSession().getAttribute("ticket"));
             // Send user back to home page index.jsp
             response.sendRedirect("Home");
         }
@@ -93,15 +92,5 @@ public class OrderServlet extends HttpServlet {
         ticket.wantRightFirstSitting = board;
 
         return ticket;
-    }
-
-    // create new ticket in database
-    private void orderTicket(TicketDTO ticket) {
-        TicketService service = new TicketService();
-        try {
-            service.createUserTicket(ticket);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
     }
 }

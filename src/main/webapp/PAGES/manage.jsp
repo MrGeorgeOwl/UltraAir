@@ -1,8 +1,8 @@
 <%@ page import="by.epam.ultraair.persistence.service.UserService" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
-<%@ page import="by.epam.ultraair.persistence.service.FlightService" %>
-<%@ page import="by.epam.ultraair.presentation.ManageServlet" %><%--
+<%@ page import="by.epam.ultraair.presentation.ManageServlet" %>
+<%@ page import="by.epam.ultraair.util.RestManagerUtil" %><%--
   Created by IntelliJ IDEA.
   User: timoh
   Date: 24.02.2020
@@ -115,7 +115,7 @@
             </thead>
             <%
                 //flights table
-                ArrayList<Flight> flights = new FlightService().getFlights();
+                ArrayList<Flight> flights = RestManagerUtil.getAllFlights();
                 for(Flight flight: flights) {
                     out.print("<tr>");
                     out.print("<td>" + flight.getId() + "</td>");

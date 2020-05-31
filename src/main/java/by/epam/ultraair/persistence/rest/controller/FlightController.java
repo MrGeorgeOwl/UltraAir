@@ -37,7 +37,7 @@ public class FlightController {
         }
     }
 
-    @PostMapping("create")
+    @PostMapping
     public ResponseEntity<String> createFlight(@RequestBody Map<String, String> request) {
         String fromPlace = request.get("fromPlace");
         String toPlace = request.get("toPlace");
@@ -109,7 +109,7 @@ public class FlightController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteFlight(@PathVariable Integer id){
+    public ResponseEntity<String> deleteFlight(@PathVariable("id") Integer id){
         Flight flight = new FlightDAOImpl().get(id).orElse(null);
 
         if (flight == null){
@@ -119,5 +119,4 @@ public class FlightController {
         new FlightDAOImpl().deleteFlight(flight);
         return new ResponseEntity<>("Delete Success", HttpStatus.OK);
     }
-
 }

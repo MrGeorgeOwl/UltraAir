@@ -1,6 +1,6 @@
 package by.epam.ultraair.presentation;
 
-import by.epam.ultraair.persistence.service.UserService;
+import by.epam.ultraair.util.RestManagerUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,11 +23,7 @@ public class LoginServlet extends HttpServlet {
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
 
-        UserService userService = new UserService();
-        try {
-            // If user doesn't exist, an exception is returned
-            userService.isAdmin(user);
-        } catch (Exception e) {
+        if (!RestManagerUtil.isUserExists(user)) {
             log.warn("Unsuccessful try to log in");
             // Output of error on login page
             request.setAttribute("logResult", "Incorrect Username or Password");

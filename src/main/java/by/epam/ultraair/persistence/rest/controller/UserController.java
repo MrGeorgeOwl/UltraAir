@@ -33,7 +33,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("create")
+    @PostMapping
     public ResponseEntity<String> createUser(@RequestBody Map<String, String> request){
         String login = request.get("login");
         String password = request.get("password");
@@ -43,7 +43,7 @@ public class UserController {
         return new ResponseEntity<>("Successfully added", HttpStatus.OK);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id){
         ResponseEntity<String> responseEntity = null;
         try{

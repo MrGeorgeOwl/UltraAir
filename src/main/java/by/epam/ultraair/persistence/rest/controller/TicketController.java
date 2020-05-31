@@ -26,7 +26,7 @@ public class TicketController {
         return ResponseEntity.ok(ticket);
     }
 
-    @PostMapping("create")
+    @PostMapping
     public ResponseEntity<String> createTicket(@RequestBody Map<String, String> requestBody){
         Integer userId = Integer.valueOf(requestBody.get("userId"));
         Integer flightId = Integer.valueOf(requestBody.get("flightId"));
@@ -36,7 +36,7 @@ public class TicketController {
         return new ResponseEntity<>("Ticket created", HttpStatus.OK);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteTicket(@PathVariable Integer id){
         TicketDAOImpl ticketDAO = new TicketDAOImpl();
         Ticket ticket = ticketDAO.findById(id).orElse(null);

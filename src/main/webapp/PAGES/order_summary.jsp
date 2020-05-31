@@ -1,6 +1,6 @@
 <%@ page import="by.epam.ultraair.presentation.transfer.TicketDTO" %>
 <%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
-<%@ page import="by.epam.ultraair.persistence.service.FlightService" %>
+<%@ page import="by.epam.ultraair.util.RestManagerUtil" %>
 <%--
   Created by IntelliJ IDEA.
   User: timoh
@@ -69,7 +69,7 @@
         <form id="order" autocomplete="off" action="Order" enctype="application/x-www-form-urlencoded" method="post">
             <p>
                 <%
-                    Flight flight = new FlightService().getFlight(ticket.flightID);
+                    Flight flight = RestManagerUtil.getFlight(ticket.flightID);
                     out.print("<b style=\"Font-Size: 16pt;\">New Ticket</b><br>");
                     out.print("Username = <b>" + ticket.clientName + "</b><br>");
                     out.print("Flight Num = <b>" + ticket.flightID + "</b><br>");
