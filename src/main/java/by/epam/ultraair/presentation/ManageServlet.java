@@ -42,7 +42,6 @@ public class ManageServlet extends HttpServlet {
             // send user to login page on manage page
             response.sendRedirect("LogIn");
         }
-        boolean success = true;
         switch(action) {
             case "goToAdd": {
                 request.setAttribute("formAction", "add");
@@ -67,7 +66,6 @@ public class ManageServlet extends HttpServlet {
                 try {
                     flightID = Integer.parseInt(request.getParameter("flightID"));
                 } catch (NumberFormatException e) {
-                    success = false;
                     break;
                 }
                 service.deleteFlight(service.getFlight(flightID));
@@ -82,7 +80,6 @@ public class ManageServlet extends HttpServlet {
                     flight.departureDate = format.parse(request.getParameter("departure"));
                     flight.arrivalDate = format.parse(request.getParameter("arrival"));
                 } catch (ParseException e) {
-                    success = false;
                     break;
                 }
 
@@ -100,14 +97,12 @@ public class ManageServlet extends HttpServlet {
                     flight.arrivalDate = format.parse(request.getParameter("arrival"));
                     id = Integer.parseInt(request.getParameter("flightID"));
                 } catch (ParseException | NumberFormatException e) {
-                    success = false;
                     break;
                 }
                 new FlightService().updateFlight(id, flight);
                 break;
             }
             default:
-                success = false;
         }
         // send admin back to manage page
         response.sendRedirect("Managing");
