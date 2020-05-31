@@ -2,6 +2,7 @@ package by.epam.ultraair.persistence.rest.controller;
 
 
 import by.epam.ultraair.dao.implementation.UserDAOImpl;
+import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,13 +58,14 @@ public class UserController {
 
     @PutMapping("{id}")
     public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody Map<String, String> body){
-        User user = new UserDAOImpl().get(id).orElse(null);
+        UserDAO userDAO = new UserDAOImpl();
+        User user = userDAO.get(id).orElse(null);
         ResponseEntity<String> responseEntity = null;
         if (user != null){
             user.setLogin(body.get("login"));
             user.setPassword(body.get("password"));
             user.setAdmin(body.get("admin").equals("true"));
-            new UserDAOImpl().updateUser(user);
+            userDAO.updateUser(user);
             responseEntity = new ResponseEntity<>("User with id " + id + " updated", HttpStatus.OK);
         }
         else{
