@@ -1,4 +1,4 @@
-<%@ page import="by.epam.ultraair.presentation.dto.TicketDTO" %>
+<%@ page import="by.epam.ultraair.presentation.transfer.TicketDTO" %>
 <%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
 <%@ page import="by.epam.ultraair.persistence.service.FlightService" %>
 <%--

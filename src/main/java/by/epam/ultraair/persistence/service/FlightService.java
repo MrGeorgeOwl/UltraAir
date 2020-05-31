@@ -3,9 +3,8 @@ package by.epam.ultraair.persistence.service;
 import by.epam.ultraair.dao.implementation.FlightDAOImpl;
 import by.epam.ultraair.dao.interfaces.FlightDAO;
 import by.epam.ultraair.persistence.domain.Flight;
-import by.epam.ultraair.presentation.dto.FlightDTO;
+import by.epam.ultraair.presentation.transfer.FlightDTO;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FlightService {
