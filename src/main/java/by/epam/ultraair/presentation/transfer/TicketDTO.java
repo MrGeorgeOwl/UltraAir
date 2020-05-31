@@ -1,4 +1,4 @@
-package by.epam.ultraair.presentation.dto;
+package by.epam.ultraair.presentation.transfer;
 
 public class TicketDTO {
     public String clientName;

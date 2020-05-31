@@ -3,7 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="by.epam.ultraair.persistence.service.TicketService" %>
 <%@ page import="by.epam.ultraair.persistence.domain.Ticket" %>
-<%@ page import="javax.persistence.NoResultException" %>
+<%@ page import="by.epam.ultraair.persistence.service.UserService" %>
 <%--
   Created by IntelliJ IDEA.
   User: timoh
@@ -17,21 +17,12 @@
     <title>Ultra Air | Home</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style type="text/css">
-        body{
-            font-family: "Open Sans Light", serif;
-            margin: 0;
-            padding: 0;
+        <%@include file="PAGES/basic.css"%>
+        input {
+            border: 1px solid black;
             background: white;
-        }
-        main {
-            margin: 0 auto;
-            padding: 1% 2%;
-            width: 70%;
-            min-height: 95vh;
-            background: whitesmoke;
-        }
-        h1 {
-            font-size: 18pt;
+            width: 65%;
+            border-radius: 8px;
         }
 
         .flights-container {
@@ -57,12 +48,6 @@
         }
         .flights-container div p {
             color: gray;
-        }
-        .flights-container div input {
-            border: 1px solid black;
-            background: white;
-            width: 65%;
-            border-radius: 8px;
         }
         .flights-container div input:hover {
             background: whitesmoke;
@@ -96,6 +81,7 @@
         <hr>
         <div class="flights-container">
             <%
+                // output of available flights
                 try {
                     ArrayList<Flight> flights = new FlightService().getFlights();
                     for (int i = 0; i < flights.size(); i++) {
@@ -108,7 +94,7 @@
                         out.print("<b>Arrival:</b><br>" + flight.getArrivalDate() + "</p>");
 
                         out.print("<form action=\"Order\"" + "enctype=\"multipart/form-data\" method=\"get\">");
-                        out.print("<input name=\"flight\" type=\"number\" value=\" + (i + 1) + \" style=\"display: none;\">");
+                        out.print("<input name=\"flight\" type=\"number\" value=" + (i + 1) + " style=\"display: none;\">");
                         out.print("<input type=\"submit\" value=\"Order\"></form></span></div>");
                     }
                 } catch (Exception ignored) {
@@ -121,15 +107,18 @@
         <hr>
         <div class="flights-container">
             <%
+                // output of user ordered tickets
                 try {
                     ArrayList<Ticket> tickets = new TicketService().getUserTickets(user);
                     for (Ticket ticket : tickets) {
+                        Flight flight = new FlightService().getFlight(ticket.getFlightID());
                         out.print("<div><span>");
-                        out.print("<h2 style=\"margin-top: -15px;margin-bottom: 5px;\">Ticket</h2>");
+                        out.print("<b style=\"Font-Size: 16pt;\">Ticket #" + ticket.getId() + "</b><br>");
                         out.print("Username = <b>" + user + "</b><br>");
-                        out.print("Flight Num = <b>" + ticket.getFlightID() + "</b><br>");
+                        out.print("Flight ID = <b>" + ticket.getFlightID() + "</b><br>");
                         out.print("First on board = <b>" + ticket.isRightFirstSitting() + "</b><br>");
                         out.print("First on registration = <b>" + ticket.isRightFirstRegistration() + "</b><br>");
+                        out.print("Departure date = <b>" + flight.getDepartureDate()  + "</b><br>");
                         out.print("<br>Ticket price = <b>" + ticket.getPrice() + "</b>");
                         out.print("</span></div>");
                     }
@@ -143,6 +132,20 @@
             %>
         </div>
         <hr>
+    </div>
+
+    <!-- Managing page -->
+    <div <%
+        try {
+            if (user.equals("Guest") || !(new UserService().isAdmin(user))){
+                out.print("style=\"display: none;\"");
+            }
+        } catch (Exception ignored) { }
+    %>>
+        <form style="text-align: center" action="Manage" enctype="application/x-www-form-urlencoded" method="get">
+            Admins page:<br>
+            <input style="max-width: 250px" type="submit" value="Enter Manage Page">
+        </form>
     </div>
 </main>
 </body>

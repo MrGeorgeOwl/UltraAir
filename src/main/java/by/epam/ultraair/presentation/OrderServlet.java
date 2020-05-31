@@ -1,9 +1,7 @@
-package by.epam.ultraair.presentation.web.servlet;
+package by.epam.ultraair.presentation;
 
-import by.epam.ultraair.persistence.domain.Flight;
-import by.epam.ultraair.persistence.service.FlightService;
 import by.epam.ultraair.persistence.service.TicketService;
-import by.epam.ultraair.presentation.dto.TicketDTO;
+import by.epam.ultraair.presentation.transfer.TicketDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,8 +15,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/Order")
-public class Order extends HttpServlet {
-    static public Logger log = LogManager.getLogger(Order.class.getSimpleName());
+public class OrderServlet extends HttpServlet {
+    static public Logger log = LogManager.getLogger(OrderServlet.class.getSimpleName());
 
     @Override
     // Get method being called when user click on "Order" button on one of the flights of index.jsp
@@ -43,17 +41,17 @@ public class Order extends HttpServlet {
         if (getOrderPrice != null && getOrderPrice.equals("yes")) {
             // get all inputted ticket parameters from order.jsp
             String user = (String) request.getSession().getAttribute("user");
-            int weight = 0;
-            int flightNum = 0;
+            int flightID = 0;
             try {
-                flightNum = Integer.parseInt(request.getParameter("flightNum"));
+                flightID = Integer.parseInt(request.getParameter("flightID"));
             } catch (NumberFormatException ignored) {
+                log.warn("Unauthorized try to order a ticket.");
             }
             boolean firstOnRegistration = "on".equals(request.getParameter("registration"));
             boolean firstOnBoard = "on".equals(request.getParameter("onboard"));
 
             // if there are problems with getting flight, then user isn't logged
-            if (user == null || flightNum == 0) {
+            if (user == null || flightID == 0) {
                 // set error message
                 request.setAttribute("logResult", "Incorrect Username or Password");
                 // send user back with error message
@@ -62,7 +60,7 @@ public class Order extends HttpServlet {
             }
 
             // create ticket to transfer
-            TicketDTO ticket = createTicket(flightNum, user, weight, firstOnRegistration, firstOnBoard);
+            TicketDTO ticket = createTicket(flightID, user, firstOnRegistration, firstOnBoard);
             double sum = new TicketService().getTicketPrice(ticket);
 
             // set ticket and sum attributes to get them on the order_summary.jsp
@@ -81,17 +79,15 @@ public class Order extends HttpServlet {
             // Create new ticket in database
             orderTicket((TicketDTO)request.getSession().getAttribute("ticket"));
             // Send user back to home page index.jsp
-            request.getRequestDispatcher("Home").forward(request,response);
+            response.sendRedirect("Home");
         }
     }
 
     // make TicketDTO object from given fields
-    private TicketDTO createTicket(int flightNum, String user, int luggage, boolean registration, boolean board) {
+    private TicketDTO createTicket(int flightID, String user, boolean registration, boolean board) {
         TicketDTO ticket = new TicketDTO();
-        // get flight from list
-        Flight flight = new FlightService().getFlights().get(flightNum - 1);
 
-        ticket.flightID = flight.getId();
+        ticket.flightID = flightID;
         ticket.clientName = user;
         ticket.wantRightFirstRegistration = registration;
         ticket.wantRightFirstSitting = board;

@@ -25,6 +25,10 @@
     <servlet-name>OrderSummary</servlet-name>
     <jsp-file>/PAGES/order_summary.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>Managing</servlet-name>
+    <jsp-file>/PAGES/manage.jsp</jsp-file>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>LogIn</servlet-name>
@@ -41,6 +45,10 @@
   <servlet-mapping>
     <servlet-name>OrderSummary</servlet-name>
     <url-pattern>/OrderSummary</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Managing</servlet-name>
+    <url-pattern>/Managing</url-pattern>
   </servlet-mapping>
 
 </web-app>

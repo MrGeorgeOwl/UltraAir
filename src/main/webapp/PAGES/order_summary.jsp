@@ -1,4 +1,7 @@
-<%@ page import="by.epam.ultraair.presentation.dto.TicketDTO" %><%--
+<%@ page import="by.epam.ultraair.presentation.transfer.TicketDTO" %>
+<%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
+<%@ page import="by.epam.ultraair.persistence.service.FlightService" %>
+<%--
   Created by IntelliJ IDEA.
   User: timoh
   Date: 24.02.2020
@@ -11,22 +14,9 @@
     <title>Ultra Air | Ticket order</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style type="text/css">
-        body{
-            font-family: "Open Sans Light", serif;
-            margin: 0;
-            padding: 0;
-            background: white;
-        }
+        <%@include file="basic.css"%>
         main {
             display: table;
-            margin: 0 auto;
-            padding: 1% 2%;
-            width: 70%;
-            min-height: 95vh;
-            background: whitesmoke;
-        }
-        h1 {
-            font-size: 18pt;
         }
 
         #order {
@@ -68,6 +58,7 @@
     <!-- Ticket output -->
     <div>
         <%
+            // get Ticket and sum, that will be show if ticket summary
             TicketDTO ticket = (TicketDTO) request.getAttribute("ticket");
             double sum = (double)request.getAttribute("sum");
             if (ticket == null) {
@@ -78,18 +69,22 @@
         <form id="order" autocomplete="off" action="Order" enctype="application/x-www-form-urlencoded" method="post">
             <p>
                 <%
-                    out.print("<h2 style=\"margin-top: -15px;margin-bottom: 5px;\">Ticket</h2>");
+                    Flight flight = new FlightService().getFlight(ticket.flightID);
+                    out.print("<b style=\"Font-Size: 16pt;\">New Ticket</b><br>");
                     out.print("Username = <b>" + ticket.clientName + "</b><br>");
                     out.print("Flight Num = <b>" + ticket.flightID + "</b><br>");
                     out.print("First on board = <b>" + ticket.wantRightFirstSitting + "</b><br>");
                     out.print("First on registration = <b>" + ticket.wantRightFirstRegistration + "</b><br>");
+                    out.print("Departure date = <b>" + flight.getDepartureDate()  + "</b><br>");
                     out.print("<br>Ticket price = <b>" + sum + "</b>");
                 %>
             </p>
             <input style="display: none;" type="hidden" name="toOrder" value="yes">
             <input id="submit" type="submit" value="Order">
         </form>
+        <p style="text-align: center"><a href="Home">Back to home page</a></p>
         <%
+            // save ticket to session
             session.setAttribute("ticket", ticket);
         %>
     </div>

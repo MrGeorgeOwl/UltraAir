@@ -6,7 +6,7 @@ import by.epam.ultraair.dao.interfaces.TicketDAO;
 import by.epam.ultraair.dao.interfaces.UserDAO;
 import by.epam.ultraair.persistence.domain.Ticket;
 import by.epam.ultraair.persistence.domain.User;
-import by.epam.ultraair.presentation.dto.TicketDTO;
+import by.epam.ultraair.presentation.transfer.TicketDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

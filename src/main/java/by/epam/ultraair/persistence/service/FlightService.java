@@ -3,9 +3,8 @@ package by.epam.ultraair.persistence.service;
 import by.epam.ultraair.dao.implementation.FlightDAOImpl;
 import by.epam.ultraair.dao.interfaces.FlightDAO;
 import by.epam.ultraair.persistence.domain.Flight;
-import by.epam.ultraair.presentation.dto.FlightDTO;
+import by.epam.ultraair.presentation.transfer.FlightDTO;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FlightService {
@@ -30,9 +29,18 @@ public class FlightService {
         return flightDAO.getAll();
     }
 
+    public Flight getFlight(Integer id) {
+        return flightDAO.get(id).orElse(null);
+    }
+
     public void addFlight(FlightDTO flightDTO) {
         Flight flight = new Flight(flightDTO.from, flightDTO.to, flightDTO.departureDate, flightDTO.arrivalDate);
         flightDAO.createFlight(flight);
+    }
+
+    public void updateFlight(int id, FlightDTO fl) {
+        Flight flight = new Flight(id, fl.from, fl.to, fl.departureDate, fl.arrivalDate);
+        flightDAO.updateFlight(flight);
     }
 
     public void deleteFlight(Flight flight) {

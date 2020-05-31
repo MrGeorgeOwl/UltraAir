@@ -1,4 +1,4 @@
-package by.epam.ultraair.presentation.web.servlet;
+package by.epam.ultraair.presentation;
 
 import by.epam.ultraair.persistence.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/Login")
-public class Login extends HttpServlet {
-    static public Logger log = LogManager.getLogger(Login.class.getSimpleName());
+public class LoginServlet extends HttpServlet {
+    static public Logger log = LogManager.getLogger(LoginServlet.class.getSimpleName());
 
     @Override
     // Login user in system
@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
         session.setAttribute("user", user);
         session.setAttribute("pass", pass);
         // Send logged user to home page
-        request.getRequestDispatcher("Home").forward(request,response);
+        response.sendRedirect("Home");
     }
 
     @Override
@@ -53,6 +53,6 @@ public class Login extends HttpServlet {
             session.removeAttribute("user");
         }
         // Send user back to home
-        request.getRequestDispatcher("Home").forward(request,response);
+        response.sendRedirect("Home");
     }
 }
