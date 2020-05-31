@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <File name="logFile" fileName="logs/output.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- for hibernate logging  -->
+        <Logger name="org.hibernate" level="fatal" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Root Logger -->
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="logFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
