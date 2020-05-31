@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="by.epam.ultraair.persistence.service.TicketService" %>
 <%@ page import="by.epam.ultraair.persistence.domain.Ticket" %>
+<%@ page import="by.epam.ultraair.persistence.service.UserService" %>
 <%--
   Created by IntelliJ IDEA.
   User: timoh
@@ -17,6 +18,13 @@
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style type="text/css">
         <%@include file="PAGES/basic.css"%>
+        input {
+            border: 1px solid black;
+            background: white;
+            width: 65%;
+            border-radius: 8px;
+        }
+
         .flights-container {
             display: flex;
             margin: auto;
@@ -40,12 +48,6 @@
         }
         .flights-container div p {
             color: gray;
-        }
-        .flights-container div input {
-            border: 1px solid black;
-            background: white;
-            width: 65%;
-            border-radius: 8px;
         }
         .flights-container div input:hover {
             background: whitesmoke;
@@ -130,6 +132,20 @@
             %>
         </div>
         <hr>
+    </div>
+
+    <!-- Managing page -->
+    <div <%
+        try {
+            if (user.equals("Guest") || !(new UserService().isAdmin(user))){
+                out.print("style=\"display: none;\"");
+            }
+        } catch (Exception ignored) { }
+    %>>
+        <form style="text-align: center" action="Manage" enctype="application/x-www-form-urlencoded" method="get">
+            Admins page:<br>
+            <input style="max-width: 250px" type="submit" value="Enter Manage Page">
+        </form>
     </div>
 </main>
 </body>
