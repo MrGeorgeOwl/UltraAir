@@ -136,10 +136,10 @@
             %>
         </table>
         <div class="edit">
-            <form action="Manage" enctype="application/x-www-form-urlencoded" method="post">
-                <p style="font-size: 14pt; margin: 0"><b>Flight editing</b></p>
+            <form action="Manage" autocomplete="off" enctype="application/x-www-form-urlencoded" method="post">
+                <p style="font-size: 14pt; margin: 0"><b>Flights editing</b></p>
                 <label>
-                    <input id="readonly" type="text" name="id" value="<%
+                    <input id="readonly" type="text" name="flightID" value="<%
                         String id = (String) request.getAttribute("formID");
                         out.print((id != null) ? id : "New ID");
                     %>" readonly>

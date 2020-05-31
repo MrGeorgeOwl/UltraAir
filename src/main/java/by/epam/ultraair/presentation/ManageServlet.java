@@ -1,6 +1,7 @@
 package by.epam.ultraair.presentation;
 
 import by.epam.ultraair.persistence.service.FlightService;
+import by.epam.ultraair.persistence.service.UserService;
 import by.epam.ultraair.presentation.transfer.FlightDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,20 +31,35 @@ public class ManageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        // check if user is admin
+        try {
+            String user = (String)request.getSession().getAttribute("user");
+            if (user == null || !(new UserService().isAdmin(user))){
+                throw new Exception();
+            }
+        } catch (Exception ignored) {
+            log.warn("Unauthorized try to edit flights");
+            // send user to login page on manage page
+            response.sendRedirect("LogIn");
+        }
         boolean success = true;
         switch(action) {
             case "goToAdd": {
                 request.setAttribute("formAction", "add");
                 request.setAttribute("formID", "New ID");
                 request.setAttribute("formSubmitText", "Add New");
-                break;
+                // send user to editing on manage page
+                request.getRequestDispatcher("Managing").forward(request, response);
+                return;
             }
             case "goToEdit": {
                 String id = request.getParameter("flightID");
                 request.setAttribute("formAction", "edit");
                 request.setAttribute("formID", id);
                 request.setAttribute("formSubmitText", "Edit Flight");
-                break;
+                // send user to editing on manage page
+                request.getRequestDispatcher("Managing").forward(request, response);
+                return;
             }
             case "delete": {
                 FlightService service = new FlightService();
@@ -61,7 +77,7 @@ public class ManageServlet extends HttpServlet {
                 FlightDTO flight = new FlightDTO();
                 flight.from = request.getParameter("from");
                 flight.to = request.getParameter("to");
-                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'H:m");
                 try {
                     flight.departureDate = format.parse(request.getParameter("departure"));
                     flight.arrivalDate = format.parse(request.getParameter("arrival"));
@@ -77,7 +93,7 @@ public class ManageServlet extends HttpServlet {
                 FlightDTO flight = new FlightDTO();
                 flight.from = request.getParameter("from");
                 flight.to = request.getParameter("to");
-                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'H:m");
                 int id;
                 try {
                     flight.departureDate = format.parse(request.getParameter("departure"));
@@ -87,19 +103,14 @@ public class ManageServlet extends HttpServlet {
                     success = false;
                     break;
                 }
-
                 new FlightService().updateFlight(id, flight);
                 break;
             }
             default:
-                request.setAttribute("logResult", "Editing error. Try again");
-                log.error("Incorrect form call");
+                success = false;
         }
-        if (!success) {
-            log.error("Editing error");
-            request.setAttribute("logResult", "Editing error. Try again");
-        }
-        request.getRequestDispatcher("Managing").forward(request, response);
+        // send admin back to manage page
+        response.sendRedirect("Managing");
     }
 
     public static String createPostForm(String action, int flightID, String submitText) {
