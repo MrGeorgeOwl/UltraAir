@@ -41,7 +41,11 @@ public class Login extends HttpServlet {
         session.setAttribute("user", user);
         session.setAttribute("pass", pass);
         // Send logged user to home page
+<<<<<<< HEAD
         request.getRequestDispatcher("Home").forward(request,response);
+=======
+        response.sendRedirect("Home");
+>>>>>>> devServlets
     }
 
     @Override
@@ -53,6 +57,10 @@ public class Login extends HttpServlet {
             session.removeAttribute("user");
         }
         // Send user back to home
+<<<<<<< HEAD
         request.getRequestDispatcher("Home").forward(request,response);
+=======
+        response.sendRedirect("Home");
+>>>>>>> devServlets
     }
 }

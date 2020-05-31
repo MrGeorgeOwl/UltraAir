@@ -1,4 +1,6 @@
-<%@ page import="by.epam.ultraair.persistence.domain.Flight" %><%--
+<%@ page import="by.epam.ultraair.persistence.domain.Flight" %>
+<%@ page import="by.epam.ultraair.persistence.service.FlightService" %>
+<%--
   Created by IntelliJ IDEA.
   User: timoh
   Date: 24.02.2020
@@ -11,22 +13,9 @@
     <title>Ultra Air | Ticket order</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style type="text/css">
-        body{
-            font-family: "Open Sans Light", serif;
-            margin: 0;
-            padding: 0;
-            background: white;
-        }
+        <%@include file="basic.css"%>
         main {
             display: table;
-            margin: 0 auto;
-            padding: 1% 2%;
-            width: 70%;
-            min-height: 95vh;
-            background: whitesmoke;
-        }
-        h1 {
-            font-size: 18pt;
         }
 
         #order {
@@ -73,15 +62,25 @@
         <form id="order" autocomplete="off" action="Order" enctype="application/x-www-form-urlencoded" method="post">
             <label>
                 <%
+                    // getting order info
                     String user = (String)session.getAttribute("user");
-                    String flightNum = (String)request.getParameter("flight");
-                    if (user == null || flightNum == null){
+                    int flightNum = -1;
+                    try {
+                       flightNum = Integer.parseInt(request.getParameter("flight"));
+                    } catch (Exception ignored){};
+                    Flight flight = new FlightService().getFlights().get(flightNum - 1);
+                    // if one of info is invalid than user not logged
+                    if (user == null || flightNum == -1){
+                        // send user to login page
                         request.getRequestDispatcher("PAGES/login.jsp").forward(request,response);
+                        return;
                     }
+
+                    // print readonly fields
                     out.print("<br>Username:<br> <input id=\"readonly\""
                             +  "type=\"text\" readonly value=\"" + user + "\">");
                     out.print("<br>Flight:<br> <input id=\"readonly\" type=\"number\""
-                            + "name=\"flightNum\" readonly value=\"" + flightNum + "\">");
+                            + "name=\"flightID\" readonly value=\"" + flight.getId() + "\">");
                 %>
             </label>
             <label>
@@ -95,11 +94,13 @@
                 <input type="hidden" name="getOrderPrice" value = "yes">
             <input id="submit" type="submit" value="Order">
             <%
+                // if user where returned to the page
                 if (request.getAttribute("logResult") != null) {
                     out.print("<br><b>" + request.getAttribute("logResult") + "</b>");
                 }
             %>
         </form>
+        <p style="text-align: center"><a href="Home">Back to home page</a></p>
     </div>
 </div>
 </main>

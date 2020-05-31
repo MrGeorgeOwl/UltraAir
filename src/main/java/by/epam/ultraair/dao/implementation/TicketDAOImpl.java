@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class TicketDAOImpl implements TicketDAO {
-
     @Override
     public Optional<Ticket> findById(Integer id) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();

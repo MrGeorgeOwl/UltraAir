@@ -43,17 +43,27 @@ public class Order extends HttpServlet {
         if (getOrderPrice != null && getOrderPrice.equals("yes")) {
             // get all inputted ticket parameters from order.jsp
             String user = (String) request.getSession().getAttribute("user");
+<<<<<<< HEAD
             int weight = 0;
             int flightNum = 0;
             try {
                 flightNum = Integer.parseInt(request.getParameter("flightNum"));
+=======
+            int flightID = 0;
+            try {
+                flightID = Integer.parseInt(request.getParameter("flightID"));
+>>>>>>> devServlets
             } catch (NumberFormatException ignored) {
             }
             boolean firstOnRegistration = "on".equals(request.getParameter("registration"));
             boolean firstOnBoard = "on".equals(request.getParameter("onboard"));
 
             // if there are problems with getting flight, then user isn't logged
+<<<<<<< HEAD
             if (user == null || flightNum == 0) {
+=======
+            if (user == null || flightID == 0) {
+>>>>>>> devServlets
                 // set error message
                 request.setAttribute("logResult", "Incorrect Username or Password");
                 // send user back with error message
@@ -62,7 +72,11 @@ public class Order extends HttpServlet {
             }
 
             // create ticket to transfer
+<<<<<<< HEAD
             TicketDTO ticket = createTicket(flightNum, user, weight, firstOnRegistration, firstOnBoard);
+=======
+            TicketDTO ticket = createTicket(flightID, user, firstOnRegistration, firstOnBoard);
+>>>>>>> devServlets
             double sum = new TicketService().getTicketPrice(ticket);
 
             // set ticket and sum attributes to get them on the order_summary.jsp
@@ -81,17 +95,28 @@ public class Order extends HttpServlet {
             // Create new ticket in database
             orderTicket((TicketDTO)request.getSession().getAttribute("ticket"));
             // Send user back to home page index.jsp
+<<<<<<< HEAD
             request.getRequestDispatcher("Home").forward(request,response);
+=======
+            response.sendRedirect("Home");
+>>>>>>> devServlets
         }
     }
 
     // make TicketDTO object from given fields
+<<<<<<< HEAD
     private TicketDTO createTicket(int flightNum, String user, int luggage, boolean registration, boolean board) {
         TicketDTO ticket = new TicketDTO();
         // get flight from list
         Flight flight = new FlightService().getFlights().get(flightNum - 1);
 
         ticket.flightID = flight.getId();
+=======
+    private TicketDTO createTicket(int flightID, String user, boolean registration, boolean board) {
+        TicketDTO ticket = new TicketDTO();
+
+        ticket.flightID = flightID;
+>>>>>>> devServlets
         ticket.clientName = user;
         ticket.wantRightFirstRegistration = registration;
         ticket.wantRightFirstSitting = board;
