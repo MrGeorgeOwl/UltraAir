@@ -45,6 +45,7 @@ public class OrderServlet extends HttpServlet {
             try {
                 flightID = Integer.parseInt(request.getParameter("flightID"));
             } catch (NumberFormatException ignored) {
+                log.warn("Unauthorized try to order a ticket.");
             }
             boolean firstOnRegistration = "on".equals(request.getParameter("registration"));
             boolean firstOnBoard = "on".equals(request.getParameter("onboard"));
