@@ -38,6 +38,11 @@ public class FlightService {
         flightDAO.createFlight(flight);
     }
 
+    public void updateFlight(int id, FlightDTO fl) {
+        Flight flight = new Flight(id, fl.from, fl.to, fl.departureDate, fl.arrivalDate);
+        flightDAO.updateFlight(flight);
+    }
+
     public void deleteFlight(Flight flight) {
         flightDAO.deleteFlight(flight);
     }
