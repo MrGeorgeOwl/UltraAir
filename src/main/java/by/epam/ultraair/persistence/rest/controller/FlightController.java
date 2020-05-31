@@ -1,4 +1,4 @@
-package by.epam.ultraair.api.flight.controller;
+package by.epam.ultraair.persistence.rest.controller;
 
 
 import by.epam.ultraair.dao.implementation.FlightDAOImpl;
