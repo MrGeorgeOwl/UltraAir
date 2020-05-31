@@ -7,5 +7,4 @@ public class FlightDTO {
     public String to;
     public Date departureDate;
     public Date arrivalDate;
-    public int passengersAmount;
 }
