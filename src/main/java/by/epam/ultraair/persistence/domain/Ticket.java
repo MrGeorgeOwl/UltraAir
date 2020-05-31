@@ -54,6 +54,7 @@ public class Ticket extends BaseEntity{
 
     public void setRightFirstSitting(boolean rightFirstSitting) {
         this.rightFirstSitting = rightFirstSitting;
+        calculatePrice();
     }
 
     public boolean isRightFirstRegistration() {
@@ -62,6 +63,7 @@ public class Ticket extends BaseEntity{
 
     public void setRightFirstRegistration(boolean rightFirstRegistration) {
         this.rightFirstRegistration = rightFirstRegistration;
+        calculatePrice();
     }
 
     public int getFlightID() {
