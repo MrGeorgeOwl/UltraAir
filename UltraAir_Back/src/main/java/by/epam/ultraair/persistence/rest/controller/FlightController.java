@@ -2,7 +2,10 @@ package by.epam.ultraair.persistence.rest.controller;
 
 
 import by.epam.ultraair.dao.implementation.FlightDAOImpl;
+import by.epam.ultraair.dao.implementation.TicketDAOImpl;
+import by.epam.ultraair.dao.interfaces.TicketDAO;
 import by.epam.ultraair.persistence.domain.Flight;
+import by.epam.ultraair.persistence.domain.Ticket;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -116,7 +119,14 @@ public class FlightController {
             return new ResponseEntity<>("Error: couldn't get flight with this id", HttpStatus.NOT_ACCEPTABLE);
         }
 
+        TicketDAOImpl ticketDAO = new TicketDAOImpl();
+        for(Ticket ticket: ticketDAO.getAll()) {
+            if (ticket.getFlightID() == flight.getId()) {
+                ticketDAO.deleteTicket(ticket);
+            }
+        }
         new FlightDAOImpl().deleteFlight(flight);
+
         return new ResponseEntity<>("Delete Success", HttpStatus.OK);
     }
 }
